@@ -1,58 +1,40 @@
-package com.academy.exam.service;
+package com.academy.member.service;
 
 import java.util.ArrayList;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.academy.mapper.ExamBankMapper;
+import com.academy.mapper.MemberMapper;
 
 @Service
-public class ExamBankService {
+public class MemberService {
 
-	private ExamBankMapper examBankMapper;
+	private MemberMapper memberMapper;
 	
-	public ExamBankService(ExamBankMapper examBankMapper) {
-		this.examBankMapper = examBankMapper;
+	public MemberService(MemberMapper memberMapper) {
+		this.memberMapper = memberMapper;
 	}
 	
-	public ArrayList<JSONObject> selectExamBankItemlList(ExamVO examVO) {
-		return examBankMapper.selectExamBankItemlList(examVO);
+	public ArrayList<JSONObject> selectMemberList(MemberVO memberVO) {
+		return memberMapper.selectMemberList(memberVO);
 	}
-    public int selectExamBankItemListTotCnt(ExamVO examVO) {
-        return examBankMapper.selectExamBankItemListTotCnt(examVO);
+    public int selectMemberListTotCnt(MemberVO memberVO) {
+        return memberMapper.selectMemberListTotCnt(memberVO);
     }
 	
-	public JSONObject selectExamBankItemDetail(ExamVO examVO) {
-		return examBankMapper.selectExamBankItemDetail(examVO);
+	public JSONObject selectMemberDetail(MemberVO memberVO) {
+		return memberMapper.selectMemberDetail(memberVO);
 	}
-
-    public void insertExamBankItem(ExamVO examVO) {
-    	examBankMapper.insertExamBankItem(examVO);
+	
+    public void insertMember(MemberVO memberVO) {
+    	memberMapper.insertMember(memberVO);
     }
-
-    public void updateExamBankItem(ExamVO examVO) {
-    	examBankMapper.updateExamBankItem(examVO);
+    public void updateMember(MemberVO memberVO) {
+    	memberMapper.updateMember(memberVO);
     }
-    
-    public ArrayList<JSONObject> selectExamBankList(ExamVO examVO) {
-		return examBankMapper.selectExamBankList(examVO);
-    }
-
-    public int selectExamBankListTotCnt(ExamVO examVO) {
-        return examBankMapper.selectExamBankListTotCnt(examVO);
-    }
-    
-	public JSONObject selectExamBankDetail(ExamVO examVO) {
-		return examBankMapper.selectExamBankDetail(examVO);
-	}
-
-    public void insertExamBank(ExamVO examVO) {
-    	examBankMapper.insertExamBank(examVO);
-    }
-
-    public void updateExamBank(ExamVO examVO) {
-    	examBankMapper.updateExamBank(examVO);
+    public void deleteMember(MemberVO memberVO) {
+    	memberMapper.updateMember(memberVO);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.academy.exam;
+package com.academy.member;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -7,8 +7,6 @@ import java.util.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,27 +16,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.academy.common.CORSFilter;
 import com.academy.common.CommonUtil;
 import com.academy.common.PaginationInfo;
-import com.academy.exam.service.ExamBankService;
-import com.academy.exam.service.ExamService;
-import com.academy.exam.service.ExamVO;
+
+import com.academy.member.service.MemberService;
+import com.academy.member.service.MemberVO;
 
 @RestController
-@RequestMapping("/api/exam")
-public class ExamBankApi extends CORSFilter {
+@RequestMapping("/api/member")
+public class MemberApi extends CORSFilter {
 
-    private ExamBankService examBankService;
+    private MemberService memberService;
 
-    public ExamBankApi(ExamBankService examBankService) {
-        this.examBankService = examBankService;
+    public MemberApi(MemberService memberService) {
+        this.memberService = memberService;
     }
     
 	/**
-	 * 문제은행 문제 목록화면 이동
-	 * @return String
+	 * 사용자 목록화면 이동
+	 * @param MemberVO, @RequestParam Map<?, ?>
+	 * @return HashMap<String,Object>
 	 * @exception Exception
 	 */
-	@GetMapping(value = "/getExamBankItemList")
-	public JSONObject listItem(@ModelAttribute("ExamVO") ExamVO examVO, @RequestParam Map<?, ?> commandMap) throws Exception { 
+	@GetMapping(value = "/getMemberList")
+	public JSONObject getMemberList(@ModelAttribute("MemberVO") MemberVO memberVO, @RequestParam Map<?, ?> commandMap) throws Exception { 
 		
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
@@ -46,21 +45,21 @@ public class ExamBankApi extends CORSFilter {
 		if(!CommonUtil.empty(commandMap.get("curPage"))){
 			curPage = (String)commandMap.get("curPage");
 		}
-		examVO.setPageIndex(CommonUtil.parseInt(curPage));
+		memberVO.setPageIndex(CommonUtil.parseInt(curPage));
 		
 		/** paging */
 		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(examVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(examVO.getPageUnit());
-		paginationInfo.setPageSize(examVO.getPageSize());
+		paginationInfo.setCurrentPageNo(memberVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(memberVO.getPageUnit());
+		paginationInfo.setPageSize(memberVO.getPageSize());
 
-		examVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
-		examVO.setLastIndex(paginationInfo.getLastRecordIndex());
-		examVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+		memberVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		memberVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		memberVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
 		
-		jsonObject.put("exambankItemList", examBankService.selectExamBankItemlList(examVO));
+		jsonObject.put("memberList", memberService.selectMemberList(memberVO));
 
-		int totCnt = examBankService.selectExamBankItemListTotCnt(examVO);
+		int totCnt = memberService.selectMemberListTotCnt(memberVO);
 		paginationInfo.setTotalRecordCount(totCnt);
 		jsonObject.put("paginationInfo", paginationInfo);
 		
@@ -70,15 +69,17 @@ public class ExamBankApi extends CORSFilter {
 	}
 
 	/**
-	 * 문제은행 문제 상세정보.
+	 * 사용자 상세정보.
+	 * @param MemberVO
+	 * @return HashMap<String,Object>
 	 * @throws Exception
 	 */
-	@GetMapping(value = "/getExamBankItem")
-	public JSONObject getItem(@ModelAttribute("ExamVO") ExamVO examVO) throws Exception, IOException, ParseException { 
+	@GetMapping(value = "/getMemberDetail")
+	public JSONObject getMemberDetail(@ModelAttribute("MemberVO") MemberVO memberVO) throws Exception, IOException, ParseException { 
 
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
-		jsonObject.put("examBankItem", examBankService.selectExamBankItemDetail(examVO));
+		jsonObject.put("memberDetail", memberService.selectMemberDetail(memberVO));
 
 		JSONObject jObject = new JSONObject(jsonObject);
 		
@@ -86,18 +87,18 @@ public class ExamBankApi extends CORSFilter {
 	}
 
 	/**
-	 * 문제은행 문제 신규로 등록한다.
-	 * @param ExamVO
+	 * 사용자 신규로 등록한다.
+	 * @param MemberVO
+	 * @return HashMap<String,Object>
 	 * @throws Exception
 	 */
-	@GetMapping(value="/insertExamBankItem")
-	public JSONObject insertItem(@ModelAttribute("ExamVO") ExamVO examVO) throws Exception {
+	@GetMapping(value="/insertMember")
+	public JSONObject insertMember(@ModelAttribute("MemberVO") MemberVO memberVO) throws Exception {
 		
-    	// 0. Spring Security 사용자권한 처리
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
 		try {
-			examBankService.insertExamBankItem(examVO);
+			memberService.insertMember(memberVO);
 			jsonObject.put("retMsg", "OK");
 		} catch (Exception e){
 			jsonObject.put("retMsg", "FAIL");
@@ -110,19 +111,18 @@ public class ExamBankApi extends CORSFilter {
 	}
 
 	/**
-	 * 문제은행 문제 정보를 변경한다.
-	 * @param ExamVO
+	 * 사용자 정보를 변경한다.
+	 * @param MemberVO
+	 * @return HashMap<String,Object>
 	 * @throws Exception
 	 */
-	@GetMapping(value="/examBankItemUpdate")
-	public JSONObject updateItem(@ModelAttribute("ExamVO") ExamVO examVO) throws Exception {
+	@GetMapping(value="/updateMember")
+	public JSONObject updateMember(@ModelAttribute("MemberVO") MemberVO memberVO) throws Exception {
 
-		// 0. Spring Security 사용자권한 처리
-		
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
 		try {
-			examBankService.updateExamBankItem(examVO);
+			memberService.updateMember(memberVO);
 			jsonObject.put("retMsg", "OK");
 		} catch (Exception e){
 			jsonObject.put("retMsg", "FAIL");
@@ -135,100 +135,19 @@ public class ExamBankApi extends CORSFilter {
 	}
 
 	/**
-	 * 문제은행 정보를 가져온다.
-	 * @param ExamVO
+	 * 사용자 정보를 삭제한다.
+	 * @param MemberVO
+	 * @return HashMap<String,Object>
 	 * @throws Exception
 	 */
-	@GetMapping(value = "/selectExamBank")
-	public JSONObject list(@ModelAttribute("ExamVO") ExamVO examVO, @RequestParam Map<?, ?> commandMap, BindingResult bindingResult, ModelMap model) throws Exception {
-		
-		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
-		
-		String curPage = "1";
-		if(!CommonUtil.empty(commandMap.get("curPage"))){
-			curPage = (String)commandMap.get("curPage");
-		}
-		examVO.setPageIndex(CommonUtil.parseInt(curPage));
-		
-		/** paging */
-		PaginationInfo paginationInfo = new PaginationInfo();
-		paginationInfo.setCurrentPageNo(examVO.getPageIndex());
-		paginationInfo.setRecordCountPerPage(examVO.getPageUnit());
-		paginationInfo.setPageSize(examVO.getPageSize());
-
-		examVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
-		examVO.setLastIndex(paginationInfo.getLastRecordIndex());
-		examVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-		
-		jsonObject.put("exambankList", examBankService.selectExamBankList(examVO));
-
-		int totCnt = examBankService.selectExamBankListTotCnt(examVO);
-		paginationInfo.setTotalRecordCount(totCnt);
-		jsonObject.put("paginationInfo", paginationInfo);
-		
-		JSONObject jObject = new JSONObject(jsonObject);
-
-		return jObject;
-	}
-
-
-	/**
-	 * 문제은행 상세 정보를 가져온다.
-	 * @param ExamVO
-	 * @throws Exception
-	 */
-	@GetMapping("/getExamBank")
-	public JSONObject get(@ModelAttribute("ExamVO") ExamVO examVO) throws Exception {
-
-		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
-		
-		jsonObject.put("examBank", examBankService.selectExamBankDetail(examVO));
-
-		JSONObject jObject = new JSONObject(jsonObject);
-		
-		return jObject;
-	}
-
-	/**
-	 * 문제은행 정보를 등록온다.
-	 * @param ExamVO
-	 * @throws Exception
-	 */
-	@GetMapping(value = "/inserExamBank")
-	@Transactional( readOnly=false, rollbackFor=Exception.class)
-	public JSONObject insert(@ModelAttribute("ExamVO") ExamVO examVO) throws Exception {
-		
-    	// 0. Spring Security 사용자권한 처리
-		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
-		
-		try {
-			examBankService.insertExamBank(examVO);
-			jsonObject.put("retMsg", "OK");
-		} catch (Exception e){
-			jsonObject.put("retMsg", "FAIL");
-			e.printStackTrace();
-		}
-		
-		JSONObject jObject = new JSONObject(jsonObject);
-
-		return jObject;
-	}
-
-
-	/**
-	 * 문제은행 정보를 변경한다.
-	 * @param ExamVO
-	 * @throws Exception
-	 */
-	@GetMapping(value = "/updateExamBank")
+	@GetMapping(value = "/deleteMember")
 	@Transactional(readOnly=false,  rollbackFor=Exception.class)
-	public JSONObject update(@ModelAttribute("ExamVO") ExamVO examVO) throws Exception {
+	public JSONObject deleteMember(@ModelAttribute("MemberVO") MemberVO memberVO) throws Exception {
 		
-    	// 0. Spring Security 사용자권한 처리
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
 		try {
-			examBankService.updateExamBank(examVO);
+			memberService.deleteMember(memberVO);
 			jsonObject.put("retMsg", "OK");
 		} catch (Exception e){
 			jsonObject.put("retMsg", "FAIL");
