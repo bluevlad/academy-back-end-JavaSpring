@@ -6,7 +6,7 @@ import com.academy.common.CommonVO;
 
 /**
 *
-* 사물함 VO 클래스
+* 사용자 VO 클래스
 * @author rainend
 * @version 1.0
 * @see
@@ -15,7 +15,7 @@ import com.academy.common.CommonVO;
 *
 *  	  수정일           수정자                수정내용
 *  ---------------    --------------    ---------------------------
-*  2025.02.01			rainend			 사물함 정보 등록
+*  2025.11   			rainend			 사용자 정보 등록
 * </pre>
 */
 public class MemberVO extends CommonVO implements Serializable {

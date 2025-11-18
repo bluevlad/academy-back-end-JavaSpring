@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 import org.json.simple.JSONObject;
 
-import com.academy.exam.service.ExamReqVO;
-import com.academy.exam.service.ExamVO;
+import com.academy.member.service.MemberVO;
 
 /**
- * 시험에 관한 데이터 접근 클래스를 정의한다.
+ * 사용자에 관한 데이터 접근 클래스를 정의한다.
  * @author rainend
- * @since 2025.03.01
+ * @since 2025.11
  * @version 1.0
  * @see
  *
@@ -20,26 +19,19 @@ import com.academy.exam.service.ExamVO;
  *
  *   수정일      		수정자           수정내용
  *  ----------------    --------    ---------------------------
- *   2025.02.01  		rainend          최초 생성
+ *   2025.11  		rainend          최초 생성
  * </pre>
  */
 @Mapper
 public interface MemberMapper {
 
-	public ArrayList<JSONObject> selectExamList(ExamVO examVO);
-	public int selectExamListTotCnt(ExamVO examVO);
+	public ArrayList<JSONObject> selectMemberList(MemberVO memberVO);
+	public int selectMemberListTotCnt(MemberVO memberVO);
 
-	public JSONObject selectExamDetail(ExamVO examVO);
-	public ArrayList<JSONObject> selectExamQueList(ExamVO examVO);
+	public JSONObject selectMemberDetail(MemberVO memberVO);
 
-	public JSONObject getRequestExamUser(ExamReqVO examReqVO);
-	public JSONObject getRequestExam(ExamReqVO examReqVO);
-	public ArrayList<JSONObject> selectExamResultList(ExamVO examVO);
-
-	public void insertRequestExam(ExamReqVO examReqVO);
-    public void updateRequestExam(ExamReqVO examReqVO);
-	
-    public void insertExamAnswer(ExamVO examVO);
-    public void deleteExamAnswer(ExamVO examVO);
+	public void insertMember(MemberVO memberVO);
+    public void updateMember(MemberVO memberVO);
+    public void deleteMember(MemberVO memberVO);
 
 }
