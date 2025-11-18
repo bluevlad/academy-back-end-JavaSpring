@@ -25,7 +25,7 @@ public class BoardApi extends CORSFilter {
     }
 
 	@GetMapping(value = "/getBoardList")
-	public JSONObject list(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception { 
+	public JSONObject getBoardList(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception { 
 		
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
@@ -50,12 +50,12 @@ public class BoardApi extends CORSFilter {
 		return jObject;
 	}
 
-	@GetMapping(value = "/getBoard")
-	public JSONObject view(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception { 
+	@GetMapping(value = "/getBoardDetail")
+	public JSONObject getBoardDetail(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception { 
 
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
-		jsonObject.put("boardItem", boardService.getBoard(boardVO));
+		jsonObject.put("boardDetail", boardService.getBoardDetail(boardVO));
 
 		JSONObject jObject = new JSONObject(jsonObject);
 		
@@ -67,7 +67,7 @@ public class BoardApi extends CORSFilter {
 	 * @throws Exception
 	 */
 	@PostMapping(value = "/insertBoard")
-	public JSONObject insert(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception { 
+	public JSONObject insertBoard(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception { 
 
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 
@@ -90,7 +90,7 @@ public class BoardApi extends CORSFilter {
 	 * @throws Exception
 	 */
 	@PostMapping(value="/updateBoard")
-	public JSONObject update(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception {
+	public JSONObject updateBoard(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception {
 		
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		
@@ -116,7 +116,7 @@ public class BoardApi extends CORSFilter {
 	 * @throws Exception
 	 */
 	@PostMapping(value="/deleteBoard")
-	public JSONObject delete(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception {
+	public JSONObject deleteBoard(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception {
 
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 		

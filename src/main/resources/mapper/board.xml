@@ -1,61 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	수정일          	수정자           수정내용
+	수정일           	수정자           수정내용
   ===========      =========    =================
- *2025.02.00		rainend		 공지사항
+ *2025.02.00		rainend		 공지사항 -> 게시판(acm_board) 매퍼로 수정
 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.academy.mapper.BoardMapper">
 
-	<!-- 공지사항 리스트 -->
-	<select id="selectBoardList">
-		SELECT board_id, board_title, board_memo, is_use, reg_dt, reg_id, upd_dt, upd_id
-		FROM acm_notifications
-		order by board_id desc
+	<!-- 게시판 리스트 -->
+	<select id="selectBoardList" resultType="com.academy.board.service.BoardVO">
+		SELECT 
+			BOARD_MNG_SEQ, BOARD_SEQ, PARENT_BOARD_SEQ, SUBJECT, CONTENT, FILE_PATH, FILE_NAME, REAL_FILE_NAME, 
+			NOTICE_TOP_YN, OPEN_YN, IS_USE, HITS, 
+			REG_DT, REG_ID, UPD_DT, UPD_ID, 
+			CREATENAME, ANSWER, THUMBNAIL_FILE_PATH, THUMBNAIL_FILE_NAME, THUMBNAIL_FILE_REAL_NAME, RECOMMEND, 
+			BOARD_SEQ3, EXAM_TYPE, EXAM_AREA, EXAM_CATE, EXAM_SUB, CATEGORY_CODE, PROF_ID, BOARD_TYPE, MOCKCODE, DIVICE_TYPE
+		FROM acm_board
+		ORDER BY BOARD_SEQ DESC
 		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
 
-	<!-- 공지사항 게시물 수 -->
-	<select id="selectBoardListTotCnt">
+	<!-- 게시판 게시물 수 -->
+	<select id="selectBoardListTotCnt" resultType="int">
 		SELECT COUNT(*) TOTAL_CNT
-		FROM acm_notifications
+		FROM acm_board
 	</select>
 
-	<!-- 공지사항 하나 가져오기 -->
-	<select id="getBoard">
-		SELECT board_id, board_title, board_memo, is_use, reg_dt, reg_id, upd_dt, upd_id
-		FROM acm_notifications an
-		WHERE an.BOARD_ID = #{boardId}
+	<!-- 게시판 하나 가져오기 -->
+	<select id="getBoardDetail" resultType="com.academy.board.service.BoardVO">
+		SELECT
+			BOARD_MNG_SEQ, BOARD_SEQ, PARENT_BOARD_SEQ, SUBJECT, CONTENT, FILE_PATH, FILE_NAME, REAL_FILE_NAME, 
+			NOTICE_TOP_YN, OPEN_YN, IS_USE, HITS, 
+			REG_DT, REG_ID, UPD_DT, UPD_ID, 
+			CREATENAME, ANSWER, THUMBNAIL_FILE_PATH, THUMBNAIL_FILE_NAME, THUMBNAIL_FILE_REAL_NAME, RECOMMEND, 
+			BOARD_SEQ3, EXAM_TYPE, EXAM_AREA, EXAM_CATE, EXAM_SUB, CATEGORY_CODE, PROF_ID, BOARD_TYPE, MOCKCODE, DIVICE_TYPE
+		FROM acm_board ab
+		WHERE ab.BOARD_SEQ = #{boardId}
 	</select>
 
-	<!-- 공지사항 등록 -->
-	<insert id="insertBoard">
-		INSERT INTO acm_notifications (
-			BOARD_TITLE, BOARD_MEMO, IS_USE, REG_DT, REG_ID, UPD_DT, UPD_ID
-		) VALUES (
-			#{boardTitle}, #{boardMemo}, #{isUse}, now(), #{regId}, now(), #{regId}
-		)
+	<!-- 게시판 등록 -->
+	<insert id="insertBoard" parameterType="com.academy.board.service.BoardVO">
+		<!-- generate BOARD_SEQ (boardId) only when boardId is null/empty -->
+		<selectKey keyProperty="boardId" resultType="String" order="BEFORE">
+			SELECT CASE WHEN #{boardId} IS NULL OR #{boardId} = '' THEN REPLACE(UUID(),'-','') ELSE #{boardId} END
+		</selectKey>
+
+		INSERT INTO acm_board
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			BOARD_MNG_SEQ,
+			BOARD_SEQ,
+			<if test="parentBoardSeq != null">PARENT_BOARD_SEQ,</if>
+			<if test="openYn != null">OPEN_YN,</if>
+			<if test="boardTitle != null">SUBJECT,</if>
+			<if test="boardMemo != null">CONTENT,</if>
+			<if test="filePath != null">FILE_PATH,</if>
+			<if test="fileName != null">FILE_NAME,</if>
+			<if test="realFileName != null">REAL_FILE_NAME,</if>
+			<if test="noticeTopYn != null">NOTICE_TOP_YN,</if>
+			<if test="isUse != null">IS_USE,</if>
+			<if test="hits != null">HITS,</if>
+			<if test="createName != null">CREATENAME,</if>
+			<if test="answer != null">ANSWER,</if>
+			<if test="thumbnailFilePath != null">THUMBNAIL_FILE_PATH,</if>
+			<if test="thumbnailFileName != null">THUMBNAIL_FILE_NAME,</if>
+			<if test="thumbnailFileRealName != null">THUMBNAIL_FILE_REAL_NAME,</if>
+			<if test="recommend != null">RECOMMEND,</if>
+			<if test="boardSeq3 != null">BOARD_SEQ3,</if>
+			<if test="examType != null">EXAM_TYPE,</if>
+			<if test="examArea != null">EXAM_AREA,</if>
+			<if test="examCate != null">EXAM_CATE,</if>
+			<if test="examSub != null">EXAM_SUB,</if>
+			<if test="categoryCode != null">CATEGORY_CODE,</if>
+			<if test="profId != null">PROF_ID,</if>
+			<if test="boardType != null">BOARD_TYPE,</if>
+			<if test="mockcode != null">MOCKCODE,</if>
+			<if test="diviceType != null">DIVICE_TYPE,</if>
+			REG_DT,
+			REG_ID,
+			UPD_DT,
+			UPD_ID
+		</trim>
+
+		VALUES
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			IFNULL(#{boardMngSeq}, #{boardId}),
+			#{boardId},
+			<if test="parentBoardSeq != null">#{parentBoardSeq},</if>
+			<if test="openYn != null">#{openYn},</if>
+			<if test="boardTitle != null">#{boardTitle},</if>
+			<if test="boardMemo != null">#{boardMemo, jdbcType=BLOB},</if>
+			<if test="filePath != null">#{filePath},</if>
+			<if test="fileName != null">#{fileName},</if>
+			<if test="realFileName != null">#{realFileName},</if>
+			<if test="noticeTopYn != null">#{noticeTopYn},</if>
+			<if test="isUse != null">#{isUse},</if>
+			<if test="hits != null">#{hits, jdbcType=BIGINT},</if>
+			<if test="createName != null">#{createName},</if>
+			<if test="answer != null">#{answer, jdbcType=BLOB},</if>
+			<if test="thumbnailFilePath != null">#{thumbnailFilePath},</if>
+			<if test="thumbnailFileName != null">#{thumbnailFileName},</if>
+			<if test="thumbnailFileRealName != null">#{thumbnailFileRealName},</if>
+			<if test="recommend != null">#{recommend},</if>
+			<if test="boardSeq3 != null">#{boardSeq3},</if>
+			<if test="examType != null">#{examType},</if>
+			<if test="examArea != null">#{examArea},</if>
+			<if test="examCate != null">#{examCate},</if>
+			<if test="examSub != null">#{examSub},</if>
+			<if test="categoryCode != null">#{categoryCode},</if>
+			<if test="profId != null">#{profId},</if>
+			<if test="boardType != null">#{boardType},</if>
+			<if test="mockcode != null">#{mockcode},</if>
+			<if test="diviceType != null">#{diviceType},</if>
+			now(),
+			#{regId},
+			now(),
+			#{regId}
+		</trim>
 	</insert>
 
-	<!-- 공지사항 수정 -->
+	<!-- 게시판 수정 -->
 	<update id="updateBoard">
-		UPDATE acm_notifications
+		UPDATE acm_board
 		SET 
-			BOARD_TITLE = #{boardTitle}, 
-			BOARD_MEMO = #{boardMemo}, 
-			UPD_DT = now(), 
+			SUBJECT = #{boardTitle},
+			CONTENT = #{boardMemo},
+			FILE_PATH = #{filePath},
+			FILE_NAME = #{fileName},
+			REAL_FILE_NAME = #{realFileName},
+			THUMBNAIL_FILE_PATH = #{thumbnailFilePath},
+			THUMBNAIL_FILE_NAME = #{thumbnailFileName},
+			THUMBNAIL_FILE_REAL_NAME = #{thumbnailFileRealName},
+			NOTICE_TOP_YN = #{noticeTopYn},
+			IS_USE = #{isUse},
+			UPD_DT = now(),
 			UPD_ID = #{updId}
-		WHERE BOARD_ID = #{boardId}
+		WHERE BOARD_MNG_SEQ = #{boardMngSeq}}
+		AND BOARD_SEQ = #{boardSeq}
 	</update>
 
-	<!-- 공지사항 비활성화 -->
+	<!-- 게시판 비활성화 -->
 	<update id="deleteBoard">
-		UPDATE acm_notifications
-		SET 
-			IS_USE = 'N',
-			UPD_DT = now(), 
-			UPD_ID = #{updId}
-		WHERE BOARD_ID = #{boardId}
+		DELETE acm_board
+		WHERE BOARD_MNG_SEQ = #{boardMngSeq}}
+		AND BOARD_SEQ = #{boardSeq}
 	</update>
 
 </mapper>

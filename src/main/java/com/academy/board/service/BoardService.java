@@ -23,8 +23,8 @@ public class BoardService {
         return boardMapper.selectBoardListTotCnt(boardVO);
     }
 	
-	public JSONObject getBoard(BoardVO boardVO) {
-		return boardMapper.getBoard(boardVO);
+	public JSONObject getBoardDetail(BoardVO boardVO) {
+		return boardMapper.getBoardDetail(boardVO);
 	}
 
     public void insertBoard(BoardVO boardVO) {

@@ -36,7 +36,7 @@ public interface BoardMapper {
      * @param MenuVO 검색조건
      * @return Object 게시판 개별정보
      */
-	public JSONObject getBoard(BoardVO boardVO);
+	public JSONObject getBoardDetail(BoardVO boardVO);
 
     public void insertBoard(BoardVO boardVO);
 
