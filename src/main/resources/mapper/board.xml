@@ -8,7 +8,7 @@
 <mapper namespace="com.academy.mapper.BoardMapper">
 
 	<!-- 게시판 리스트 -->
-	<select id="selectBoardList" resultType="com.academy.board.service.BoardVO">
+	<select id="selectBoardList">
 		SELECT 
 			BOARD_MNG_SEQ, BOARD_SEQ, PARENT_BOARD_SEQ, SUBJECT, CONTENT, FILE_PATH, FILE_NAME, REAL_FILE_NAME, 
 			NOTICE_TOP_YN, OPEN_YN, IS_USE, HITS, 
@@ -27,7 +27,7 @@
 	</select>
 
 	<!-- 게시판 하나 가져오기 -->
-	<select id="getBoardDetail" resultType="com.academy.board.service.BoardVO">
+	<select id="getBoardDetail">
 		SELECT
 			BOARD_MNG_SEQ, BOARD_SEQ, PARENT_BOARD_SEQ, SUBJECT, CONTENT, FILE_PATH, FILE_NAME, REAL_FILE_NAME, 
 			NOTICE_TOP_YN, OPEN_YN, IS_USE, HITS, 
@@ -39,7 +39,7 @@
 	</select>
 
 	<!-- 게시판 등록 -->
-	<insert id="insertBoard" parameterType="com.academy.board.service.BoardVO">
+	<insert id="insertBoard">
 		<!-- generate BOARD_SEQ (boardId) only when boardId is null/empty -->
 		<selectKey keyProperty="boardId" resultType="String" order="BEFORE">
 			SELECT CASE WHEN #{boardId} IS NULL OR #{boardId} = '' THEN REPLACE(UUID(),'-','') ELSE #{boardId} END

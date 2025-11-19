@@ -32,7 +32,7 @@ public class BoardVO extends CommonVO implements Serializable {
 
 	/* Content */
 	/** 제목 (SUBJECT) - underlying field is boardTitle */
-	private String boardTitle;
+	private String subject;
 	/** 내용 (CONTENT) - underlying field is boardMemo */
 	private String boardMemo;
 	/** 답변(ANSWER) - BLOB */
@@ -79,8 +79,8 @@ public class BoardVO extends CommonVO implements Serializable {
 	public void setBoardId(String boardId) { this.boardSeq = boardId; }
 
 	/** subject alias for SUBJECT column (maps to boardTitle) */
-	public String getSubject() { return this.boardTitle; }
-	public void setSubject(String subject) { this.boardTitle = subject; }
+	public String getSubject() { return this.subject; }
+	public void setSubject(String subject) { this.subject = subject; }
 
 	/** content alias for CONTENT column (maps to boardMemo) */
 	public String getContent() { return this.boardMemo; }
@@ -95,9 +95,6 @@ public class BoardVO extends CommonVO implements Serializable {
 
 	public String getParentBoardSeq() { return parentBoardSeq; }
 	public void setParentBoardSeq(String parentBoardSeq) { this.parentBoardSeq = parentBoardSeq; }
-
-	public String getBoardTitle() { return boardTitle; }
-	public void setBoardTitle(String boardTitle) { this.boardTitle = boardTitle; }
 
 	public String getBoardMemo() { return boardMemo; }
 	public void setBoardMemo(String boardMemo) { this.boardMemo = boardMemo; }
