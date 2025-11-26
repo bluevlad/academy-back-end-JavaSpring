@@ -9,14 +9,29 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ClassPathResource; 
 
 public class Configurations {
 
+	public String getProperty(String sName) {
     private Properties props;
 
     public String getProperty(String sName) {
 
+		String sValue = "";
+		try {
+			ClassPathResource resource = new ClassPathResource("application.properties");
+			BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()));
+			String s = br.readLine();
+			InputStream is = new FileInputStream(s);
+			Properties props = new Properties();
+			props.load(is);
+			sValue = props.getProperty(sName);
+		} catch (FileNotFoundException e) {
+			System.out.println("FileNotFoundException:" + e);
+		} catch (IOException e) {
+			System.out.println("IOException:" + e);
+		}
         String sValue = "";
         try {
             ClassPathResource resource = new ClassPathResource("application.properties");
