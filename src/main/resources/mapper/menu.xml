@@ -6,14 +6,14 @@
     <select id="getMenuTree" resultType="org.json.simple.JSONObject">
         SELECT
             MENU_ID, MENU_NM, MENU_SEQ, MENU_URL, P_MENUID, ISUSE, TARGET, MENU_INFO
-        FROM TB_SG_MENU_MST
+        FROM ACM_MENU_MST
         ORDER BY MENU_SEQ, MENU_ID
     </select>
 
     <select id="getpassMenuTree" resultType="org.json.simple.JSONObject">
         SELECT
             MENU_ID, MENU_NM, MENU_SEQ, MENU_URL, P_MENUID, ISUSE, TARGET, MENU_INFO
-        FROM TB_SG_MENU_MST2
+        FROM ACM_MENU_MST2
         ORDER BY MENU_SEQ, MENU_ID
     </select>
 
@@ -21,7 +21,7 @@
     <select id="getDetailMenu" parameterType="com.academy.menu.service.MenuVO" resultType="hashMap">
         SELECT
             ONOFF_DIV, MENU_ID, MENU_NM, MENU_SEQ, MENU_URL, P_MENUID, ISUSE, TARGET, MENU_INFO
-        FROM TB_SG_MENU_MST
+        FROM ACM_MENU_MST
         WHERE MENU_ID = #{menuId}
     </select>
 
@@ -30,12 +30,12 @@
             ONOFF_DIV, MENU_ID, MENU_NM, MENU_SEQ, MENU_URL
             , P_MENUID, ISUSE, TARGET, MENU_INFO, CODE
             , TOP_IMG_URL, LEFT_IMG_URL, TITL_IMG_URL, SUBTITL_IMG_URL
-        FROM TB_SG_MENU_MST2
+        FROM ACM_MENU_MST2
         WHERE MENU_ID = #{menuId}
     </select>
 
     <update id="menuUpdateProcess" parameterType="com.academy.menu.service.MenuVO">
-        UPDATE TB_SG_MENU_MST
+        UPDATE ACM_MENU_MST
         SET
             MENU_NM = #{menuNm},
             MENU_SEQ = #{menuSeq},
@@ -50,7 +50,7 @@
     </update>
 
     <update id="passmenuUpdateProcess" parameterType="com.academy.menu.service.MenuVO">
-        UPDATE TB_SG_MENU_MST2
+        UPDATE ACM_MENU_MST2
         SET
             MENU_NM = #{menuNm},
             MENU_SEQ = #{menuSeq},
@@ -70,7 +70,7 @@
     </update>
 
     <delete id="menuDeleteProcess" parameterType="com.academy.menu.service.MenuVO">
-        DELETE FROM TB_SG_MENU_MST WHERE MENU_ID = #{menuId}
+        DELETE FROM ACM_MENU_MST WHERE MENU_ID = #{menuId}
     </delete>
 
     <delete id="passmenuDeleteProcess" parameterType="com.academy.menu.service.MenuVO">
