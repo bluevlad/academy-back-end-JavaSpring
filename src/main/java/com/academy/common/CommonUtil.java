@@ -64,7 +64,18 @@ public class CommonUtil {
      * @author : rainend
      */
     public static String nvl(String obj, String def) {
-    	
+
+        return empty(obj) ? def : obj;
+    }
+
+    /**
+     * 문자열의 값이 null 이거나 ""이면 default 값을 리턴하는 메소드 <br>
+     * nvl과 동일한 기능
+     * @param obj
+     * @param def
+     * @return
+     */
+    public static String isNull(String obj, String def) {
         return empty(obj) ? def : obj;
     }
 
