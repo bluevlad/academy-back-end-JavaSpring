@@ -5,14 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,28 +22,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.willbes.cmm.service.CmmUseService;
-import com.willbes.platform.util.CommonUtil;
-import com.willbes.platform.util.file.FileUtil;
-import com.willbes.web.book.service.BookService;
-import com.willbes.web.lecture.service.LectureService;
-import com.willbes.web.lecture.service.SubjectService;
-import com.willbes.web.lecture.service.TeacherService;
-import com.willbes.web.productOrder.service.ProductOrderService;
-
-import egovframework.rte.fdl.property.EgovPropertyService;
+import com.academy.common.service.CmmUseService;
+import com.academy.common.CommonUtil;
+import com.academy.book.service.BookService;
+import com.academy.lecture.service.LectureService;
+import com.academy.lecture.service.SubjectService;
+import com.academy.lecture.service.TeacherService;
+import com.academy.productOrder.service.ProductOrderService;
 
 @RestController
 @RequestMapping("/api/lecture")
 public class LectureApi extends CORSFilter {
 
-    @Resource(name="propertiesService")
-    protected EgovPropertyService propertiesService;
-
-	@Inject
-	private FileSystemResource fsResource;
-	@Resource(name="fileUtil")
-	private FileUtil fileUtil;
+	@Value("${pageUnit:10}")
+	private int pageUnit;
 
 	private BookService bookservice;
 	private LectureService lectureservice;
@@ -575,7 +565,7 @@ public class LectureApi extends CORSFilter {
 		}
 
 		params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-		params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), propertiesService.getInt("pageUnit")+""));
+		params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), String.valueOf(pageUnit)));
 		params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
 		params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
 		params.put("SEARCHPAYYN", CommonUtil.isNull(request.getParameter("SEARCHPAYYN"), ""));
