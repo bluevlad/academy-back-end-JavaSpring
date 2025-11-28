@@ -1,26 +1,66 @@
 package com.academy.lecture.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface SeriesService {
+import com.academy.mapper.SeriesMapper;
 
-	List<HashMap<String, String>> seriesList(Object obj);
+/**
+ * Series Service
+ * ExamService 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
+ */
+@Service
+public class SeriesService {
 
-	int seriesListCount(Object obj);
+	private SeriesMapper seriesMapper;
 
-    @Transactional(readOnly=false,rollbackFor=Exception.class)
-	void seriesInsert(Object obj);
+	public SeriesService(SeriesMapper seriesMapper) {
+		this.seriesMapper = seriesMapper;
+	}
 
-	List<HashMap<String, String>> seriesView(Object obj);
+	public ArrayList<JSONObject> seriesList(SeriesVO seriesVO) {
+		return seriesMapper.seriesList(seriesVO);
+	}
 
-    @Transactional(readOnly=false,rollbackFor=Exception.class)
-	void seriesUpdate(Object obj);
+	public int seriesListCount(SeriesVO seriesVO) {
+		return seriesMapper.seriesListCount(seriesVO);
+	}
 
-    @Transactional(readOnly=false,rollbackFor=Exception.class)
-	void seriesDelete(Object obj);
+	@Transactional(readOnly = false, rollbackFor = Exception.class)
+	public void seriesInsert(SeriesVO seriesVO) {
+		seriesMapper.seriesInsert(seriesVO);
+	}
 
-	int seriesCheck(Object obj);
+	public ArrayList<JSONObject> seriesView(SeriesVO seriesVO) {
+		return seriesMapper.seriesView(seriesVO);
+	}
+
+	@Transactional(readOnly = false, rollbackFor = Exception.class)
+	public void seriesUpdate(SeriesVO seriesVO) {
+		seriesMapper.seriesUpdate(seriesVO);
+	}
+
+	@Transactional(readOnly = false, rollbackFor = Exception.class)
+	public void seriesDelete(SeriesVO seriesVO) {
+		seriesMapper.seriesDelete(seriesVO);
+	}
+
+	public int seriesCheck(SeriesVO seriesVO) {
+		return seriesMapper.seriesCheck(seriesVO);
+	}
+
+	public void catSeriesInsert(SeriesVO seriesVO) {
+		seriesMapper.catSeriesInsert(seriesVO);
+	}
+
+	public void catSeriesDeleteWthCatCd(SeriesVO seriesVO) {
+		seriesMapper.catSeriesDeleteWthCatCd(seriesVO);
+	}
+
+	public void catSeriesDeleteWthSrsCd(SeriesVO seriesVO) {
+		seriesMapper.catSeriesDeleteWthSrsCd(seriesVO);
+	}
 }

@@ -1,27 +1,30 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.CategoryVO;
 
 /**
  * Category Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface CategoryMapper {
 
-    List<HashMap<String, Object>> getSeriesCateTree();
+    ArrayList<JSONObject> getSeriesCateTree();
 
-    HashMap<String, Object> getDetail(HashMap<String, Object> params);
+    JSONObject getDetail(CategoryVO categoryVO);
 
-    void updateProcess(HashMap<String, Object> params);
+    void updateProcess(CategoryVO categoryVO);
 
-    int deleteProcess(HashMap<String, Object> params);
+    int deleteProcess(CategoryVO categoryVO);
 
-    int idCheck(HashMap<String, Object> params);
+    int idCheck(CategoryVO categoryVO);
 
-    int insertProcess(HashMap<String, Object> params);
+    int insertProcess(CategoryVO categoryVO);
 
-    HashMap<String, Object> getMaxOrdr(Object obj);
+    JSONObject getMaxOrdr(CategoryVO categoryVO);
 }

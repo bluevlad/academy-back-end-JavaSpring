@@ -1,55 +1,58 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.LectureMstVO;
 
 /**
  * LectureMst Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface LectureMstMapper {
 
-    List<HashMap<String, String>> lecturemstList(HashMap<String, String> params);
+    ArrayList<JSONObject> lecturemstList(LectureMstVO lectureMstVO);
 
-    int lecturemstListCount(HashMap<String, String> params);
+    int lecturemstListCount(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> getBridgeMstcodeSeq(HashMap<String, String> params);
+    ArrayList<JSONObject> getBridgeMstcodeSeq(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> getBridgeMstcode(HashMap<String, String> params);
+    ArrayList<JSONObject> getBridgeMstcode(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> getMstcode(HashMap<String, String> params);
+    ArrayList<JSONObject> getMstcode(LectureMstVO lectureMstVO);
 
-    void lecturemstInsert(HashMap<String, String> params);
+    void lecturemstInsert(LectureMstVO lectureMstVO);
 
-    void lectureBridgeInsert(HashMap<String, String> params);
+    void lectureBridgeInsert(LectureMstVO lectureMstVO);
 
-    void lectureBookInsert2(HashMap<String, String> params);
+    void lectureBookInsert2(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> lectureDataMemoViewList(HashMap<String, String> params);
+    ArrayList<JSONObject> lectureDataMemoViewList(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> lectureDataViewList(HashMap<String, String> params);
+    ArrayList<JSONObject> lectureDataViewList(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> lectureWMV(HashMap<String, String> params);
+    ArrayList<JSONObject> lectureWMV(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> lectureDown_Count(HashMap<String, String> params);
+    ArrayList<JSONObject> lectureDown_Count(LectureMstVO lectureMstVO);
 
-    int lectureDeleteCheck(HashMap<String, String> params);
+    int lectureDeleteCheck(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> lectureView(HashMap<String, String> params);
+    ArrayList<JSONObject> lectureView(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> lectureViewList(HashMap<String, String> params);
+    ArrayList<JSONObject> lectureViewList(LectureMstVO lectureMstVO);
 
-    List<HashMap<String, String>> lectureViewBookList(HashMap<String, String> params);
+    ArrayList<JSONObject> lectureViewBookList(LectureMstVO lectureMstVO);
 
-    void lectureBookDelete(HashMap<String, String> params);
+    void lectureBookDelete(LectureMstVO lectureMstVO);
 
-    void lecturemstUpdate(HashMap<String, String> params);
+    void lecturemstUpdate(LectureMstVO lectureMstVO);
 
-    void lectureBookInsert(HashMap<String, String> params);
+    void lectureBookInsert(LectureMstVO lectureMstVO);
 
-    void lectureDelete(HashMap<String, String> params);
+    void lectureDelete(LectureMstVO lectureMstVO);
 
-    void lectureBridgeDelete(HashMap<String, String> params);
+    void lectureBridgeDelete(LectureMstVO lectureMstVO);
 }

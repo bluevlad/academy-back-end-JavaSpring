@@ -1,25 +1,28 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.MacAddressManagerVO;
 
 /**
  * MacAddressManager Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface MacAddressManagerMapper {
 
-    List<HashMap<String, String>> macaddressmanagerList(HashMap<String, String> params);
+	ArrayList<JSONObject> macaddressmanagerList(MacAddressManagerVO macAddressManagerVO);
 
-    List<HashMap<String, String>> devicelist(HashMap<String, String> params);
+	ArrayList<JSONObject> devicelist(MacAddressManagerVO macAddressManagerVO);
 
-    List<HashMap<String, String>> macaddressView(HashMap<String, String> params);
+	ArrayList<JSONObject> macaddressView(MacAddressManagerVO macAddressManagerVO);
 
-    int macaddressmanagerListCount(HashMap<String, String> params);
+	int macaddressmanagerListCount(MacAddressManagerVO macAddressManagerVO);
 
-    void macaddressmanagerUpdate(HashMap<String, String> params);
+	void macaddressmanagerUpdate(MacAddressManagerVO macAddressManagerVO);
 
-    void macaddressmanagerUpdate1(HashMap<String, String> params);
+	void macaddressmanagerUpdate1(MacAddressManagerVO macAddressManagerVO);
 }

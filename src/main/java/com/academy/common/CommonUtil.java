@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 public class CommonUtil {
 	public static final String FOLDER_SEPARATOR = "/";
@@ -77,6 +78,10 @@ public class CommonUtil {
      */
     public static String isNull(String obj, String def) {
         return empty(obj) ? def : obj;
+    }
+
+    public static String isNull(Map obj, String def) {
+        return empty(obj.toString()) ? def : obj.toString();
     }
 
     /**

@@ -1,55 +1,106 @@
 package com.academy.lecture.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
-public interface LectureMstService {
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
 
-	
-	List<HashMap<String, String>> lecturemstList(HashMap<String, String> params);
-	
-	int lecturemstListCount(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> getBridgeMstcodeSeq(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> getBridgeMstcode(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> getMstcode(HashMap<String, String> params);
-	
-	void lecturemstInsert(HashMap<String, String> params);
-	
-	void lectureBridgeInsert(HashMap<String, String> params);
-	
-	void lectureBookInsert2(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> lectureDataMemoViewList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> lectureDataViewList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> lectureWMV(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> lectureDown_Count(HashMap<String, String> params);
-	
-	
-	
-	int lectureDeleteCheck(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> lectureView(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> lectureViewList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> lectureViewBookList(HashMap<String, String> params);
-	
-	
-	
-	void lectureBookDelete(HashMap<String, String> params);
-	
-	void lecturemstUpdate(HashMap<String, String> params);
-	
-	void lectureBookInsert(HashMap<String, String> params);
-	
-	void lectureDelete(HashMap<String, String> params);
-	
-	void lectureBridgeDelete(HashMap<String, String> params);
-	
+import com.academy.mapper.LectureMstMapper;
+
+/**
+ * LectureMst Service
+ * ExamService 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
+ */
+@Service
+public class LectureMstService {
+
+	private LectureMstMapper lectureMstMapper;
+
+	public LectureMstService(LectureMstMapper lectureMstMapper) {
+		this.lectureMstMapper = lectureMstMapper;
+	}
+
+	public ArrayList<JSONObject> lecturemstList(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lecturemstList(lectureMstVO);
+	}
+
+	public int lecturemstListCount(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lecturemstListCount(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> getBridgeMstcodeSeq(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.getBridgeMstcodeSeq(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> getBridgeMstcode(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.getBridgeMstcode(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> getMstcode(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.getMstcode(lectureMstVO);
+	}
+
+	public void lecturemstInsert(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lecturemstInsert(lectureMstVO);
+	}
+
+	public void lectureBridgeInsert(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lectureBridgeInsert(lectureMstVO);
+	}
+
+	public void lectureBookInsert2(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lectureBookInsert2(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> lectureDataMemoViewList(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureDataMemoViewList(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> lectureDataViewList(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureDataViewList(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> lectureWMV(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureWMV(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> lectureDown_Count(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureDown_Count(lectureMstVO);
+	}
+
+	public int lectureDeleteCheck(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureDeleteCheck(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> lectureView(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureView(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> lectureViewList(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureViewList(lectureMstVO);
+	}
+
+	public ArrayList<JSONObject> lectureViewBookList(LectureMstVO lectureMstVO) {
+		return lectureMstMapper.lectureViewBookList(lectureMstVO);
+	}
+
+	public void lectureBookDelete(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lectureBookDelete(lectureMstVO);
+	}
+
+	public void lecturemstUpdate(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lecturemstUpdate(lectureMstVO);
+	}
+
+	public void lectureBookInsert(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lectureBookInsert(lectureMstVO);
+	}
+
+	public void lectureDelete(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lectureDelete(lectureMstVO);
+	}
+
+	public void lectureBridgeDelete(LectureMstVO lectureMstVO) {
+		lectureMstMapper.lectureBridgeDelete(lectureMstVO);
+	}
 }

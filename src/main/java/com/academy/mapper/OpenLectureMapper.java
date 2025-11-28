@@ -1,127 +1,130 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.OpenLectureVO;
 
 /**
  * OpenLecture Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface OpenLectureMapper {
 
-    List<HashMap<String, String>> openlectureList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureList(OpenLectureVO openLectureVO);
 
-    int openlectureListCount(HashMap<String, String> params);
+	int openlectureListCount(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> bookList(HashMap<String, String> params);
+	ArrayList<JSONObject> bookList(OpenLectureVO openLectureVO);
 
-    int bookListCount(HashMap<String, String> params);
+	int bookListCount(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> getBridgeLeccodeSeq(HashMap<String, String> params);
+	ArrayList<JSONObject> getBridgeLeccodeSeq(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> getJongLeccodeSeq(HashMap<String, String> params);
+	ArrayList<JSONObject> getJongLeccodeSeq(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> getopenLeccode(HashMap<String, String> params);
+	ArrayList<JSONObject> getopenLeccode(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> getBridgeLeccode(HashMap<String, String> params);
+	ArrayList<JSONObject> getBridgeLeccode(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> BridgeLeccode(HashMap<String, String> params);
+	ArrayList<JSONObject> BridgeLeccode(OpenLectureVO openLectureVO);
 
-    void openlectureInsert(HashMap<String, String> params);
+	void openlectureInsert(OpenLectureVO openLectureVO);
 
-    void openlectureBridgeInsert(HashMap<String, String> params);
+	void openlectureBridgeInsert(OpenLectureVO openLectureVO);
 
-    void openlectureBookInsert(HashMap<String, String> params);
+	void openlectureBookInsert(OpenLectureVO openLectureVO);
 
-    void openlectureBookInsert2(HashMap<String, String> params);
+	void openlectureBookInsert2(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureViewList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureViewList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureView(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureView(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureViewBookList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureViewBookList(OpenLectureVO openLectureVO);
 
-    void openlectureBookDelete(HashMap<String, String> params);
+	void openlectureBookDelete(OpenLectureVO openLectureVO);
 
-    void openlectureUpdate(HashMap<String, String> params);
+	void openlectureUpdate(OpenLectureVO openLectureVO);
 
-    void Modify_Lecture_On_Off(HashMap<String, String> params);
+	void Modify_Lecture_On_Off(OpenLectureVO openLectureVO);
 
-    void openlectureIsUseUpdate(HashMap<String, String> params);
+	void openlectureIsUseUpdate(OpenLectureVO openLectureVO);
 
-    void openlectureDelete(HashMap<String, String> params);
+	void openlectureDelete(OpenLectureVO openLectureVO);
 
-    void openlectureBridgeDelete(HashMap<String, String> params);
+	void openlectureBridgeDelete(OpenLectureVO openLectureVO);
 
-    void lecMovUpdate(HashMap<String, String> params);
+	void lecMovUpdate(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureSeqList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureSeqList(OpenLectureVO openLectureVO);
 
-    void openlectureSeqUpdate(HashMap<String, String> params);
+	void openlectureSeqUpdate(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureViewJongList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureViewJongList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureJongList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureJongList(OpenLectureVO openLectureVO);
 
-    int openlectureJongListCount(HashMap<String, String> params);
+	int openlectureJongListCount(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureJongSubjectList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureJongSubjectList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureJongView(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureJongView(OpenLectureVO openLectureVO);
 
-    int openlectureJongSubjectListCount(HashMap<String, String> params);
+	int openlectureJongSubjectListCount(OpenLectureVO openLectureVO);
 
-    void openlectureLecJongInsert(HashMap<String, String> params);
+	void openlectureLecJongInsert(OpenLectureVO openLectureVO);
 
-    void openlectureChoiceJongNoInsert(HashMap<String, String> params);
+	void openlectureChoiceJongNoInsert(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureViewLeccodeList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureViewLeccodeList(OpenLectureVO openLectureVO);
 
-    void openlectureLecJongDelete(HashMap<String, String> params);
+	void openlectureLecJongDelete(OpenLectureVO openLectureVO);
 
-    void openlectureChoiceJongNoDelete(HashMap<String, String> params);
+	void openlectureChoiceJongNoDelete(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlecturePayList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlecturePayList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureJongPayList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureJongPayList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureDataMemoViewList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureDataMemoViewList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureDataViewList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureDataViewList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureDataMovieViewList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureDataMovieViewList(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureDataMovieList(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureDataMovieList(OpenLectureVO openLectureVO);
 
-    void openlectureMovieInsert(HashMap<String, String> params);
+	void openlectureMovieInsert(OpenLectureVO openLectureVO);
 
-    void openlectureMovieDelete(HashMap<String, String> params);
+	void openlectureMovieDelete(OpenLectureVO openLectureVO);
 
-    void openlectureMovieUpdate(HashMap<String, String> params);
+	void openlectureMovieUpdate(OpenLectureVO openLectureVO);
 
-    void openlectureMovieFileDelete(HashMap<String, String> params);
+	void openlectureMovieFileDelete(OpenLectureVO openLectureVO);
 
-    void openlectureMovieMemoInsert(HashMap<String, String> params);
+	void openlectureMovieMemoInsert(OpenLectureVO openLectureVO);
 
-    void openlectureMovieMemoUpdate(HashMap<String, String> params);
+	void openlectureMovieMemoUpdate(OpenLectureVO openLectureVO);
 
-    void openlectureMovieMemoDelete(HashMap<String, String> params);
+	void openlectureMovieMemoDelete(OpenLectureVO openLectureVO);
 
-    int openlectureDeleteCheck(HashMap<String, String> params);
+	int openlectureDeleteCheck(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> playinfo(HashMap<String, String> params);
+	ArrayList<JSONObject> playinfo(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> getCbMovie4_free_admin(HashMap<String, String> params);
+	ArrayList<JSONObject> getCbMovie4_free_admin(OpenLectureVO openLectureVO);
 
-    int getCbMovie4_free_admin_count(HashMap<String, String> params);
+	int getCbMovie4_free_admin_count(OpenLectureVO openLectureVO);
 
-    HashMap<String, String> openlectureOnDetailS(HashMap<String, String> params);
+	JSONObject openlectureOnDetailS(OpenLectureVO openLectureVO);
 
-    void insertPmpDownLog(HashMap<String, String> params);
+	void insertPmpDownLog(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureWMV(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureWMV(OpenLectureVO openLectureVO);
 
-    List<HashMap<String, String>> openlectureDown_Count(HashMap<String, String> params);
+	ArrayList<JSONObject> openlectureDown_Count(OpenLectureVO openLectureVO);
 }

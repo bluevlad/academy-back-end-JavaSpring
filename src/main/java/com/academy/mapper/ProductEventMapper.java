@@ -1,45 +1,42 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.ProductEventVO;
 
 /**
  * ProductEvent Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface ProductEventMapper {
 
-    List<HashMap<String, String>> list(HashMap<String, String> params);
+	ArrayList<JSONObject> list(ProductEventVO productEventVO);
 
-    int listCount(HashMap<String, String> params);
+	int listCount(ProductEventVO productEventVO);
 
-    HashMap<String, String> getOne(HashMap<String, String> params);
+	JSONObject getOne(ProductEventVO productEventVO);
 
-    List<HashMap<String, String>> list_prd(HashMap<String, String> params);
+	ArrayList<JSONObject> list_prd(ProductEventVO productEventVO);
 
-    void insert(HashMap<String, String> params);
+	void insert(ProductEventVO productEventVO);
 
-    void update(HashMap<String, String> params);
+	void update(ProductEventVO productEventVO);
 
-    void lec_insert(HashMap<String, String> params);
+	void lec_insert(ProductEventVO productEventVO);
 
-    void lec_delete(HashMap<String, String> params);
+	void lec_delete(ProductEventVO productEventVO);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCaCatCdList(Map keyName);
+	ArrayList<JSONObject> getCaCatCdList(ProductEventVO productEventVO);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getVwMenuMstTree_lec(Map keyName);
+	ArrayList<JSONObject> getVwMenuMstTree_lec(ProductEventVO productEventVO);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCaSubjectCdList(Map keyName);
+	ArrayList<JSONObject> getCaSubjectCdList(ProductEventVO productEventVO);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCbLecMstFreeOrderList(Map keyName);
+	ArrayList<JSONObject> getCbLecMstFreeOrderList(ProductEventVO productEventVO);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getCbLecMstListFreeOrderCount(Map keyName);
+	int getCbLecMstListFreeOrderCount(ProductEventVO productEventVO);
 }

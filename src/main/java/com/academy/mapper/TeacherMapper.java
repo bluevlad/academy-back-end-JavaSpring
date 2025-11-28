@@ -1,85 +1,88 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.TeacherVO;
 
 /**
  * Teacher Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface TeacherMapper {
 
-    List<HashMap<String, String>> getKindList(HashMap<String, String> params);
+    ArrayList<JSONObject> getKindList(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> getSubjectList(HashMap<String, String> params);
+    ArrayList<JSONObject> getSubjectList(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> teacherList(HashMap<String, String> params);
+    ArrayList<JSONObject> teacherList(TeacherVO teacherVO);
 
-    int teacherListCount(HashMap<String, String> params);
+    int teacherListCount(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> teacherAllList(HashMap<String, String> params);
+    ArrayList<JSONObject> teacherAllList(TeacherVO teacherVO);
 
-    int teacherAllListCount(HashMap<String, String> params);
+    int teacherAllListCount(TeacherVO teacherVO);
 
-    int teacherIdCheck(HashMap<String, String> params);
+    int teacherIdCheck(TeacherVO teacherVO);
 
-    void teacherInsert(Object obj);
+    void teacherInsert(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> teacherView(HashMap<String, String> params);
+    ArrayList<JSONObject> teacherView(TeacherVO teacherVO);
 
-    void teacherUpdate(Object obj);
+    void teacherUpdate(TeacherVO teacherVO);
 
-    void teacherCategoryInsert(HashMap<String, String> params);
+    void teacherCategoryInsert(TeacherVO teacherVO);
 
-    void teacherSubjectInsert(HashMap<String, String> params);
+    void teacherSubjectInsert(TeacherVO teacherVO);
 
-    void teacherSubjectUpdate(Object obj);
+    void teacherSubjectUpdate(TeacherVO teacherVO);
 
-    int teacherSubjectCount(Object obj);
+    int teacherSubjectCount(TeacherVO teacherVO);
 
-    void teacherIsUseUpdate(Object obj);
+    void teacherIsUseUpdate(TeacherVO teacherVO);
 
-    void teacherDelete(HashMap<String, String> params);
+    void teacherDelete(TeacherVO teacherVO);
 
-    void teacherCategoryDelete(HashMap<String, String> params);
+    void teacherCategoryDelete(TeacherVO teacherVO);
 
-    void teacherSubjectDelete(HashMap<String, String> params);
+    void teacherSubjectDelete(TeacherVO teacherVO);
 
-    void teacherSeqUpdate(Object obj);
+    void teacherSeqUpdate(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> teacherBookLog(HashMap<String, String> params);
+    ArrayList<JSONObject> teacherBookLog(TeacherVO teacherVO);
 
-    void teacherMain_Category_Insert(HashMap<String, String> params);
+    void teacherMain_Category_Insert(TeacherVO teacherVO);
 
-    void teacherMain_Category_Delete(HashMap<String, String> params);
+    void teacherMain_Category_Delete(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> teacherMainList(HashMap<String, String> params);
+    ArrayList<JSONObject> teacherMainList(TeacherVO teacherVO);
 
-    int teacherMainListCount(HashMap<String, String> params);
+    int teacherMainListCount(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> findTeacherList(HashMap<String, String> params);
+    ArrayList<JSONObject> findTeacherList(TeacherVO teacherVO);
 
-    int teacherMain_Category_Subject(HashMap<String, String> params);
+    int teacherMain_Category_Subject(TeacherVO teacherVO);
 
-    int teacherIntro_Category_Subject(HashMap<String, String> params);
+    int teacherIntro_Category_Subject(TeacherVO teacherVO);
 
-    int teacherIntro_F_Category_Subject(HashMap<String, String> params);
+    int teacherIntro_F_Category_Subject(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> teacherIntroList(HashMap<String, String> params);
+    ArrayList<JSONObject> teacherIntroList(TeacherVO teacherVO);
 
-    int teacherIntroListCount(HashMap<String, String> params);
+    int teacherIntroListCount(TeacherVO teacherVO);
 
-    void teacherIntro_Category_Insert(HashMap<String, String> params);
+    void teacherIntro_Category_Insert(TeacherVO teacherVO);
 
-    void teacherIntro_F_Category_Insert(HashMap<String, String> params);
+    void teacherIntro_F_Category_Insert(TeacherVO teacherVO);
 
-    void teacherIntro_Category_Delete(HashMap<String, String> params);
+    void teacherIntro_Category_Delete(TeacherVO teacherVO);
 
-    void teacherIntro_F_Category_Delete(HashMap<String, String> params);
+    void teacherIntro_F_Category_Delete(TeacherVO teacherVO);
 
-    List<HashMap<String, String>> teacherIntro_offList(HashMap<String, String> params);
+    ArrayList<JSONObject> teacherIntro_offList(TeacherVO teacherVO);
 
-    int teacherIntro_offListCount(HashMap<String, String> params);
+    int teacherIntro_offListCount(TeacherVO teacherVO);
 }

@@ -1,32 +1,23 @@
 package com.academy.lecture;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.CommonUtil;
-import com.willbes.web.lecture.service.CategoryService;
+import com.academy.common.CommonUtil;
+import com.academy.lecture.service.CategoryService;
+import com.academy.lecture.service.CategoryVO;
 
 /**
  * @FileName   : CategoryApi.java
  * @Project    :
- * @Date       : 2015. 05. 20.
+ * @Date       : 2025. 11.
  * @Author     : miraenet
  * @변경이력    :
  * @프로그램 설명 : 카테고리 관리 API
@@ -35,29 +26,26 @@ import com.willbes.web.lecture.service.CategoryService;
 @RequestMapping("/api/category")
 public class CategoryApi extends CORSFilter {
 
-    private CategoryService seriesCategoryService;
+    private CategoryService categoryService;
 
     @Autowired
-    public CategoryApi(CategoryService seriesCategoryService) {
-        this.seriesCategoryService = seriesCategoryService;
+    public CategoryApi(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     /**
      * @Method Name  : getSeriesCateTree
-     * @Date         : 2015. 05. 20.
+     * @Date         : 2025. 11.
      * @Author       : miraenet
      * @변경이력      :
      * @Method 설명      : 카테고리 트리 조회
-     * @param request
+     * @param CategoryVO
      * @return
      * @throws Exception
      */
     @GetMapping(value = "/tree")
-    public JSONObject getSeriesCateTree(HttpServletRequest request) throws Exception {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-        setParam(params, request);
-
-        List<HashMap<String, Object>> menuList = seriesCategoryService.getSeriesCateTree();
+    public JSONObject getSeriesCateTree(@ModelAttribute("CategoryVO") CategoryVO categoryVO) throws Exception {
+        ArrayList<JSONObject> menuList = categoryService.getSeriesCateTree();
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("menuList", menuList);
@@ -68,19 +56,18 @@ public class CategoryApi extends CORSFilter {
 
     /**
      * @Method Name  : getDetail
-     * @Date         : 2015. 05. 20.
+     * @Date         : 2025. 11.
      * @Author       : miraenet
      * @변경이력      :
      * @Method 설명      : 카테고리 상세 조회
-     * @param request
+     * @param CategoryVO
      * @return
      * @throws Exception
      */
     @GetMapping(value = "/detail")
-    public JSONObject getDetail(@ModelAttribute HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject getDetail(@ModelAttribute("CategoryVO") CategoryVO categoryVO) throws Exception {
 
-        HashMap<String, Object> detail = seriesCategoryService.getDetail(params);
+        JSONObject detail = categoryService.getDetail(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("detail", detail);
@@ -91,23 +78,22 @@ public class CategoryApi extends CORSFilter {
 
     /**
      * @Method Name  : getMaxOrdr
-     * @Date         : 2015. 05. 20.
+     * @Date         : 2025. 11.
      * @Author       : miraenet
      * @변경이력      :
      * @Method 설명      : 최대 순서 조회
-     * @param request
+     * @param CategoryVO
      * @return
      * @throws Exception
      */
     @GetMapping(value = "/maxOrdr")
-    public JSONObject getMaxOrdr(@ModelAttribute HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject getMaxOrdr(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
-        HashMap<String, Object> maxMenuMap = seriesCategoryService.getMaxOrdr(params);
+        JSONObject maxMenuMap = categoryService.getMaxOrdr(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         if(maxMenuMap == null){
-            String ORDR = CommonUtil.isNull(request.getParameter("ORDR"), "0");
+            String ORDR = CommonUtil.isNull((String) commandMap.get("ORDR"), "0");
             if(ORDR.equals("0")){ //Root
                 result.put("ORDR", 1);
             }else{
@@ -117,7 +103,7 @@ public class CategoryApi extends CORSFilter {
             result.put("ORDR", maxMenuMap.get("ORDR"));
             result.put("P_NAME", maxMenuMap.get("P_NAME"));
         }
-        String CODE = CommonUtil.isNull(request.getParameter("CODE"), "");
+        String CODE = CommonUtil.isNull((String) commandMap.get("CODE"), "");
         if(CODE!=null && CODE!=""){
             result.put("P_CODE", CODE);
         }
@@ -128,24 +114,23 @@ public class CategoryApi extends CORSFilter {
 
     /**
      * @Method Name  : deleteProcess
-     * @Date         : 2015. 05. 20.
+     * @Date         : 2025. 11.
      * @Author       : miraenet
      * @변경이력      :
      * @Method 설명      : 카테고리 삭제
-     * @param request
+     * @param CategoryVO
      * @return
      * @throws Exception
      */
     @DeleteMapping(value = "/delete")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject deleteProcess(@RequestBody HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject deleteProcess(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
-        int isDelete = seriesCategoryService.deleteProcess(params);
+        int isDelete = categoryService.deleteProcess(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("isDelete", isDelete);
-        result.put("VIEWCODE", params.get("CODE"));
+        result.put("VIEWCODE", commandMap.get("CODE"));
 
         JSONObject jObject = new JSONObject(result);
         return jObject;
@@ -153,19 +138,18 @@ public class CategoryApi extends CORSFilter {
 
     /**
      * @Method Name  : idCheck
-     * @Date         : 2015. 05. 20.
+     * @Date         : 2025. 11.
      * @Author       : miraenet
      * @변경이력      :
      * @Method 설명      : ID 중복 확인
-     * @param request
+     * @param CategoryVO
      * @return
      * @throws Exception
      */
     @GetMapping(value = "/idCheck")
-    public JSONObject idCheck(@ModelAttribute HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject idCheck(@ModelAttribute("CategoryVO") CategoryVO categoryVO) throws Exception {
 
-        int idCount = seriesCategoryService.idCheck(params);
+        int idCount = categoryService.idCheck(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("idCount", idCount);
@@ -182,23 +166,22 @@ public class CategoryApi extends CORSFilter {
 
     /**
      * @Method Name  : insertProcess
-     * @Date         : 2015. 05. 20.
+     * @Date         : 2025. 11.
      * @Author       : miraenet
      * @변경이력      :
      * @Method 설명      : 카테고리 등록
-     * @param request
+     * @param CategoryVO
      * @return
      * @throws Exception
      */
     @PostMapping(value = "/insert")
-    public JSONObject insertProcess(@RequestBody HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject insertProcess(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
-        int isInsert = seriesCategoryService.insertProcess(params);
+        int isInsert = categoryService.insertProcess(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("isInsert", isInsert);
-        result.put("VIEWCODE", params.get("CODE"));
+        result.put("VIEWCODE", commandMap.get("CODE"));
 
         JSONObject jObject = new JSONObject(result);
         return jObject;
@@ -206,57 +189,24 @@ public class CategoryApi extends CORSFilter {
 
     /**
      * @Method Name  : updateProcess
-     * @Date         : 2015. 05. 20.
+     * @Date         : 2025. 11.
      * @Author       : miraenet
      * @변경이력      :
      * @Method 설명      : 카테고리 수정
-     * @param request
+     * @param CategoryVO
      * @return
      * @throws Exception
      */
     @PutMapping(value = "/update")
-    public JSONObject updateProcess(@RequestBody HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject updateProcess(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
-        seriesCategoryService.updateProcess(params);
+        categoryService.updateProcess(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("isUpdate", 1);
-        result.put("VIEWCODE", params.get("CODE"));
+        result.put("VIEWCODE", commandMap.get("CODE"));
 
         JSONObject jObject = new JSONObject(result);
         return jObject;
     }
-
-    /**
-     * @Method Name : setParam
-     * @작성일 : 2015. 05.
-     * @Method 설명 : 파라미터 SETTING
-     * @param params
-     * @param request
-     * @return HashMap
-     * @throws Exception
-     */
-    @SuppressWarnings("unchecked")
-    public void setParam(HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession(false);
-        if(session != null) {
-            HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
-            if(loginInfo != null) {
-                params.put("REG_ID", loginInfo.get("USER_ID"));
-                params.put("UPD_ID", loginInfo.get("USER_ID"));
-            }
-        }
-        params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-        params.put("CODE", CommonUtil.isNull(request.getParameter("CODE"), ""));
-        params.put("NAME", CommonUtil.isNull(request.getParameter("NAME"), ""));
-        params.put("USE_ON", CommonUtil.isNull(request.getParameter("USE_ON"), ""));
-        params.put("USE_OFF", CommonUtil.isNull(request.getParameter("USE_OFF"), ""));
-        params.put("ISUSE", CommonUtil.isNull(request.getParameter("ISUSE"), ""));
-        params.put("ORDR", CommonUtil.isNull(request.getParameter("ORDR"), ""));
-        params.put("P_CODE", CommonUtil.isNull(request.getParameter("P_CODE"), ""));
-        params.put("SRS_CD", CommonUtil.isNull(request.getParameter("SRS_CD"), ""));
-        params.put("TYPE_CHOICE", CommonUtil.isNull(request.getParameter("TYPE_CHOICE"), "C"));
-    }
-
 }

@@ -1,49 +1,102 @@
 package com.academy.lecture.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
-public interface SubjectService {
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
 
-	List<HashMap<String, String>> subjectList(HashMap<String, String> params);
+import com.academy.mapper.SubjectMapper;
 
-	int subjectListCount(HashMap<String, String> params);
+/**
+ * Subject Service
+ * ExamService 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
+ */
+@Service
+public class SubjectService {
 
-	String subjectGetCode(HashMap<String, String> params);
+	private SubjectMapper subjectMapper;
 
-	void subjectInsert(HashMap<String, String> params);
+	public SubjectService(SubjectMapper subjectMapper) {
+		this.subjectMapper = subjectMapper;
+	}
 
-	List<HashMap<String, String>> subjectView(HashMap<String, String> params);
+	public ArrayList<JSONObject> subjectList(SubjectVO subjectVO) {
+		return subjectMapper.subjectList(subjectVO);
+	}
 
-	void subjectUpdate(HashMap<String, String> params);
+	public int subjectListCount(SubjectVO subjectVO) {
+		return subjectMapper.subjectListCount(subjectVO);
+	}
 
-	void subjectDelete(HashMap<String, String> params);
+	public String subjectGetCode(SubjectVO subjectVO) {
+		return subjectMapper.subjectGetCode(subjectVO);
+	}
 
-	int subjectCheck(HashMap<String, String> params);
+	public void subjectInsert(SubjectVO subjectVO) {
+		subjectMapper.subjectInsert(subjectVO);
+	}
 
-	void subjectCategoryInsert(HashMap<String, String> params);
+	public ArrayList<JSONObject> subjectView(SubjectVO subjectVO) {
+		return subjectMapper.subjectView(subjectVO);
+	}
 
-	void subjectCategoryDelete(HashMap<String, String> params);
+	public void subjectUpdate(SubjectVO subjectVO) {
+		subjectMapper.subjectUpdate(subjectVO);
+	}
 
-	void subjectCategoryDeleteByCat(HashMap<String, String> params);
+	public void subjectDelete(SubjectVO subjectVO) {
+		subjectMapper.subjectDelete(subjectVO);
+	}
 
-	void subjectCategoryOrderInsert(HashMap<String, String> params);
-	
-	int chkSubjectCategoryOrderCnt(HashMap<String, String> params);
+	public int subjectCheck(SubjectVO subjectVO) {
+		return subjectMapper.subjectCheck(subjectVO);
+	}
 
-	int chkSubjectCategoryCnt(HashMap<String, String> params);
-	
-	void subjectCategoryOrderDeleteByOnoff(HashMap<String, String> params);
-	
-	String getSubjectCategoryOrderIdx(HashMap<String, String> params);
-	
-	
-	void subjectCategoryOrderDelete(HashMap<String, String> params);
+	public void subjectCategoryInsert(SubjectVO subjectVO) {
+		subjectMapper.subjectCategoryInsert(subjectVO);
+	}
 
-	List<HashMap<String, String>> subjectCategoryView(HashMap<String, String> params);
+	public void subjectCategoryDelete(SubjectVO subjectVO) {
+		subjectMapper.subjectCategoryDelete(subjectVO);
+	}
 
-	List<HashMap<String, String>> findSubjectCategoryList(HashMap<String, String> params);
+	public void subjectCategoryDeleteByCat(SubjectVO subjectVO) {
+		subjectMapper.subjectCategoryDeleteByCat(subjectVO);
+	}
 
-	void main_category_subject_order_Insert(HashMap<String, String> params);
+	public void subjectCategoryOrderInsert(SubjectVO subjectVO) {
+		subjectMapper.subjectCategoryOrderInsert(subjectVO);
+	}
 
+	public int chkSubjectCategoryOrderCnt(SubjectVO subjectVO) {
+		return subjectMapper.chkSubjectCategoryOrderCnt(subjectVO);
+	}
+
+	public int chkSubjectCategoryCnt(SubjectVO subjectVO) {
+		return subjectMapper.chkSubjectCategoryCnt(subjectVO);
+	}
+
+	public void subjectCategoryOrderDeleteByOnoff(SubjectVO subjectVO) {
+		subjectMapper.subjectCategoryOrderDeleteByOnoff(subjectVO);
+	}
+
+	public String getSubjectCategoryOrderIdx(SubjectVO subjectVO) {
+		return subjectMapper.getSubjectCategoryOrderIdx(subjectVO);
+	}
+
+	public void subjectCategoryOrderDelete(SubjectVO subjectVO) {
+		subjectMapper.subjectCategoryOrderDelete(subjectVO);
+	}
+
+	public ArrayList<JSONObject> subjectCategoryView(SubjectVO subjectVO) {
+		return subjectMapper.subjectCategoryView(subjectVO);
+	}
+
+	public ArrayList<JSONObject> findSubjectCategoryList(SubjectVO subjectVO) {
+		return subjectMapper.findSubjectCategoryList(subjectVO);
+	}
+
+	public void main_category_subject_order_Insert(SubjectVO subjectVO) {
+		subjectMapper.main_category_subject_order_Insert(subjectVO);
+	}
 }

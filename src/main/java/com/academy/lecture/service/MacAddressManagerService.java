@@ -1,19 +1,46 @@
 package com.academy.lecture.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
-public interface MacAddressManagerService {
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
 
-	List<HashMap<String, String>> macaddressmanagerList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> devicelist(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> macaddressView(HashMap<String, String> params);
+import com.academy.mapper.MacAddressManagerMapper;
 
-	int macaddressmanagerListCount(HashMap<String, String> params);
+/**
+ * MacAddressManager Service
+ * ExamService 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
+ */
+@Service
+public class MacAddressManagerService {
 
-	void macaddressmanagerUpdate(HashMap<String, String> params);
-	void macaddressmanagerUpdate1(HashMap<String, String> params);
+	private MacAddressManagerMapper macAddressManagerMapper;
 
+	public MacAddressManagerService(MacAddressManagerMapper macAddressManagerMapper) {
+		this.macAddressManagerMapper = macAddressManagerMapper;
+	}
+
+	public ArrayList<JSONObject> macaddressmanagerList(MacAddressManagerVO macAddressManagerVO) {
+		return macAddressManagerMapper.macaddressmanagerList(macAddressManagerVO);
+	}
+
+	public ArrayList<JSONObject> devicelist(MacAddressManagerVO macAddressManagerVO) {
+		return macAddressManagerMapper.devicelist(macAddressManagerVO);
+	}
+
+	public ArrayList<JSONObject> macaddressView(MacAddressManagerVO macAddressManagerVO) {
+		return macAddressManagerMapper.macaddressView(macAddressManagerVO);
+	}
+
+	public int macaddressmanagerListCount(MacAddressManagerVO macAddressManagerVO) {
+		return macAddressManagerMapper.macaddressmanagerListCount(macAddressManagerVO);
+	}
+
+	public void macaddressmanagerUpdate(MacAddressManagerVO macAddressManagerVO) {
+		macAddressManagerMapper.macaddressmanagerUpdate(macAddressManagerVO);
+	}
+
+	public void macaddressmanagerUpdate1(MacAddressManagerVO macAddressManagerVO) {
+		macAddressManagerMapper.macaddressmanagerUpdate1(macAddressManagerVO);
+	}
 }

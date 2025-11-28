@@ -1,33 +1,36 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.SeriesVO;
 
 /**
  * Series Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface SeriesMapper {
 
-    List<HashMap<String, String>> seriesList(Object obj);
+    ArrayList<JSONObject> seriesList(SeriesVO seriesVO);
 
-    int seriesListCount(Object obj);
+    int seriesListCount(SeriesVO seriesVO);
 
-    void seriesInsert(Object obj);
+    void seriesInsert(SeriesVO seriesVO);
 
-    List<HashMap<String, String>> seriesView(Object obj);
+    ArrayList<JSONObject> seriesView(SeriesVO seriesVO);
 
-    void seriesUpdate(Object obj);
+    void seriesUpdate(SeriesVO seriesVO);
 
-    void seriesDelete(Object obj);
+    void seriesDelete(SeriesVO seriesVO);
 
-    int seriesCheck(Object obj);
+    int seriesCheck(SeriesVO seriesVO);
 
-    void catSeriesInsert(Object obj);
+    void catSeriesInsert(SeriesVO seriesVO);
 
-    void catSeriesDeleteWthCatCd(Object obj);
+    void catSeriesDeleteWthCatCd(SeriesVO seriesVO);
 
-    void catSeriesDeleteWthSrsCd(Object obj);
+    void catSeriesDeleteWthSrsCd(SeriesVO seriesVO);
 }

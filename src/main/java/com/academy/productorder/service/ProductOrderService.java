@@ -4,590 +4,794 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public interface ProductOrderService {
-	
-	/* last modified 2014-08-20 */
+import org.springframework.stereotype.Service;
+
+import com.academy.mapper.ProductOrderMapper;
+
+/**
+ * ProductOrder Service
+ * LoginService 패턴 적용 - ServiceImpl 없이 @Service 클래스로 직접 구현
+ * last modified 2014-08-20
+ */
+@Service
+public class ProductOrderService {
+
+	private ProductOrderMapper productOrderMapper;
+
+	public ProductOrderService(ProductOrderMapper productOrderMapper) {
+		this.productOrderMapper = productOrderMapper;
+	}
 
 	@SuppressWarnings({ "rawtypes" })
-	List getOrderStatuscodeList(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getPaymentList(Map keyName);
-	
-	// 전체상품주문관리 리스트(0원)
-	@SuppressWarnings({ "rawtypes" })
-	List getOrderListDB_0(Map keyName);
-	
-	// 전체상품주문관리 총 건수(0원)
-	@SuppressWarnings({ "rawtypes" })
-	int getOrderListCount_0(Map keyName);
-	
-	// 전체상품주문관리 리스트(0원)
-	@SuppressWarnings({ "rawtypes" })
-	List getOrderListDB_freelec(Map keyName);
-	
-	// 전체상품주문관리 총 건수(0원)
-	@SuppressWarnings({ "rawtypes" })
-	int getOrderListCount_freelec(Map keyName);
-	
-	// 전체상품주문관리 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getOrderListDB(Map keyName);
-	
-	// 전체상품주문관리 총 건수
-	@SuppressWarnings({ "rawtypes" })
-	int getOrderListCount(Map keyName);
-	
-	//2번째 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getTblOrderMgntListDB(Map keyName);
-		
-	// 전체상품주문관리 엑셀 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List<HashMap<String, String>> getOrderExcelListDB(HashMap<String, String> params);
-		
-	// 카드변경
-	@SuppressWarnings({ "rawtypes" })
-	int setPayKindUpdate(Map keyName);
-	
-	
-	
-	
-	
-	// 입금상태저장
-	@SuppressWarnings({ "rawtypes" })
-	int updateDepositStatus1(Map keyName);
-	
-	// 입금상태저장
-	@SuppressWarnings({ "rawtypes" })
-	int getDepositStatusCount(Map keyName);
-	
-	// 입금상태저장
-	@SuppressWarnings({ "rawtypes" })
-	int updateDepositStatus2(Map keyName);
-	
-	// 입금상태저장
-	@SuppressWarnings({ "rawtypes" })
-	int updateDepositStatus3(Map keyName);
-	
-	// 입금상태저장
-	@SuppressWarnings({ "rawtypes" })
-	int updateDepositStatus4(Map keyName);
-	
-	// 입금상태저장
-	@SuppressWarnings({ "rawtypes" })
-	int updateDepositStatus5(Map keyName);
-	
-	//도서 재고 더하기
-	@SuppressWarnings({ "rawtypes" })
-	int updateBookStockPlus(Map keyName);
-	
-	
-	
-	
-	
-	
-	
-	//상품명 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getPmpdownloadListPop(Map keyName);
-	@SuppressWarnings({ "rawtypes" })
-	List getMobiledownloadListPop(Map keyName);
-		
-	//상품명 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getTblOrderList(Map keyName);
-	
-	//상품명 팝업 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getOrderListPopDB(Map keyName);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	List getCourse_type_code(Map keyName);
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	List getPlayyn(Map keyName);
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	List getPoint(Map keyName);
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	List getTblOrderMgntNoPopViewList(Map keyName);
-
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	int getTblOrderMgntNoPopViewCount(Map keyName);
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	int getPrice_Sum(Map keyName);
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	int getOldRefundViewCount(Map keyName);
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	List getRefund_Point(Map keyName);
-	
-	//구입금액
-	@SuppressWarnings({ "rawtypes" })
-	List getOldRefundView(Map keyName);
-	
-	
-	
-	//택배비
-	@SuppressWarnings({ "rawtypes" })
-	List getTblDeliver_refund_list(Map keyName);
-		
-		
-		
-	//전체상품주문관리 주문번호 상세
-	@SuppressWarnings({ "rawtypes" })
-	List getTblApprovalsViewList(Map keyName);
-	
-	//전체상품주문관리 주문번호 상세
-	@SuppressWarnings({ "rawtypes" })
-	int getTblDeliversViewListCount(Map keyName);
-	
-	//전체상품주문관리 주문번호 상세
-	@SuppressWarnings({ "rawtypes" })
-	List getTblDeliversViewList(Map keyName);
-	
-	//전체상품주문관리 주문번호 상세
-	@SuppressWarnings({ "rawtypes" })
-	List getTblOrdersViewList(Map keyName);
-	
-	//전체상품주문관리 주문번호 상세
-	@SuppressWarnings({ "rawtypes" })
-	List getLecMstViewList(Map keyName);
-		
-	@SuppressWarnings({ "rawtypes" })
-	int updateDelivers(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateApprovals(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateDeliversWmv(Map keyName);
-		
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMoney1(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateStudy_Per(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int getMoneySum(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMoney2(Map keyName);
-		
-		
-	@SuppressWarnings({ "rawtypes" })
-	int refund_money_delete(Map keyName);	
-		
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getMylecture(Map keyName);
-		
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture1(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture2(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture3(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture4(Map keyName);
-		
-	@SuppressWarnings({ "rawtypes" })	
-	int updateEndDateMyLecture(Map keyName); 
-	
-	@SuppressWarnings({ "rawtypes" })
-	int getMylectureCount(Map keyName);	
-		
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture5(Map keyName);	
-		
-	@SuppressWarnings({ "rawtypes" })
-	int insertMylecture6(Map keyName);	
-	
-	
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOrderMgntNo1(Map keyName);
-	@SuppressWarnings({ "rawtypes" })
-	int updateOrderMgntNo2(Map keyName);
-	@SuppressWarnings({ "rawtypes" })
-	int updateOrderMgntNo3(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOrderMgntNo2(Map keyName);
-		
-	@SuppressWarnings({ "rawtypes" })
-	int updateApprovals2(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertMileageHistory(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertMileageHistory3(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMaMember(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture_1(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture_2(Map keyName);
-	
-	
-	
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOrderMgntNo1(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMileageHistory(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMaMember2(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateApprovals3(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteOrderMgntNo(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMaMember3(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateApprovals4(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertMileageHistory2(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMylecture_3(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateApprovals5(Map keyName);
-	
-	
-	
-	
-	
-	//SMS보내기
-	@SuppressWarnings({ "rawtypes" })
-	int insertSendMsgMultiSendUser(Map keyName);
-	
-	
-	
-	
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getTmMember_View(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getCsccode(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List Cs_board_list(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	int getCsBoardListCount(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getTm_mycoupon_list_admin(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	int getTm_mycoupon_listCount_admin(Map keyName);
-	
-	// 사용자 팝업 - 동영상 강의 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List Tm_Class_List(Map keyName);
-	
-	// 사용자 팝업 - 학원강의 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List Off_Class_List(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	int getTmClassListCount(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getMemoList(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	int getMemoListCount(Map keyName);
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertBoardCs(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateMemo(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int getSelectBefore_Point(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getTmCoupon(Map keyName);
-	
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getTmCouponList(Map keyName);
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	List getTmMoCouponList(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	int getTmCouponCount(Map keyName);
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	int getTmMoCouponCount(Map keyName);
-	
-	// 사용자 팝업
-	@SuppressWarnings({ "rawtypes" })
-	int getCouponCount(Map keyName);
+	public List getOrderStatuscodeList(Map keyName) {
+		return productOrderMapper.getOrderStatuscodeList(keyName);
+	}
 
 	@SuppressWarnings({ "rawtypes" })
-	int insertTmCoupon(Map keyName);
-		
-	@SuppressWarnings({ "rawtypes" })
-	int insertMyCoupon(Map keyName);
-		
-	
-	
-	
-	
-	// off 전체상품주문관리 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getOffOrderListDB(Map keyName);
-	
-	// off 전체상품주문관리 총 건수
-	@SuppressWarnings({ "rawtypes" })
-	int getOffOrderListCount(Map keyName);
-	
-	//off 2번째 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getOffTblOrderMgntListDB(Map keyName);
-		
-	// off 전체상품주문관리 엑셀 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List<HashMap<String, String>> getOffOrderExcelListDB(HashMap<String, String> params);
-	
-	//id체크
-	@SuppressWarnings({ "rawtypes" })
-	List getIdChk(Map keyName);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 품목변경 팝업 카테고리 셀렉트박스 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getCaCatCdList(Map keyName);
-	
-	// 품목변경 팝업 학습형태 셀렉트박스 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getVwMenuMstTree_lec(Map keyName);
-	
-	// 품목변경 팝업 과목 셀렉트박스 리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getCaSubjectCdList(Map keyName);
-	
-	// 품목변경 팝업  리스트
-	@SuppressWarnings({ "rawtypes" })
-	List getCbLecMstFreeOrderList(Map keyName);
-		
-	// 품목변경 팝업  카운트
-	@SuppressWarnings({ "rawtypes" })
-	int getCbLecMstListFreeOrderCount(Map keyName);
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getChangePrice(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getUCount(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertCart(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getSubCode2(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteCart(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteAllCart(Map keyName);
-	
-	
-	
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getMCount(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOffOrders(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOffApprovals(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOffOrderMgntNo(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOffMylecture(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int modifyOffMylecture(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOffMylecture_N(Map keyName);
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getUpdateDetail(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getSubCodeUp(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getSubList(Map keyName);
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffOrders(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int Coupon_Del(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffApprovals(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffMgntNo(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffMgntNo_N(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteOffOrderMgntNo(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteOffMylecture(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteOffOrders(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteOffApprovals(Map keyName);
-	
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	List getPrintPop(Map keyName);
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updatePrintOffOrders1(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updatePrintOffOrders2(Map keyName);
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffRefund(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertRefundOffOrderMgntNo(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffMylecture(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffMylectureRefund(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int insertOffRefund(Map keyName);
-	
-	
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteOffCancelOrderMgntNo(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int deleteOffCancelRefund(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int updateOffCancelMylecture(Map keyName);
-	
-	@SuppressWarnings({ "rawtypes" })
-	int Delete_Year_Package_Point(Map keyName);
+	public List getPaymentList(Map keyName) {
+		return productOrderMapper.getPaymentList(keyName);
+	}
 
-	List<HashMap<String, String>> getTmPointHistory(HashMap<String, String> params);
-
-	void insertTmBoard(Map<String, Object> searchMap);
-
-	List<HashMap<String, String>> getTmBoardList(Map<String, Object> searchMap);
-
-	List<HashMap<String, String>> getVOCCODEList(HashMap<String, String> params);
-
-	List<HashMap<String, String>> getDUTYCODEList(HashMap<String, String> params);
-
-	List<HashMap<String, String>> getOffApprovalsCount(Map<String, String> searchMap);
-	
-	List<HashMap<String, String>> getCcode(HashMap<String, String> params);
-
-	// 내 강의실 누락 강의 등록 2016-01-18	
-	void insertMyLecture(Map<String, String> params);
-	void insertMyLectureN(Map<String, String> params);
-	
 	@SuppressWarnings({ "rawtypes" })
-	int getPlusPoint(Map keyName);
-	
-	void BookPointDel(Map<String, Object> params);
-	void BookPointIns(Map<String, Object> params);
-	
-	void insertOffOrderLog(Map<String, Object> params);
+	public List getOrderListDB_0(Map keyName) {
+		return productOrderMapper.getOrderListDB_0(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getOrderListCount_0(Map keyName) {
+		return productOrderMapper.getOrderListCount_0(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getOrderListDB_freelec(Map keyName) {
+		return productOrderMapper.getOrderListDB_freelec(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getOrderListCount_freelec(Map keyName) {
+		return productOrderMapper.getOrderListCount_freelec(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getOrderListDB(Map keyName) {
+		return productOrderMapper.getOrderListDB(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getOrderListCount(Map keyName) {
+		return productOrderMapper.getOrderListCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTblOrderMgntListDB(Map keyName) {
+		return productOrderMapper.getTblOrderMgntListDB(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List<HashMap<String, String>> getOrderExcelListDB(HashMap<String, String> params) {
+		return productOrderMapper.getOrderExcelListDB(params);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int setPayKindUpdate(Map keyName) {
+		return productOrderMapper.setPayKindUpdate(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateDepositStatus1(Map keyName) {
+		return productOrderMapper.updateDepositStatus1(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getDepositStatusCount(Map keyName) {
+		return productOrderMapper.getDepositStatusCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateDepositStatus2(Map keyName) {
+		return productOrderMapper.updateDepositStatus2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateDepositStatus3(Map keyName) {
+		return productOrderMapper.updateDepositStatus3(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateDepositStatus4(Map keyName) {
+		return productOrderMapper.updateDepositStatus4(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateDepositStatus5(Map keyName) {
+		return productOrderMapper.updateDepositStatus5(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateBookStockPlus(Map keyName) {
+		return productOrderMapper.updateBookStockPlus(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getPmpdownloadListPop(Map keyName) {
+		return productOrderMapper.getPmpdownloadListPop(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getMobiledownloadListPop(Map keyName) {
+		return productOrderMapper.getMobiledownloadListPop(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTblOrderList(Map keyName) {
+		return productOrderMapper.getTblOrderList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getOrderListPopDB(Map keyName) {
+		return productOrderMapper.getOrderListPopDB(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getCourse_type_code(Map keyName) {
+		return productOrderMapper.getCourse_type_code(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getPlayyn(Map keyName) {
+		return productOrderMapper.getPlayyn(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getPoint(Map keyName) {
+		return productOrderMapper.getPoint(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTblOrderMgntNoPopViewList(Map keyName) {
+		return productOrderMapper.getTblOrderMgntNoPopViewList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getTblOrderMgntNoPopViewCount(Map keyName) {
+		return productOrderMapper.getTblOrderMgntNoPopViewCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getPrice_Sum(Map keyName) {
+		return productOrderMapper.getPrice_Sum(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getOldRefundViewCount(Map keyName) {
+		return productOrderMapper.getOldRefundViewCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getRefund_Point(Map keyName) {
+		return productOrderMapper.getRefund_Point(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getOldRefundView(Map keyName) {
+		return productOrderMapper.getOldRefundView(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTblDeliver_refund_list(Map keyName) {
+		return productOrderMapper.getTblDeliver_refund_list(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTblApprovalsViewList(Map keyName) {
+		return productOrderMapper.getTblApprovalsViewList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getTblDeliversViewListCount(Map keyName) {
+		return productOrderMapper.getTblDeliversViewListCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTblDeliversViewList(Map keyName) {
+		return productOrderMapper.getTblDeliversViewList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTblOrdersViewList(Map keyName) {
+		return productOrderMapper.getTblOrdersViewList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getLecMstViewList(Map keyName) {
+		return productOrderMapper.getLecMstViewList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateDelivers(Map keyName) {
+		return productOrderMapper.updateDelivers(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateApprovals(Map keyName) {
+		return productOrderMapper.updateApprovals(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateDeliversWmv(Map keyName) {
+		return productOrderMapper.updateDeliversWmv(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMoney1(Map keyName) {
+		return productOrderMapper.updateMoney1(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateStudy_Per(Map keyName) {
+		return productOrderMapper.updateStudy_Per(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getMoneySum(Map keyName) {
+		return productOrderMapper.getMoneySum(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMoney2(Map keyName) {
+		return productOrderMapper.updateMoney2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int refund_money_delete(Map keyName) {
+		return productOrderMapper.refund_money_delete(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getMylecture(Map keyName) {
+		return productOrderMapper.getMylecture(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture1(Map keyName) {
+		return productOrderMapper.updateMylecture1(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture2(Map keyName) {
+		return productOrderMapper.updateMylecture2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture3(Map keyName) {
+		return productOrderMapper.updateMylecture3(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture4(Map keyName) {
+		return productOrderMapper.updateMylecture4(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateEndDateMyLecture(Map keyName) {
+		return productOrderMapper.updateEndDateMyLecture(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getMylectureCount(Map keyName) {
+		return productOrderMapper.getMylectureCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture5(Map keyName) {
+		return productOrderMapper.updateMylecture5(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertMylecture6(Map keyName) {
+		return productOrderMapper.insertMylecture6(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOrderMgntNo1(Map keyName) {
+		return productOrderMapper.insertOrderMgntNo1(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOrderMgntNo2(Map keyName) {
+		return productOrderMapper.updateOrderMgntNo2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOrderMgntNo3(Map keyName) {
+		return productOrderMapper.updateOrderMgntNo3(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOrderMgntNo2(Map keyName) {
+		return productOrderMapper.insertOrderMgntNo2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateApprovals2(Map keyName) {
+		return productOrderMapper.updateApprovals2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertMileageHistory(Map keyName) {
+		return productOrderMapper.insertMileageHistory(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertMileageHistory3(Map keyName) {
+		return productOrderMapper.insertMileageHistory3(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMaMember(Map keyName) {
+		return productOrderMapper.updateMaMember(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture_1(Map keyName) {
+		return productOrderMapper.updateMylecture_1(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture_2(Map keyName) {
+		return productOrderMapper.updateMylecture_2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOrderMgntNo1(Map keyName) {
+		return productOrderMapper.updateOrderMgntNo1(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMileageHistory(Map keyName) {
+		return productOrderMapper.updateMileageHistory(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMaMember2(Map keyName) {
+		return productOrderMapper.updateMaMember2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateApprovals3(Map keyName) {
+		return productOrderMapper.updateApprovals3(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteOrderMgntNo(Map keyName) {
+		return productOrderMapper.deleteOrderMgntNo(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMaMember3(Map keyName) {
+		return productOrderMapper.updateMaMember3(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateApprovals4(Map keyName) {
+		return productOrderMapper.updateApprovals4(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertMileageHistory2(Map keyName) {
+		return productOrderMapper.insertMileageHistory2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMylecture_3(Map keyName) {
+		return productOrderMapper.updateMylecture_3(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateApprovals5(Map keyName) {
+		return productOrderMapper.updateApprovals5(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertSendMsgMultiSendUser(Map keyName) {
+		return productOrderMapper.insertSendMsgMultiSendUser(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTmMember_View(Map keyName) {
+		return productOrderMapper.getTmMember_View(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getCsccode(Map keyName) {
+		return productOrderMapper.getCsccode(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List Cs_board_list(Map keyName) {
+		return productOrderMapper.Cs_board_list(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getCsBoardListCount(Map keyName) {
+		return productOrderMapper.getCsBoardListCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTm_mycoupon_list_admin(Map keyName) {
+		return productOrderMapper.getTm_mycoupon_list_admin(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getTm_mycoupon_listCount_admin(Map keyName) {
+		return productOrderMapper.getTm_mycoupon_listCount_admin(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List Tm_Class_List(Map keyName) {
+		return productOrderMapper.Tm_Class_List(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List Off_Class_List(Map keyName) {
+		return productOrderMapper.Off_Class_List(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getTmClassListCount(Map keyName) {
+		return productOrderMapper.getTmClassListCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getMemoList(Map keyName) {
+		return productOrderMapper.getMemoList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getMemoListCount(Map keyName) {
+		return productOrderMapper.getMemoListCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertBoardCs(Map keyName) {
+		return productOrderMapper.insertBoardCs(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateMemo(Map keyName) {
+		return productOrderMapper.updateMemo(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getSelectBefore_Point(Map keyName) {
+		return productOrderMapper.getSelectBefore_Point(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTmCoupon(Map keyName) {
+		return productOrderMapper.getTmCoupon(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTmCouponList(Map keyName) {
+		return productOrderMapper.getTmCouponList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getTmMoCouponList(Map keyName) {
+		return productOrderMapper.getTmMoCouponList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getTmCouponCount(Map keyName) {
+		return productOrderMapper.getTmCouponCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getTmMoCouponCount(Map keyName) {
+		return productOrderMapper.getTmMoCouponCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getCouponCount(Map keyName) {
+		return productOrderMapper.getCouponCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertTmCoupon(Map keyName) {
+		return productOrderMapper.insertTmCoupon(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertMyCoupon(Map keyName) {
+		return productOrderMapper.insertMyCoupon(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getOffOrderListDB(Map keyName) {
+		return productOrderMapper.getOffOrderListDB(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getOffOrderListCount(Map keyName) {
+		return productOrderMapper.getOffOrderListCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getOffTblOrderMgntListDB(Map keyName) {
+		return productOrderMapper.getOffTblOrderMgntListDB(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List<HashMap<String, String>> getOffOrderExcelListDB(HashMap<String, String> params) {
+		return productOrderMapper.getOffOrderExcelListDB(params);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getIdChk(Map keyName) {
+		return productOrderMapper.getIdChk(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getCaCatCdList(Map keyName) {
+		return productOrderMapper.getCaCatCdList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getVwMenuMstTree_lec(Map keyName) {
+		return productOrderMapper.getVwMenuMstTree_lec(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getCaSubjectCdList(Map keyName) {
+		return productOrderMapper.getCaSubjectCdList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getCbLecMstFreeOrderList(Map keyName) {
+		return productOrderMapper.getCbLecMstFreeOrderList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getCbLecMstListFreeOrderCount(Map keyName) {
+		return productOrderMapper.getCbLecMstListFreeOrderCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getChangePrice(Map keyName) {
+		return productOrderMapper.getChangePrice(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getUCount(Map keyName) {
+		return productOrderMapper.getUCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertCart(Map keyName) {
+		return productOrderMapper.insertCart(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getSubCode2(Map keyName) {
+		return productOrderMapper.getSubCode2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteCart(Map keyName) {
+		return productOrderMapper.deleteCart(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteAllCart(Map keyName) {
+		return productOrderMapper.deleteAllCart(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getMCount(Map keyName) {
+		return productOrderMapper.getMCount(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOffOrders(Map keyName) {
+		return productOrderMapper.insertOffOrders(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOffApprovals(Map keyName) {
+		return productOrderMapper.insertOffApprovals(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOffOrderMgntNo(Map keyName) {
+		return productOrderMapper.insertOffOrderMgntNo(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOffMylecture(Map keyName) {
+		return productOrderMapper.insertOffMylecture(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int modifyOffMylecture(Map keyName) {
+		return productOrderMapper.modifyOffMylecture(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOffMylecture_N(Map keyName) {
+		return productOrderMapper.insertOffMylecture_N(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getUpdateDetail(Map keyName) {
+		return productOrderMapper.getUpdateDetail(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getSubCodeUp(Map keyName) {
+		return productOrderMapper.getSubCodeUp(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getSubList(Map keyName) {
+		return productOrderMapper.getSubList(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffOrders(Map keyName) {
+		return productOrderMapper.updateOffOrders(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int Coupon_Del(Map keyName) {
+		return productOrderMapper.Coupon_Del(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffApprovals(Map keyName) {
+		return productOrderMapper.updateOffApprovals(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffMgntNo(Map keyName) {
+		return productOrderMapper.updateOffMgntNo(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffMgntNo_N(Map keyName) {
+		return productOrderMapper.updateOffMgntNo_N(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteOffOrderMgntNo(Map keyName) {
+		return productOrderMapper.deleteOffOrderMgntNo(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteOffMylecture(Map keyName) {
+		return productOrderMapper.deleteOffMylecture(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteOffOrders(Map keyName) {
+		return productOrderMapper.deleteOffOrders(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteOffApprovals(Map keyName) {
+		return productOrderMapper.deleteOffApprovals(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public List getPrintPop(Map keyName) {
+		return productOrderMapper.getPrintPop(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updatePrintOffOrders1(Map keyName) {
+		return productOrderMapper.updatePrintOffOrders1(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updatePrintOffOrders2(Map keyName) {
+		return productOrderMapper.updatePrintOffOrders2(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffRefund(Map keyName) {
+		return productOrderMapper.updateOffRefund(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertRefundOffOrderMgntNo(Map keyName) {
+		return productOrderMapper.insertRefundOffOrderMgntNo(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffMylecture(Map keyName) {
+		return productOrderMapper.updateOffMylecture(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffMylectureRefund(Map keyName) {
+		return productOrderMapper.updateOffMylectureRefund(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int insertOffRefund(Map keyName) {
+		return productOrderMapper.insertOffRefund(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteOffCancelOrderMgntNo(Map keyName) {
+		return productOrderMapper.deleteOffCancelOrderMgntNo(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int deleteOffCancelRefund(Map keyName) {
+		return productOrderMapper.deleteOffCancelRefund(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int updateOffCancelMylecture(Map keyName) {
+		return productOrderMapper.updateOffCancelMylecture(keyName);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int Delete_Year_Package_Point(Map keyName) {
+		return productOrderMapper.Delete_Year_Package_Point(keyName);
+	}
+
+	public List<HashMap<String, String>> getTmPointHistory(HashMap<String, String> params) {
+		return productOrderMapper.getTmPointHistory(params);
+	}
+
+	public void insertTmBoard(Map<String, Object> searchMap) {
+		productOrderMapper.insertTmBoard(searchMap);
+	}
+
+	public List<HashMap<String, String>> getTmBoardList(Map<String, Object> searchMap) {
+		return productOrderMapper.getTmBoardList(searchMap);
+	}
+
+	public List<HashMap<String, String>> getVOCCODEList(HashMap<String, String> params) {
+		return productOrderMapper.getVOCCODEList(params);
+	}
+
+	public List<HashMap<String, String>> getDUTYCODEList(HashMap<String, String> params) {
+		return productOrderMapper.getDUTYCODEList(params);
+	}
+
+	public List<HashMap<String, String>> getOffApprovalsCount(Map<String, String> searchMap) {
+		return productOrderMapper.getOffApprovalsCount(searchMap);
+	}
+
+	public List<HashMap<String, String>> getCcode(HashMap<String, String> params) {
+		return productOrderMapper.getCcode(params);
+	}
+
+	public void insertMyLecture(Map<String, String> params) {
+		productOrderMapper.insertMyLecture(params);
+	}
+
+	public void insertMyLectureN(Map<String, String> params) {
+		productOrderMapper.insertMyLectureN(params);
+	}
+
+	@SuppressWarnings({ "rawtypes" })
+	public int getPlusPoint(Map keyName) {
+		return productOrderMapper.getPlusPoint(keyName);
+	}
+
+	public void BookPointDel(Map<String, Object> params) {
+		productOrderMapper.BookPointDel(params);
+	}
+
+	public void BookPointIns(Map<String, Object> params) {
+		productOrderMapper.BookPointIns(params);
+	}
+
+	public void insertOffOrderLog(Map<String, Object> params) {
+		productOrderMapper.insertOffOrderLog(params);
+	}
 }

@@ -1,27 +1,62 @@
 package com.academy.lecture.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
-public interface KindService {
+import org.json.simple.JSONObject;
+import org.springframework.stereotype.Service;
 
-	List<HashMap<String, String>> getKindList(Object obj);
+import com.academy.mapper.KindMapper;
 
-	List<HashMap<String, String>> kindList(HashMap<String, String> params);
+/**
+ * Kind Service
+ * ExamService 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
+ */
+@Service
+public class KindService {
 
-	int kindListCount(HashMap<String, String> params);
+	private KindMapper kindMapper;
 
-	void kindInsert(HashMap<String, String> params);
+	public KindService(KindMapper kindMapper) {
+		this.kindMapper = kindMapper;
+	}
 
-	List<HashMap<String, String>> kindView(HashMap<String, String> params);
+	public ArrayList<JSONObject> getKindList(KindVO kindVO) {
+		return kindMapper.getKindList(kindVO);
+	}
 
-	void kindUpdate(HashMap<String, String> params);
+	public ArrayList<JSONObject> kindList(KindVO kindVO) {
+		return kindMapper.kindList(kindVO);
+	}
 
-	void kindDelete(HashMap<String, String> params);
+	public int kindListCount(KindVO kindVO) {
+		return kindMapper.kindListCount(kindVO);
+	}
 
-	int kindCheck(HashMap<String, String> params);
+	public void kindInsert(KindVO kindVO) {
+		kindMapper.kindInsert(kindVO);
+	}
 
-	List<HashMap<String, String>> selectKindCode();
+	public ArrayList<JSONObject> kindView(KindVO kindVO) {
+		return kindMapper.kindView(kindVO);
+	}
 
-	void SeqUpdate(HashMap<String, String> params);
+	public void kindUpdate(KindVO kindVO) {
+		kindMapper.kindUpdate(kindVO);
+	}
+
+	public void kindDelete(KindVO kindVO) {
+		kindMapper.kindDelete(kindVO);
+	}
+
+	public int kindCheck(KindVO kindVO) {
+		return kindMapper.kindCheck(kindVO);
+	}
+
+	public ArrayList<JSONObject> selectKindCode() {
+		return kindMapper.selectKindCode();
+	}
+
+	public void SeqUpdate(KindVO kindVO) {
+		kindMapper.SeqUpdate(kindVO);
+	}
 }

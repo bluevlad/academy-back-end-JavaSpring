@@ -1,15 +1,15 @@
 package com.academy.lecture.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.academy.mapper.LectureMapper;
 
 /**
  * Lecture Service
- * LoginService 패턴 적용 - ServiceImpl 없이 @Service 클래스로 직접 구현
+ * ExamService 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Service
 public class LectureService {
@@ -20,271 +20,283 @@ public class LectureService {
 		this.lectureMapper = lectureMapper;
 	}
 
-	public List<HashMap<String, String>> lectureList(HashMap<String, String> params) {
-		return lectureMapper.lectureList(params);
+	public ArrayList<JSONObject> lectureList(LectureVO lectureVO) {
+		return lectureMapper.lectureList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> oldFreeToNewFree(HashMap<String, String> params) {
-		return lectureMapper.oldFreeToNewFree(params);
+	public ArrayList<JSONObject> oldFreeToNewFree(LectureVO lectureVO) {
+		return lectureMapper.oldFreeToNewFree(lectureVO);
 	}
 
-	public int lectureListCount(HashMap<String, String> params) {
-		return lectureMapper.lectureListCount(params);
+	public int lectureListCount(LectureVO lectureVO) {
+		return lectureMapper.lectureListCount(lectureVO);
 	}
 
-	public List<HashMap<String, String>> bookList(HashMap<String, String> params) {
-		return lectureMapper.bookList(params);
+	public ArrayList<JSONObject> bookList(LectureVO lectureVO) {
+		return lectureMapper.bookList(lectureVO);
 	}
 
-	public int bookListCount(HashMap<String, String> params) {
-		return lectureMapper.bookListCount(params);
+	public int bookListCount(LectureVO lectureVO) {
+		return lectureMapper.bookListCount(lectureVO);
 	}
 
-	public List<HashMap<String, String>> getBridgeLeccodeSeq(HashMap<String, String> params) {
-		return lectureMapper.getBridgeLeccodeSeq(params);
+	public ArrayList<JSONObject> getBridgeLeccodeSeq(LectureVO lectureVO) {
+		return lectureMapper.getBridgeLeccodeSeq(lectureVO);
 	}
 
-	public List<HashMap<String, String>> getJongLeccodeSeq(HashMap<String, String> params) {
-		return lectureMapper.getJongLeccodeSeq(params);
+	public ArrayList<JSONObject> getJongLeccodeSeq(LectureVO lectureVO) {
+		return lectureMapper.getJongLeccodeSeq(lectureVO);
 	}
 
-	public List<HashMap<String, String>> getLeccode(HashMap<String, String> params) {
-		return lectureMapper.getLeccode(params);
+	public ArrayList<JSONObject> getLeccode(LectureVO lectureVO) {
+		return lectureMapper.getLeccode(lectureVO);
 	}
 
-	public List<HashMap<String, String>> getBridgeLeccode(HashMap<String, String> params) {
-		return lectureMapper.getBridgeLeccode(params);
+	public ArrayList<JSONObject> getBridgeLeccode(LectureVO lectureVO) {
+		return lectureMapper.getBridgeLeccode(lectureVO);
 	}
 
-	public List<HashMap<String, String>> BridgeLeccode(HashMap<String, String> params) {
-		return lectureMapper.BridgeLeccode(params);
+	public ArrayList<JSONObject> BridgeLeccode(LectureVO lectureVO) {
+		return lectureMapper.BridgeLeccode(lectureVO);
 	}
 
-	public void lectureInsert(HashMap<String, String> params) {
-		lectureMapper.lectureInsert(params);
+	public void lectureInsert(LectureVO lectureVO) {
+		lectureMapper.lectureInsert(lectureVO);
 	}
 
-	public void lectureBridgeInsert(HashMap<String, String> params) {
-		lectureMapper.lectureBridgeInsert(params);
+	public void lectureBridgeInsert(LectureVO lectureVO) {
+		lectureMapper.lectureBridgeInsert(lectureVO);
 	}
 
-	public void lectureBookInsert(HashMap<String, String> params) {
-		lectureMapper.lectureBookInsert(params);
+	public void lectureBookInsert(LectureVO lectureVO) {
+		lectureMapper.lectureBookInsert(lectureVO);
 	}
 
-	public void lectureBookInsert2(HashMap<String, String> params) {
-		lectureMapper.lectureBookInsert2(params);
+	public void lectureBookInsert2(LectureVO lectureVO) {
+		lectureMapper.lectureBookInsert2(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureViewList(HashMap<String, String> params) {
-		return lectureMapper.lectureViewList(params);
+	public ArrayList<JSONObject> lectureViewList(LectureVO lectureVO) {
+		return lectureMapper.lectureViewList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureView(HashMap<String, String> params) {
-		return lectureMapper.lectureView(params);
+	public ArrayList<JSONObject> lectureView(LectureVO lectureVO) {
+		return lectureMapper.lectureView(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureViewBookList(HashMap<String, String> params) {
-		return lectureMapper.lectureViewBookList(params);
+	public ArrayList<JSONObject> lectureViewBookList(LectureVO lectureVO) {
+		return lectureMapper.lectureViewBookList(lectureVO);
 	}
 
-	public void lectureBookDelete(HashMap<String, String> params) {
-		lectureMapper.lectureBookDelete(params);
+	public void lectureBookDelete(LectureVO lectureVO) {
+		lectureMapper.lectureBookDelete(lectureVO);
 	}
 
-	public void lectureUpdate(HashMap<String, String> params) {
-		lectureMapper.lectureUpdate(params);
+	public void lectureUpdate(LectureVO lectureVO) {
+		lectureMapper.lectureUpdate(lectureVO);
 	}
 
-	public void Modify_Lecture_On_Off(HashMap<String, String> params) {
-		lectureMapper.Modify_Lecture_On_Off(params);
+	public void Modify_Lecture_On_Off(LectureVO lectureVO) {
+		lectureMapper.Modify_Lecture_On_Off(lectureVO);
 	}
 
-	public void lectureIsUseUpdate(HashMap<String, String> params) {
-		lectureMapper.lectureIsUseUpdate(params);
+	public void lectureIsUseUpdate(LectureVO lectureVO) {
+		lectureMapper.lectureIsUseUpdate(lectureVO);
 	}
 
-	public void lectureDelete(HashMap<String, String> params) {
-		lectureMapper.lectureDelete(params);
+	public void lectureDelete(LectureVO lectureVO) {
+		lectureMapper.lectureDelete(lectureVO);
 	}
 
-	public void lectureBridgeDelete(HashMap<String, String> params) {
-		lectureMapper.lectureBridgeDelete(params);
+	public void lectureBridgeDelete(LectureVO lectureVO) {
+		lectureMapper.lectureBridgeDelete(lectureVO);
 	}
 
-	public void lecMovUpdate(HashMap<String, String> params) {
-		lectureMapper.lecMovUpdate(params);
+	public void lecMovUpdate(LectureVO lectureVO) {
+		lectureMapper.lecMovUpdate(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureSeqList(HashMap<String, String> params) {
-		return lectureMapper.lectureSeqList(params);
+	public ArrayList<JSONObject> lectureSeqList(LectureVO lectureVO) {
+		return lectureMapper.lectureSeqList(lectureVO);
 	}
 
-	public void lectureSeqUpdate(HashMap<String, String> params) {
-		lectureMapper.lectureSeqUpdate(params);
+	public void lectureSeqUpdate(LectureVO lectureVO) {
+		lectureMapper.lectureSeqUpdate(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureViewJongList(HashMap<String, String> params) {
-		return lectureMapper.lectureViewJongList(params);
+	public ArrayList<JSONObject> lectureViewJongList(LectureVO lectureVO) {
+		return lectureMapper.lectureViewJongList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureJongList(HashMap<String, String> params) {
-		return lectureMapper.lectureJongList(params);
+	public ArrayList<JSONObject> lectureJongList(LectureVO lectureVO) {
+		return lectureMapper.lectureJongList(lectureVO);
 	}
 
-	public int lectureJongListCount(HashMap<String, String> params) {
-		return lectureMapper.lectureJongListCount(params);
+	public int lectureJongListCount(LectureVO lectureVO) {
+		return lectureMapper.lectureJongListCount(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureYearList(HashMap<String, String> params) {
-		return lectureMapper.lectureYearList(params);
+	public ArrayList<JSONObject> lectureYearList(LectureVO lectureVO) {
+		return lectureMapper.lectureYearList(lectureVO);
 	}
 
-	public int lectureYearListCount(HashMap<String, String> params) {
-		return lectureMapper.lectureYearListCount(params);
+	public int lectureYearListCount(LectureVO lectureVO) {
+		return lectureMapper.lectureYearListCount(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureJongSubjectList(HashMap<String, String> params) {
-		return lectureMapper.lectureJongSubjectList(params);
+	public ArrayList<JSONObject> lectureJongSubjectList(LectureVO lectureVO) {
+		return lectureMapper.lectureJongSubjectList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureJongView(HashMap<String, String> params) {
-		return lectureMapper.lectureJongView(params);
+	public ArrayList<JSONObject> lectureJongView(LectureVO lectureVO) {
+		return lectureMapper.lectureJongView(lectureVO);
 	}
 
-	public int lectureJongSubjectListCount(HashMap<String, String> params) {
-		return lectureMapper.lectureJongSubjectListCount(params);
+	public int lectureJongSubjectListCount(LectureVO lectureVO) {
+		return lectureMapper.lectureJongSubjectListCount(lectureVO);
 	}
 
-	public void lectureLecJongInsert(HashMap<String, String> params) {
-		lectureMapper.lectureLecJongInsert(params);
+	public void lectureLecJongInsert(LectureVO lectureVO) {
+		lectureMapper.lectureLecJongInsert(lectureVO);
 	}
 
-	public void lectureChoiceJongNoInsert(HashMap<String, String> params) {
-		lectureMapper.lectureChoiceJongNoInsert(params);
+	public void lectureChoiceJongNoInsert(LectureVO lectureVO) {
+		lectureMapper.lectureChoiceJongNoInsert(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureViewLeccodeList(HashMap<String, String> params) {
-		return lectureMapper.lectureViewLeccodeList(params);
+	public ArrayList<JSONObject> lectureViewLeccodeList(LectureVO lectureVO) {
+		return lectureMapper.lectureViewLeccodeList(lectureVO);
 	}
 
-	public void lectureLecJongDelete(HashMap<String, String> params) {
-		lectureMapper.lectureLecJongDelete(params);
+	public void lectureLecJongDelete(LectureVO lectureVO) {
+		lectureMapper.lectureLecJongDelete(lectureVO);
 	}
 
-	public void lectureChoiceJongNoDelete(HashMap<String, String> params) {
-		lectureMapper.lectureChoiceJongNoDelete(params);
+	public void lectureChoiceJongNoDelete(LectureVO lectureVO) {
+		lectureMapper.lectureChoiceJongNoDelete(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lecturePayList(HashMap<String, String> params) {
-		return lectureMapper.lecturePayList(params);
+	public ArrayList<JSONObject> lecturePayList(LectureVO lectureVO) {
+		return lectureMapper.lecturePayList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureJongPayList(HashMap<String, String> params) {
-		return lectureMapper.lectureJongPayList(params);
+	public ArrayList<JSONObject> lectureJongPayList(LectureVO lectureVO) {
+		return lectureMapper.lectureJongPayList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureDataMemoViewList(HashMap<String, String> params) {
-		return lectureMapper.lectureDataMemoViewList(params);
+	public ArrayList<JSONObject> lectureDataMemoViewList(LectureVO lectureVO) {
+		return lectureMapper.lectureDataMemoViewList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureDataViewList(HashMap<String, String> params) {
-		return lectureMapper.lectureDataViewList(params);
+	public ArrayList<JSONObject> lectureDataViewList(LectureVO lectureVO) {
+		return lectureMapper.lectureDataViewList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureMobileList(HashMap<String, String> params) {
-		return lectureMapper.lectureMobileList(params);
+	public ArrayList<JSONObject> lectureMobileList(LectureVO lectureVO) {
+		return lectureMapper.lectureMobileList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureDataMovieViewList(HashMap<String, String> params) {
-		return lectureMapper.lectureDataMovieViewList(params);
+	public ArrayList<JSONObject> lectureDataMovieViewList(LectureVO lectureVO) {
+		return lectureMapper.lectureDataMovieViewList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureDataMovieList(HashMap<String, String> params) {
-		return lectureMapper.lectureDataMovieList(params);
+	public ArrayList<JSONObject> lectureDataMovieList(LectureVO lectureVO) {
+		return lectureMapper.lectureDataMovieList(lectureVO);
 	}
 
-	public void lectureMovieInsert(HashMap<String, String> params) {
-		lectureMapper.lectureMovieInsert(params);
+	public void lectureMovieInsert(LectureVO lectureVO) {
+		lectureMapper.lectureMovieInsert(lectureVO);
 	}
 
-	public void lectureMovieDelete(HashMap<String, String> params) {
-		lectureMapper.lectureMovieDelete(params);
+	public void lectureMovieDelete(LectureVO lectureVO) {
+		lectureMapper.lectureMovieDelete(lectureVO);
 	}
 
-	public void lectureMovieUpdate(HashMap<String, String> params) {
-		lectureMapper.lectureMovieUpdate(params);
+	public void lectureMovieUpdate(LectureVO lectureVO) {
+		lectureMapper.lectureMovieUpdate(lectureVO);
 	}
 
-	public void lectureMovieFileDelete(HashMap<String, String> params) {
-		lectureMapper.lectureMovieFileDelete(params);
+	public void lectureMovieFileDelete(LectureVO lectureVO) {
+		lectureMapper.lectureMovieFileDelete(lectureVO);
 	}
 
-	public void lectureMovieMemoInsert(HashMap<String, String> params) {
-		lectureMapper.lectureMovieMemoInsert(params);
+	public void lectureMovieMemoInsert(LectureVO lectureVO) {
+		lectureMapper.lectureMovieMemoInsert(lectureVO);
 	}
 
-	public void lectureMovieMemoUpdate(HashMap<String, String> params) {
-		lectureMapper.lectureMovieMemoUpdate(params);
+	public void lectureMovieMemoUpdate(LectureVO lectureVO) {
+		lectureMapper.lectureMovieMemoUpdate(lectureVO);
 	}
 
-	public void lectureMovieMemoDelete(HashMap<String, String> params) {
-		lectureMapper.lectureMovieMemoDelete(params);
+	public void lectureMovieMemoDelete(LectureVO lectureVO) {
+		lectureMapper.lectureMovieMemoDelete(lectureVO);
 	}
 
-	public int lectureDeleteCheck(HashMap<String, String> params) {
-		return lectureMapper.lectureDeleteCheck(params);
+	public int lectureDeleteCheck(LectureVO lectureVO) {
+		return lectureMapper.lectureDeleteCheck(lectureVO);
 	}
 
-	public List<HashMap<String, String>> playinfo(HashMap<String, String> params) {
-		return lectureMapper.playinfo(params);
+	public ArrayList<JSONObject> playinfo(LectureVO lectureVO) {
+		return lectureMapper.playinfo(lectureVO);
 	}
 
-	public List<HashMap<String, String>> getCbMovie4_free_admin(HashMap<String, String> params) {
-		return lectureMapper.getCbMovie4_free_admin(params);
+	public ArrayList<JSONObject> getCbMovie4_free_admin(LectureVO lectureVO) {
+		return lectureMapper.getCbMovie4_free_admin(lectureVO);
 	}
 
-	public int getCbMovie4_free_admin_count(HashMap<String, String> params) {
-		return lectureMapper.getCbMovie4_free_admin_count(params);
+	public int getCbMovie4_free_admin_count(LectureVO lectureVO) {
+		return lectureMapper.getCbMovie4_free_admin_count(lectureVO);
 	}
 
-	public HashMap<String, String> lectureOnDetailS(HashMap<String, String> params) {
-		return lectureMapper.lectureOnDetailS(params);
+	public JSONObject lectureOnDetailS(LectureVO lectureVO) {
+		return lectureMapper.lectureOnDetailS(lectureVO);
 	}
 
-	public void insertPmpDownLog(HashMap<String, String> params) {
-		lectureMapper.insertPmpDownLog(params);
+	public void insertPmpDownLog(LectureVO lectureVO) {
+		lectureMapper.insertPmpDownLog(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureWMV(HashMap<String, String> params) {
-		return lectureMapper.lectureWMV(params);
+	public ArrayList<JSONObject> lectureWMV(LectureVO lectureVO) {
+		return lectureMapper.lectureWMV(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureDown_Count(HashMap<String, String> params) {
-		return lectureMapper.lectureDown_Count(params);
+	public ArrayList<JSONObject> lectureDown_Count(LectureVO lectureVO) {
+		return lectureMapper.lectureDown_Count(lectureVO);
 	}
 
-	public void oldFreeToNewFreeInsert(HashMap<String, String> params) {
-		lectureMapper.oldFreeToNewFreeInsert(params);
+	public void oldFreeToNewFreeInsert(LectureVO lectureVO) {
+		lectureMapper.oldFreeToNewFreeInsert(lectureVO);
 	}
 
-	public void oldBogangFreeToNewBogangFree(HashMap<String, String> params) {
-		lectureMapper.oldBogangFreeToNewBogangFree(params);
+	public void oldBogangFreeToNewBogangFree(LectureVO lectureVO) {
+		lectureMapper.oldBogangFreeToNewBogangFree(lectureVO);
 	}
 
-	public List<HashMap<String, String>> lectureFreePassPayList(HashMap<String, String> params) {
-		return lectureMapper.lectureFreePassPayList(params);
+	public ArrayList<JSONObject> lectureFreePassPayList(LectureVO lectureVO) {
+		return lectureMapper.lectureFreePassPayList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> YearIngList(HashMap<String, String> params) {
-		return lectureMapper.YearIngList(params);
+	public ArrayList<JSONObject> YearIngList(LectureVO lectureVO) {
+		return lectureMapper.YearIngList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> MyYearIngList(HashMap<String, String> params) {
-		return lectureMapper.MyYearIngList(params);
+	public ArrayList<JSONObject> MyYearIngList(LectureVO lectureVO) {
+		return lectureMapper.MyYearIngList(lectureVO);
 	}
 
-	public List<HashMap<String, String>> bookView(HashMap<String, String> params) {
-		return lectureMapper.bookView(params);
+	public ArrayList<JSONObject> bookView(LectureVO lectureVO) {
+		return lectureMapper.bookView(lectureVO);
+	}
+
+	public String getRleccode(LectureVO lectureVO) {
+		return lectureMapper.getRleccode(lectureVO);
+	}
+
+	public void oldTbmovieToNewTbmovieInsert(LectureVO lectureVO) {
+		lectureMapper.oldTbmovieToNewTbmovieInsert(lectureVO);
+	}
+
+	public void oldBogangFreeToNewFreeBogangInsert(LectureVO lectureVO) {
+		lectureMapper.oldBogangFreeToNewFreeBogangInsert(lectureVO);
 	}
 }

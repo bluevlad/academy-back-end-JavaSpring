@@ -1,31 +1,34 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.FormVO;
 
 /**
  * Form Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface FormMapper {
 
-    List<HashMap<String, String>> formList(HashMap<String, String> params);
+    ArrayList<JSONObject> formList(FormVO formVO);
 
-    int formListCount(HashMap<String, String> params);
+    int formListCount(FormVO formVO);
 
     String formGetCode();
 
-    void formInsert(HashMap<String, String> params);
+    void formInsert(FormVO formVO);
 
-    List<HashMap<String, String>> formView(HashMap<String, String> params);
+    ArrayList<JSONObject> formView(FormVO formVO);
 
-    void formUpdate(HashMap<String, String> params);
+    void formUpdate(FormVO formVO);
 
-    void formDelete(HashMap<String, String> params);
+    void formDelete(FormVO formVO);
 
-    int formCheck(HashMap<String, String> params);
+    int formCheck(FormVO formVO);
 
-    List<HashMap<String, String>> getCodeList(HashMap<String, String> params);
+    ArrayList<JSONObject> getCodeList(FormVO formVO);
 }

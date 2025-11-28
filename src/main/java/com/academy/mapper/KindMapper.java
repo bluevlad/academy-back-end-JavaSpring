@@ -1,33 +1,36 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.KindVO;
 
 /**
  * Kind Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface KindMapper {
 
-    List<HashMap<String, String>> getKindList(Object obj);
+    ArrayList<JSONObject> getKindList(KindVO kindVO);
 
-    List<HashMap<String, String>> kindList(HashMap<String, String> params);
+    ArrayList<JSONObject> kindList(KindVO kindVO);
 
-    int kindListCount(HashMap<String, String> params);
+    int kindListCount(KindVO kindVO);
 
-    void kindInsert(HashMap<String, String> params);
+    void kindInsert(KindVO kindVO);
 
-    List<HashMap<String, String>> kindView(HashMap<String, String> params);
+    ArrayList<JSONObject> kindView(KindVO kindVO);
 
-    void kindUpdate(HashMap<String, String> params);
+    void kindUpdate(KindVO kindVO);
 
-    void kindDelete(HashMap<String, String> params);
+    void kindDelete(KindVO kindVO);
 
-    int kindCheck(HashMap<String, String> params);
+    int kindCheck(KindVO kindVO);
 
-    List<HashMap<String, String>> selectKindCode();
+    ArrayList<JSONObject> selectKindCode();
 
-    void SeqUpdate(HashMap<String, String> params);
+    void SeqUpdate(KindVO kindVO);
 }

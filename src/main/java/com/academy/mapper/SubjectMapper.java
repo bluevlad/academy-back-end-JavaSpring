@@ -1,53 +1,56 @@
 package com.academy.mapper;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.simple.JSONObject;
+
+import com.academy.lecture.service.SubjectVO;
 
 /**
  * Subject Mapper Interface
+ * ExamMapper 패턴 적용 - ArrayList<JSONObject> 및 VO 사용
  */
 @Mapper
 public interface SubjectMapper {
 
-    List<HashMap<String, String>> subjectList(HashMap<String, String> params);
+    ArrayList<JSONObject> subjectList(SubjectVO subjectVO);
 
-    int subjectListCount(HashMap<String, String> params);
+    int subjectListCount(SubjectVO subjectVO);
 
-    String subjectGetCode(HashMap<String, String> params);
+    String subjectGetCode(SubjectVO subjectVO);
 
-    void subjectInsert(HashMap<String, String> params);
+    void subjectInsert(SubjectVO subjectVO);
 
-    List<HashMap<String, String>> subjectView(HashMap<String, String> params);
+    ArrayList<JSONObject> subjectView(SubjectVO subjectVO);
 
-    void subjectUpdate(HashMap<String, String> params);
+    void subjectUpdate(SubjectVO subjectVO);
 
-    void subjectDelete(HashMap<String, String> params);
+    void subjectDelete(SubjectVO subjectVO);
 
-    int subjectCheck(HashMap<String, String> params);
+    int subjectCheck(SubjectVO subjectVO);
 
-    void subjectCategoryInsert(HashMap<String, String> params);
+    void subjectCategoryInsert(SubjectVO subjectVO);
 
-    void subjectCategoryDelete(HashMap<String, String> params);
+    void subjectCategoryDelete(SubjectVO subjectVO);
 
-    void subjectCategoryDeleteByCat(HashMap<String, String> params);
+    void subjectCategoryDeleteByCat(SubjectVO subjectVO);
 
-    void subjectCategoryOrderInsert(HashMap<String, String> params);
+    void subjectCategoryOrderInsert(SubjectVO subjectVO);
 
-    int chkSubjectCategoryOrderCnt(HashMap<String, String> params);
+    int chkSubjectCategoryOrderCnt(SubjectVO subjectVO);
 
-    int chkSubjectCategoryCnt(HashMap<String, String> params);
+    int chkSubjectCategoryCnt(SubjectVO subjectVO);
 
-    void subjectCategoryOrderDeleteByOnoff(HashMap<String, String> params);
+    void subjectCategoryOrderDeleteByOnoff(SubjectVO subjectVO);
 
-    String getSubjectCategoryOrderIdx(HashMap<String, String> params);
+    String getSubjectCategoryOrderIdx(SubjectVO subjectVO);
 
-    void subjectCategoryOrderDelete(HashMap<String, String> params);
+    void subjectCategoryOrderDelete(SubjectVO subjectVO);
 
-    List<HashMap<String, String>> subjectCategoryView(HashMap<String, String> params);
+    ArrayList<JSONObject> subjectCategoryView(SubjectVO subjectVO);
 
-    List<HashMap<String, String>> findSubjectCategoryList(HashMap<String, String> params);
+    ArrayList<JSONObject> findSubjectCategoryList(SubjectVO subjectVO);
 
-    void main_category_subject_order_Insert(HashMap<String, String> params);
+    void main_category_subject_order_Insert(SubjectVO subjectVO);
 }
