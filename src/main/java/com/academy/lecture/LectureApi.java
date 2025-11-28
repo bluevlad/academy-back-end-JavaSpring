@@ -28,7 +28,7 @@ import com.academy.book.service.BookService;
 import com.academy.lecture.service.LectureService;
 import com.academy.lecture.service.SubjectService;
 import com.academy.lecture.service.TeacherService;
-import com.academy.productOrder.service.ProductOrderService;
+import com.academy.productorder.service.ProductOrderService;
 
 @RestController
 @RequestMapping("/api/lecture")
@@ -44,7 +44,6 @@ public class LectureApi extends CORSFilter {
 	private SubjectService subjectService;
 	private ProductOrderService productOrderService;
 
-	@Autowired
 	public LectureApi(BookService bookservice, LectureService lectureservice,
 			TeacherService teacherservice, CmmUseService cmmUseService,
 			SubjectService subjectService, ProductOrderService productOrderService) {
