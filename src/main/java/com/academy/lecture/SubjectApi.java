@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.CommonUtil;
-import com.willbes.web.lecture.service.SubjectService;
-import com.willbes.web.lecture.service.TeacherService;
+import com.academy.common.CommonUtil;
+import com.academy.lecture.service.SubjectService;
+import com.academy.lecture.service.TeacherService;
 
 import egovframework.rte.fdl.property.EgovPropertyService;
 

@@ -50,16 +50,7 @@ public class MemberVO extends CommonVO implements Serializable {
 	private String memo;
 	/** 사진(소)(강사에 사용) */
 	private String pic;
-	/** 상태 */
-	private String isUse;
-	/** 등록일 */
-	private String regDt;
-	/** 등록자 아이디 */
-	private String regId;
-	/** 수정일 */
-	private String updDt;
-	/** 수정자 아이디 */
-	private String updId;
+	// isUse, regDt, regId, updDt, updId inherited from CommonVO
 	/** 문자수신여부 */
 	private String isokSms;
 	/** 이메일수신여부 */
@@ -277,80 +268,7 @@ public class MemberVO extends CommonVO implements Serializable {
 		this.pic = pic;
 	}
 
-	/**
-	 * isUse attribute 를 리턴한다.
-	 * @return String
-	 */
-	public String getIsUse() {
-		return isUse;
-	}
-	/**
-	 * isUse attribute 값을 설정한다.
-	 * @param isUse String
-	 */
-	public void setIsUse(String isUse) {
-		this.isUse = isUse;
-	}
-
-	/**
-	 * regDt attribute 를 리턴한다.
-	 * @return String
-	 */
-	public String getRegDt() {
-		return regDt;
-	}
-	/**
-	 * regDt attribute 값을 설정한다.
-	 * @param regDt String
-	 */
-	public void setRegDt(String regDt) {
-		this.regDt = regDt;
-	}
-
-	/**
-	 * regId attribute 를 리턴한다.
-	 * @return String
-	 */
-	public String getRegId() {
-		return regId;
-	}
-	/**
-	 * regId attribute 값을 설정한다.
-	 * @param regId String
-	 */
-	public void setRegId(String regId) {
-		this.regId = regId;
-	}
-
-	/**
-	 * updDt attribute 를 리턴한다.
-	 * @return String
-	 */
-	public String getUpdDt() {
-		return updDt;
-	}
-	/**
-	 * updDt attribute 값을 설정한다.
-	 * @param updDt String
-	 */
-	public void setUpdDt(String updDt) {
-		this.updDt = updDt;
-	}
-
-	/**
-	 * updId attribute 를 리턴한다.
-	 * @return String
-	 */
-	public String getUpdId() {
-		return updId;
-	}
-	/**
-	 * updId attribute 값을 설정한다.
-	 * @param updId String
-	 */
-	public void setUpdId(String updId) {
-		this.updId = updId;
-	}
+	// isUse, regDt, regId, updDt, updId getter/setter inherited from CommonVO
 
 	/**
 	 * isokSms attribute 를 리턴한다.

@@ -3,123 +3,246 @@ package com.academy.lecture.service;
 import java.util.HashMap;
 import java.util.List;
 
-public interface OpenLectureService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-	List<HashMap<String, String>> openlectureList(HashMap<String, String> params);
-	
-	int openlectureListCount(HashMap<String, String> params);
+import com.academy.mapper.OpenLectureMapper;
 
-	List<HashMap<String, String>> bookList(HashMap<String, String> params);
-	
-	int bookListCount(HashMap<String, String> params);	
-	
-	List<HashMap<String, String>> getBridgeLeccodeSeq(HashMap<String, String> params);// 삭제대상
-	
-	List<HashMap<String, String>> getJongLeccodeSeq(HashMap<String, String> params); // 삭제대상
-	
-	List<HashMap<String, String>> getopenLeccode(HashMap<String, String> params); // 삭제대상
-	
-	List<HashMap<String, String>> getBridgeLeccode(HashMap<String, String> params);//삭제대상
-	
-	List<HashMap<String, String>> BridgeLeccode(HashMap<String, String> params);
-	
-	void openlectureInsert(HashMap<String, String> params);
-	
-	void openlectureBridgeInsert(HashMap<String, String> params);
-	
-	void openlectureBookInsert(HashMap<String, String> params);
-	
-	void openlectureBookInsert2(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureViewList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureView(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureViewBookList(HashMap<String, String> params);
-	
-	void openlectureBookDelete(HashMap<String, String> params);
-	
-	void openlectureUpdate(HashMap<String, String> params);
-	
-	void Modify_Lecture_On_Off(HashMap<String, String> params);
-	
-	void openlectureIsUseUpdate(HashMap<String, String> params);
-	
-	void openlectureDelete(HashMap<String, String> params);
-	
-	void openlectureBridgeDelete(HashMap<String, String> params);	
-	
-	void lecMovUpdate(HashMap<String, String> params);	
-	
-	List<HashMap<String, String>> openlectureSeqList(HashMap<String, String> params);
-	
-	void openlectureSeqUpdate(HashMap<String, String> params);	
+/**
+ * OpenLecture Service
+ * 오픈강의(Off) 관리 서비스 (직접 구현)
+ */
+@Service(value="openlectureservice")
+public class OpenLectureService {
 
-	
-	
-	List<HashMap<String, String>> openlectureViewJongList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureJongList(HashMap<String, String> params);
-	
-	int openlectureJongListCount(HashMap<String, String> params);	
-	
-	List<HashMap<String, String>> openlectureJongSubjectList(HashMap<String, String> params);	
-	
-	List<HashMap<String, String>> openlectureJongView(HashMap<String, String> params);
-	
-	int openlectureJongSubjectListCount(HashMap<String, String> params);
-	
-	void openlectureLecJongInsert(HashMap<String, String> params);
-	
-	void openlectureChoiceJongNoInsert(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureViewLeccodeList(HashMap<String, String> params);
-	
-	void openlectureLecJongDelete(HashMap<String, String> params);	
-	
-	void openlectureChoiceJongNoDelete(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlecturePayList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureJongPayList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureDataMemoViewList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureDataViewList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureDataMovieViewList(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureDataMovieList(HashMap<String, String> params);
-	
-	void openlectureMovieInsert(HashMap<String, String> params);
-	
-	void openlectureMovieDelete(HashMap<String, String> params);		
-	
-	void openlectureMovieUpdate(HashMap<String, String> params);
-	
-	void openlectureMovieFileDelete(HashMap<String, String> params);	
-	
+    @Autowired
+    private OpenLectureMapper openLectureMapper;
 
-	void openlectureMovieMemoInsert(HashMap<String, String> params);
-		
-	void openlectureMovieMemoUpdate(HashMap<String, String> params);
-	
-	void openlectureMovieMemoDelete(HashMap<String, String> params);
-	
-	int openlectureDeleteCheck(HashMap<String, String> params);
-	
-	
-	List<HashMap<String, String>> playinfo(HashMap<String, String> params);
+    public List<HashMap<String, String>> openlectureList(LectureVO lectureVO){
+        return openLectureMapper.openlectureList(lectureVO);
+    }
 
-	List<HashMap<String, String>> getCbMovie4_free_admin(HashMap<String, String> params);
-	
-	int getCbMovie4_free_admin_count(HashMap<String, String> params);	
-	
-	HashMap<String, String> openlectureOnDetailS(HashMap<String, String> params);
-	
-	void insertPmpDownLog(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureWMV(HashMap<String, String> params);
-	
-	List<HashMap<String, String>> openlectureDown_Count(HashMap<String, String> params);
+    public int openlectureListCount(LectureVO lectureVO){
+        return openLectureMapper.openlectureListCount(lectureVO);
+    }
+
+    public List<HashMap<String, String>> bookList(LectureVO lectureVO){
+        return openLectureMapper.bookList(lectureVO);
+    }
+
+    public int bookListCount(LectureVO lectureVO){
+        return openLectureMapper.bookListCount(lectureVO);
+    }
+
+    public List<HashMap<String, String>> getBridgeLeccodeSeq(LectureVO lectureVO){
+        return openLectureMapper.getBridgeLeccodeSeq(lectureVO);
+    }
+
+    public List<HashMap<String, String>> getJongLeccodeSeq(LectureVO lectureVO){
+        return openLectureMapper.getJongLeccodeSeq(lectureVO);
+    }
+
+    public List<HashMap<String, String>> getopenLeccode(LectureVO lectureVO){
+        return openLectureMapper.getopenLeccode(lectureVO);
+    }
+
+    public List<HashMap<String, String>> getBridgeLeccode(LectureVO lectureVO){
+        return openLectureMapper.getBridgeLeccode(lectureVO);
+    }
+
+    public List<HashMap<String, String>> BridgeLeccode(LectureVO lectureVO){
+        return openLectureMapper.BridgeLeccode(lectureVO);
+    }
+
+    public void openlectureInsert(LectureVO lectureVO){
+        openLectureMapper.openlectureInsert(lectureVO);
+    }
+
+    public void openlectureBridgeInsert(LectureVO lectureVO){
+        openLectureMapper.openlectureBridgeInsert(lectureVO);
+    }
+
+    public void openlectureBookInsert2(LectureVO lectureVO){
+        openLectureMapper.openlectureBookInsert2(lectureVO);
+    }
+
+    public void openlectureBookInsert(LectureVO lectureVO){
+        openLectureMapper.openlectureBookInsert(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureViewList(LectureVO lectureVO){
+        return openLectureMapper.openlectureViewList(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureView(LectureVO lectureVO){
+        return openLectureMapper.openlectureView(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureViewBookList(LectureVO lectureVO){
+        return openLectureMapper.openlectureViewBookList(lectureVO);
+    }
+
+    public void openlectureBookDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureBookDelete(lectureVO);
+    }
+
+    public void openlectureUpdate(LectureVO lectureVO){
+        openLectureMapper.openlectureUpdate(lectureVO);
+    }
+
+    public void openlectureIsUseUpdate(LectureVO lectureVO){
+        openLectureMapper.openlectureIsUseUpdate(lectureVO);
+    }
+
+    public void openlectureDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureDelete(lectureVO);
+    }
+
+    public void openlectureBridgeDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureBridgeDelete(lectureVO);
+    }
+
+    public void lecMovUpdate(LectureVO lectureVO){
+        openLectureMapper.lecMovUpdate(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureSeqList(LectureVO lectureVO){
+        return openLectureMapper.openlectureSeqList(lectureVO);
+    }
+
+    public void openlectureSeqUpdate(LectureVO lectureVO){
+        openLectureMapper.openlectureSeqUpdate(lectureVO);
+    }
+
+    public void Modify_Lecture_On_Off(LectureVO lectureVO){
+        openLectureMapper.Modify_Lecture_On_Off(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureViewJongList(LectureVO lectureVO){
+        return openLectureMapper.openlectureViewJongList(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureJongList(LectureVO lectureVO){
+        return openLectureMapper.openlectureJongList(lectureVO);
+    }
+
+    public int openlectureJongListCount(LectureVO lectureVO){
+        return openLectureMapper.openlectureJongListCount(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureJongView(LectureVO lectureVO){
+        return openLectureMapper.openlectureJongView(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureJongSubjectList(LectureVO lectureVO){
+        return openLectureMapper.openlectureJongSubjectList(lectureVO);
+    }
+
+    public int openlectureJongSubjectListCount(LectureVO lectureVO){
+        return openLectureMapper.openlectureJongSubjectListCount(lectureVO);
+    }
+
+    public void openlectureLecJongInsert(LectureVO lectureVO){
+        openLectureMapper.openlectureLecJongInsert(lectureVO);
+    }
+
+    public void openlectureChoiceJongNoInsert(LectureVO lectureVO){
+        openLectureMapper.openlectureChoiceJongNoInsert(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureViewLeccodeList(LectureVO lectureVO){
+        return openLectureMapper.openlectureViewLeccodeList(lectureVO);
+    }
+
+    public void openlectureLecJongDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureLecJongDelete(lectureVO);
+    }
+
+    public void openlectureChoiceJongNoDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureChoiceJongNoDelete(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlecturePayList(LectureVO lectureVO){
+        return openLectureMapper.openlecturePayList(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureJongPayList(LectureVO lectureVO){
+        return openLectureMapper.openlectureJongPayList(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureDataMemoViewList(LectureVO lectureVO){
+        return openLectureMapper.openlectureDataMemoViewList(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureDataViewList(LectureVO lectureVO){
+        return openLectureMapper.openlectureDataViewList(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureDataMovieViewList(LectureVO lectureVO){
+        return openLectureMapper.openlectureDataMovieViewList(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureDataMovieList(LectureVO lectureVO){
+        return openLectureMapper.openlectureDataMovieList(lectureVO);
+    }
+
+    public void openlectureMovieInsert(LectureVO lectureVO){
+        openLectureMapper.openlectureMovieInsert(lectureVO);
+    }
+
+    public void openlectureMovieDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureMovieDelete(lectureVO);
+    }
+
+    public void openlectureMovieUpdate(LectureVO lectureVO){
+        openLectureMapper.openlectureMovieUpdate(lectureVO);
+    }
+
+    public void openlectureMovieFileDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureMovieFileDelete(lectureVO);
+    }
+
+    public void openlectureMovieMemoInsert(LectureVO lectureVO){
+        openLectureMapper.openlectureMovieMemoInsert(lectureVO);
+    }
+
+    public void openlectureMovieMemoUpdate(LectureVO lectureVO){
+        openLectureMapper.openlectureMovieMemoUpdate(lectureVO);
+    }
+
+    public void openlectureMovieMemoDelete(LectureVO lectureVO){
+        openLectureMapper.openlectureMovieMemoDelete(lectureVO);
+    }
+
+    public int openlectureDeleteCheck(LectureVO lectureVO){
+        return openLectureMapper.openlectureDeleteCheck(lectureVO);
+    }
+
+    public List<HashMap<String, String>> playinfo(LectureVO lectureVO){
+        return openLectureMapper.playinfo(lectureVO);
+    }
+
+    public List<HashMap<String, String>> getCbMovie4_free_admin(LectureVO lectureVO){
+        return openLectureMapper.getCbMovie4_free_admin(lectureVO);
+    }
+
+    public int getCbMovie4_free_admin_count(LectureVO lectureVO){
+        return openLectureMapper.getCbMovie4_free_admin_count(lectureVO);
+    }
+
+    public HashMap<String, String> openlectureOnDetailS(LectureVO lectureVO) {
+        return openLectureMapper.openlectureOnDetailS(lectureVO);
+    }
+
+    public void insertPmpDownLog(LectureVO lectureVO){
+        openLectureMapper.insertPmpDownLog(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureWMV(LectureVO lectureVO){
+        return openLectureMapper.openlectureWMV(lectureVO);
+    }
+
+    public List<HashMap<String, String>> openlectureDown_Count(LectureVO lectureVO){
+        return openLectureMapper.openlectureDown_Count(lectureVO);
+    }
 }

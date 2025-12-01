@@ -26,14 +26,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.academy.common.CORSFilter;
-import com.willbes.cmm.service.CmmUseService;
-import com.willbes.platform.util.CommonUtil;
+import com.academy.common.service.CmmUseService;
+import com.academy.common.CommonUtil;
 import com.willbes.platform.util.file.FileUtil;
-import com.willbes.web.book.service.BookService;
-import com.willbes.web.lecture.service.OpenLectureService;
-import com.willbes.web.lecture.service.SubjectService;
-import com.willbes.web.lecture.service.TeacherService;
-import com.willbes.web.productOrder.service.ProductOrderService;
+import com.academy.book.service.BookService;
+import com.academy.lecture.service.OpenLectureService;
+import com.academy.lecture.service.SubjectService;
+import com.academy.lecture.service.TeacherService;
+import com.academy.productOrder.service.ProductOrderService;
 
 @RestController
 @RequestMapping("/api/openlecture")

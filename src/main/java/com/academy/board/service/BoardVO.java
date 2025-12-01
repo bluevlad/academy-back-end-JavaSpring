@@ -41,7 +41,7 @@ public class BoardVO extends CommonVO implements Serializable {
 	/* Metadata / flags */
 	private String openYn; // OPEN_YN
 	private String noticeTopYn; // NOTICE_TOP_YN
-	private String isUse; // IS_USE
+	// isUse inherited from CommonVO
 	private String recommend; // RECOMMEND
 	private Long hits; // HITS
 
@@ -53,11 +53,7 @@ public class BoardVO extends CommonVO implements Serializable {
 	private String thumbnailFileName;
 	private String thumbnailFileRealName;
 
-	/* Audit */
-	private String regDt;
-	private String regId;
-	private String updDt;
-	private String updId;
+	/* Audit - inherited from CommonVO: regDt, regId, updDt, updId */
 	private String createName; // CREATENAME
 
 	/* Other */
@@ -108,8 +104,7 @@ public class BoardVO extends CommonVO implements Serializable {
 	public String getNoticeTopYn() { return noticeTopYn; }
 	public void setNoticeTopYn(String noticeTopYn) { this.noticeTopYn = noticeTopYn; }
 
-	public String getIsUse() { return isUse; }
-	public void setIsUse(String isUse) { this.isUse = isUse; }
+	// isUse getter/setter inherited from CommonVO
 
 	public String getRecommend() { return recommend; }
 	public void setRecommend(String recommend) { this.recommend = recommend; }
@@ -135,17 +130,7 @@ public class BoardVO extends CommonVO implements Serializable {
 	public String getThumbnailFileRealName() { return thumbnailFileRealName; }
 	public void setThumbnailFileRealName(String thumbnailFileRealName) { this.thumbnailFileRealName = thumbnailFileRealName; }
 
-	public String getRegDt() { return regDt; }
-	public void setRegDt(String regDt) { this.regDt = regDt; }
-
-	public String getRegId() { return regId; }
-	public void setRegId(String regId) { this.regId = regId; }
-
-	public String getUpdDt() { return updDt; }
-	public void setUpdDt(String updDt) { this.updDt = updDt; }
-
-	public String getUpdId() { return updId; }
-	public void setUpdId(String updId) { this.updId = updId; }
+	// regDt, regId, updDt, updId getter/setter inherited from CommonVO
 
 	public String getCreateName() { return createName; }
 	public void setCreateName(String createName) { this.createName = createName; }

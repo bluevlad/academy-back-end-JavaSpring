@@ -1,8 +1,12 @@
 package com.academy.menu.service;
 
+import java.io.Serializable;
+
 import com.academy.common.CommonVO;
 
-public class MenuVO extends CommonVO {
+public class MenuVO extends CommonVO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String onoffDiv;
     private String menuId;
@@ -18,10 +22,7 @@ public class MenuVO extends CommonVO {
     private String leftImgUrl;
     private String titlImgUrl;
     private String subtitlImgUrl;
-    private String regId;
-    private String regDt;
-    private String updId;
-    private String updDt;
+    // regId, regDt, updId, updDt inherited from CommonVO
 
     public String getOnoffDiv() {
         return onoffDiv;
@@ -135,36 +136,6 @@ public class MenuVO extends CommonVO {
         this.subtitlImgUrl = subtitlImgUrl;
     }
 
-    public String getRegId() {
-        return regId;
-    }
-
-    public void setRegId(String regId) {
-        this.regId = regId;
-    }
-
-    public String getRegDt() {
-        return regDt;
-    }
-
-    public void setRegDt(String regDt) {
-        this.regDt = regDt;
-    }
-
-    public String getUpdId() {
-        return updId;
-    }
-
-    public void setUpdId(String updId) {
-        this.updId = updId;
-    }
-
-    public String getUpdDt() {
-        return updDt;
-    }
-
-    public void setUpdDt(String updDt) {
-        this.updDt = updDt;
-    }
+    // regId, regDt, updId, updDt getter/setter inherited from CommonVO
 
 }

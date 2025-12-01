@@ -3,12 +3,12 @@ package com.academy.lecture;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +20,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.CommonUtil;
-import com.willbes.web.lecture.service.KindService;
-
-import egovframework.rte.fdl.property.EgovPropertyService;
+import com.academy.lecture.service.KindService;
+import com.academy.lecture.service.KindVO;
 
 @RestController
 @RequestMapping("/api/kind")
 public class KindApi extends CORSFilter {
 
-	@Resource(name="propertiesService")
-	protected EgovPropertyService propertiesService;
+	@Value("${pageUnit:10}")
+	private int pageUnit;
 
 	private KindService kindservice;
 
@@ -43,26 +41,28 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : list
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 카테고리 목록 조회
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/list")
-	public JSONObject list(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject list(@ModelAttribute KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
-		int pageRow = Integer.parseInt(params.get("pageRow"));
+		int currentPage = kindVO.getCurrentPage();
+		int pageRow = kindVO.getPageRow();
+		if(pageRow == 0) pageRow = pageUnit;
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		kindVO.setStartNo(String.valueOf(startNo));
+		kindVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		params.put("Seq_Update", "N");
-		List<HashMap<String, String>> list = kindservice.kindList(params);
-		int listCount = kindservice.kindListCount(params);
+		kindVO.setSeqUpdate("N");
+		List<HashMap<String, String>> list = kindservice.kindList(kindVO);
+		int listCount = kindservice.kindListCount(kindVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -78,19 +78,20 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : getSeqUpdateList
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 순서 업데이트용 전체 목록 조회
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/seqUpdateList")
-	public JSONObject getSeqUpdateList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject getSeqUpdateList(@ModelAttribute KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
-		params.put("startNo", "0");
-		params.put("endNo", "1000");
-		params.put("Seq_Update", "Y");
-		List<HashMap<String, String>> list = kindservice.kindList(params);
-		int listCount = kindservice.kindListCount(params);
+		kindVO.setStartNo("0");
+		kindVO.setEndNo("1000");
+		kindVO.setSeqUpdate("Y");
+		List<HashMap<String, String>> list = kindservice.kindList(kindVO);
+		int listCount = kindservice.kindListCount(kindVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -104,14 +105,15 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : seqUpdate
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 직종 순번 수정
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/seqUpdate")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject seqUpdate(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject seqUpdate(@RequestBody KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
 		String[] NUM = request.getParameterValues("Num");
 		String[] SEQARR = request.getParameterValues("SEQ");
@@ -119,12 +121,14 @@ public class KindApi extends CORSFilter {
 		String[] CODE_NM = request.getParameterValues("CODE_NM");
 		if(SEQARR != null){
 			for(int i=0; i<SEQARR.length; i++){
-				params.put("NUM", NUM[i]);
-				params.put("SEQ", SEQARR[i]);
-				params.put("CODE", CODE[i]);
-				params.put("CODE_NM", CODE_NM[i]);
+				KindVO updateVO = new KindVO();
+				updateVO.setNum(NUM[i]);
+				updateVO.setSeq(SEQARR[i]);
+				updateVO.setCode(CODE[i]);
+				updateVO.setCodeNm(CODE_NM[i]);
+				setSessionInfo(updateVO, request);
 
-				kindservice.SeqUpdate(params);
+				kindservice.SeqUpdate(updateVO);
 			}
 		}
 
@@ -140,15 +144,16 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : codeCheck
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 코드 중복 체크
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/codeCheck")
-	public JSONObject codeCheck(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject codeCheck(@ModelAttribute KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
-		int listCount = kindservice.kindCheck(params);
+		int listCount = kindservice.kindCheck(kindVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("available", listCount == 0);
@@ -162,16 +167,17 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : save
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 카테고리 등록
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PostMapping(value="/save")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject save(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject save(@RequestBody KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
-		kindservice.kindInsert(params);
+		kindservice.kindInsert(kindVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -185,15 +191,16 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : view
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 카테고리 상세 조회
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/view")
-	public JSONObject view(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject view(@ModelAttribute KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
-		List<HashMap<String, String>> view = kindservice.kindView(params);
+		List<HashMap<String, String>> view = kindservice.kindView(kindVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("view", view);
@@ -206,16 +213,17 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : update
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 카테고리 수정
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/update")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject update(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject update(@RequestBody KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
-		kindservice.kindUpdate(params);
+		kindservice.kindUpdate(kindVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -229,16 +237,17 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : delete
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 카테고리 삭제
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/delete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject delete(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject delete(@RequestBody KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
-		kindservice.kindDelete(params);
+		kindservice.kindDelete(kindVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -252,20 +261,23 @@ public class KindApi extends CORSFilter {
 	 * @Method Name : listDelete
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 카테고리 다중 삭제
+	 * @param kindVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/listDelete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject listDelete(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject listDelete(@RequestBody KindVO kindVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(kindVO, request);
 
 		String[] DEL_ARR = request.getParameterValues("DEL_ARR");
 		if(DEL_ARR != null){
 			for(int i=0; i<DEL_ARR.length; i++){
-				params.put("CODE", DEL_ARR[i]);
-				kindservice.kindDelete(params);
+				KindVO deleteVO = new KindVO();
+				deleteVO.setCode(DEL_ARR[i]);
+				setSessionInfo(deleteVO, request);
+				kindservice.kindDelete(deleteVO);
 			}
 		}
 
@@ -278,35 +290,24 @@ public class KindApi extends CORSFilter {
 	}
 
 	/**
-	 * @Method Name : setParam
+	 * @Method Name : setSessionInfo
 	 * @작성일 : 2013. 10.
-	 * @Method 설명 : 파라미터 SETTING
-	 * @param params
+	 * @Method 설명 : 세션 정보 설정
+	 * @param kindVO
 	 * @param request
-	 * @return HashMap
+	 * @return void
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public void setParam(HashMap<String, String> params, HttpServletRequest request) throws Exception {
+	private void setSessionInfo(KindVO kindVO, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 			HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
 			if(loginInfo != null) {
-				params.put("REG_ID",loginInfo.get("USER_ID"));
-				params.put("UPD_ID",loginInfo.get("USER_ID"));
+				kindVO.setRegId(loginInfo.get("USER_ID"));
+				kindVO.setUpdId(loginInfo.get("USER_ID"));
 			}
 		}
-
-		params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-		params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), propertiesService.getInt("pageUnit")+""));
-		params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-		params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-		params.put("CODE", CommonUtil.isNull(request.getParameter("CODE"), ""));
-		params.put("NAME", CommonUtil.isNull(request.getParameter("NAME"), ""));
-		params.put("SEQ", CommonUtil.isNull(request.getParameter("SEQ"), ""));
-		params.put("ISUSE", CommonUtil.isNull(request.getParameter("ISUSE"), "Y"));
-		params.put("ONOFFDIV", CommonUtil.isNull(request.getParameter("ONOFFDIV"), ""));
-		params.put("Seq_Update", CommonUtil.isNull(request.getParameter("Seq_Update"), ""));
 	}
 
 }

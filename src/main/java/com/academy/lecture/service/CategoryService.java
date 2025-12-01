@@ -3,74 +3,72 @@ package com.academy.lecture.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.academy.mapper.KindMapper;
+import com.academy.mapper.SeriesMapper;
+
 /**
- * @FileName   : SeriesCategoryService.java
- * @Project    :
- * @Date       : 2015. 05. 20.
- * @Author     : miraenet
- * @변경이력    :
- * @프로그램 설명 : 운영자 관리 service
+ * Category Service
+ * Series-Category 관리 서비스 (직접 구현)
  */
-public interface CategoryService {
+@Service
+public class CategoryService {
+
+    @Autowired
+    private KindMapper kindMapper;
+
+    @Autowired
+    private SeriesMapper seriesMapper;
 
     /**
-     * @Date         : 2015. 05. 20.
-     * @Author       : miraenet
-     * @변경이력      :
-     * @Method 설명      :	 트리 리스트
-     * @return
+     * 트리 리스트 조회
      */
-    List<HashMap<String, Object>> getSeriesCateTree();
-    /**
-     * @Method Name  : getDetail
-     * @Date         : 2015. 05. 20.
-     * @Author       : miraenet
-     * @변경이력      :
-     * @Method 설명      :	 상세
-     * @param params
-     * @return
-     */
-    HashMap<String, Object> getDetail(HashMap<String, Object> params);
-    /**
-     * @Method Name  : updateProcess
-     * @Date         : 2015. 05. 20.
-     * @Author       : miraenet
-     * @변경이력      :
-     * @Method 설명      :	 수정 프로세스
-     * @param params
-     */
-    void updateProcess(HashMap<String, Object> params);
-    /**
-     * @Method Name  : deleteProcess
-     * @Date         : 2015. 05. 20.
-     * @Author       : miraenet
-     * @변경이력      :
-     * @Method 설명      :	삭제 프로세스
-     * @param params
-     * @return
-     */
-    int deleteProcess(HashMap<String, Object> params);
+    public List<HashMap<String, Object>> getSeriesCateTree() {
+        return kindMapper.getSeriesCateTree();
+    }
 
     /**
-     * @Method Name  : idCheck
-     * @Date         : 2015. 05. 20.
-     * @Author       : miraenet
-     * @변경이력      :
-     * @Method 설명      :	ID 중복체크
-     * @param params
-     * @return
+     * 상세 조회
      */
-    int idCheck(HashMap<String, Object> params);
-    /**
-     * @Method Name  : insertProcess
-     * @Date         : 2015. 05. 20.
-     * @Author       : miraenet
-     * @변경이력      :
-     * @Method 설명      :	등록 프로세스
-     * @param params
-     * @return
-     */
-    int insertProcess(HashMap<String, Object> params);
+    public HashMap<String, Object> getDetail(SeriesVO seriesVO) {
+        return seriesMapper.seriesView(seriesVO);
+    }
 
-    HashMap<String, Object> getMaxOrdr(Object obj);
+    /**
+     * 수정 프로세스
+     */
+    public void updateProcess(SeriesVO seriesVO) {
+        seriesMapper.seriesUpdate(seriesVO);
+    }
+
+    /**
+     * 삭제 프로세스
+     */
+    public int deleteProcess(SeriesVO seriesVO) {
+        seriesMapper.categoryDelete(seriesVO);
+        return seriesMapper.seriesDelete(seriesVO);
+    }
+
+    /**
+     * 등록 프로세스
+     */
+    public int insertProcess(SeriesVO seriesVO) {
+        return seriesMapper.seriesInsert(seriesVO);
+    }
+
+    /**
+     * ID 중복체크
+     */
+    public int idCheck(SeriesVO seriesVO) {
+        return seriesMapper.seriesCheck(seriesVO);
+    }
+
+    /**
+     * 최대 순서 조회
+     */
+    public HashMap<String, Object> getMaxOrdr(CategoryVO categoryVO) {
+        return kindMapper.getMaxOrdr(categoryVO);
+    }
 }

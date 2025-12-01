@@ -14,6 +14,7 @@ import java.io.Serializable;
 *  	  수정일           수정자                수정내용
 *  ---------------    --------------    ---------------------------
 *  2025.02.10			rainend			 기본 정보 등록
+*  2025.12.01			system			 검색 및 페이징 필드 추가
 * </pre>
 */
 
@@ -51,6 +52,21 @@ public class CommonVO implements Serializable {
     private String updId;
     /** 사용 여부 */
     private String isUse;
+
+    /** 추가 검색 필드 */
+    private String searchKind = "";
+    private String searchType = "";
+    private String searchText = "";
+    private String searchGubn = "";
+    private String searchCodeIsUse = "";
+
+    /** 페이징 시작/종료 번호 */
+    private String startNo = "";
+    private String endNo = "";
+
+    /** 기타 플래그 */
+    private String updateFlag = "";
+    private String gubn = "";
     
    	/**
    	 * searchCondition attribute 를 리턴한다.
@@ -275,6 +291,103 @@ public class CommonVO implements Serializable {
    	 */
    	public void setIsUse(String isUse) {
    		this.isUse = isUse;
+   	}
+
+   	// Alias methods for compatibility
+   	/**
+   	 * getCurrentPage (alias for pageIndex)
+   	 * @return int
+   	 */
+   	public int getCurrentPage() {
+   		return pageIndex;
+   	}
+   	/**
+   	 * setCurrentPage (alias for pageIndex)
+   	 * @param currentPage int
+   	 */
+   	public void setCurrentPage(int currentPage) {
+   		this.pageIndex = currentPage;
+   	}
+
+   	/**
+   	 * getPageRow (alias for pageUnit)
+   	 * @return int
+   	 */
+   	public int getPageRow() {
+   		return pageUnit;
+   	}
+   	/**
+   	 * setPageRow (alias for pageUnit)
+   	 * @param pageRow int
+   	 */
+   	public void setPageRow(int pageRow) {
+   		this.pageUnit = pageRow;
+   	}
+
+   	// Additional search fields
+   	public String getSearchKind() {
+   		return searchKind;
+   	}
+   	public void setSearchKind(String searchKind) {
+   		this.searchKind = searchKind;
+   	}
+
+   	public String getSearchType() {
+   		return searchType;
+   	}
+   	public void setSearchType(String searchType) {
+   		this.searchType = searchType;
+   	}
+
+   	public String getSearchText() {
+   		return searchText;
+   	}
+   	public void setSearchText(String searchText) {
+   		this.searchText = searchText;
+   	}
+
+   	public String getSearchGubn() {
+   		return searchGubn;
+   	}
+   	public void setSearchGubn(String searchGubn) {
+   		this.searchGubn = searchGubn;
+   	}
+
+   	public String getSearchCodeIsUse() {
+   		return searchCodeIsUse;
+   	}
+   	public void setSearchCodeIsUse(String searchCodeIsUse) {
+   		this.searchCodeIsUse = searchCodeIsUse;
+   	}
+
+   	// Pagination start/end numbers
+   	public String getStartNo() {
+   		return startNo;
+   	}
+   	public void setStartNo(String startNo) {
+   		this.startNo = startNo;
+   	}
+
+   	public String getEndNo() {
+   		return endNo;
+   	}
+   	public void setEndNo(String endNo) {
+   		this.endNo = endNo;
+   	}
+
+   	// Additional flags
+   	public String getUpdateFlag() {
+   		return updateFlag;
+   	}
+   	public void setUpdateFlag(String updateFlag) {
+   		this.updateFlag = updateFlag;
+   	}
+
+   	public String getGubn() {
+   		return gubn;
+   	}
+   	public void setGubn(String gubn) {
+   		this.gubn = gubn;
    	}
 
 }

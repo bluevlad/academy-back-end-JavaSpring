@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.CommonUtil;
-import com.willbes.web.lecture.service.CategoryService;
+import com.academy.common.CommonUtil;
+import com.academy.lecture.service.CategoryService;
 
 /**
  * @FileName   : CategoryApi.java
@@ -73,7 +73,7 @@ public class CategoryApi extends CORSFilter {
      * @변경이력      :
      * @Method 설명      : 카테고리 상세 조회
      * @param request
-     * @return
+     * @return/
      * @throws Exception
      */
     @GetMapping(value = "/detail")

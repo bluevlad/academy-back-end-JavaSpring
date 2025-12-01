@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.CommonUtil;
-import com.willbes.web.lecture.service.KindService;
-import com.willbes.web.lecture.service.SeriesService;
+import com.academy.common.CommonUtil;
+import com.academy.lecture.service.KindService;
+import com.academy.lecture.service.SeriesService;
 
 import egovframework.rte.fdl.property.EgovPropertyService;
 

@@ -3,47 +3,158 @@ package com.academy.lecture.service;
 import java.util.HashMap;
 import java.util.List;
 
-public interface SubjectService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-	List<HashMap<String, String>> subjectList(HashMap<String, String> params);
+import com.academy.mapper.SubjectMapper;
 
-	int subjectListCount(HashMap<String, String> params);
+/**
+ * Subject Service
+ * 과목 관리 서비스 (직접 구현)
+ */
+@Service(value="subjectservice")
+public class SubjectService {
 
-	String subjectGetCode(HashMap<String, String> params);
+    @Autowired
+    private SubjectMapper subjectMapper;
 
-	void subjectInsert(HashMap<String, String> params);
+    /**
+     * Subject 목록 조회
+     */
+    public List<HashMap<String, String>> subjectList(SubjectVO subjectVO){
+        return subjectMapper.subjectList(subjectVO);
+    }
 
-	List<HashMap<String, String>> subjectView(HashMap<String, String> params);
+    /**
+     * Subject 목록 개수 조회
+     */
+    public int subjectListCount(SubjectVO subjectVO){
+        return subjectMapper.subjectListCount(subjectVO);
+    }
 
-	void subjectUpdate(HashMap<String, String> params);
+    /**
+     * Subject 코드 생성
+     */
+    public String subjectGetCode(SubjectVO subjectVO){
+        return subjectMapper.subjectGetCode(subjectVO);
+    }
 
-	void subjectDelete(HashMap<String, String> params);
+    /**
+     * Subject 등록
+     */
+    public void subjectInsert(SubjectVO subjectVO){
+        subjectMapper.subjectInsert(subjectVO);
+    }
 
-	int subjectCheck(HashMap<String, String> params);
+    /**
+     * Subject 상세 조회
+     */
+    public List<HashMap<String, String>> subjectView(SubjectVO subjectVO){
+        return subjectMapper.subjectView(subjectVO);
+    }
 
-	void subjectCategoryInsert(HashMap<String, String> params);
+    /**
+     * Subject 수정
+     */
+    public void subjectUpdate(SubjectVO subjectVO){
+        subjectMapper.subjectUpdate(subjectVO);
+    }
 
-	void subjectCategoryDelete(HashMap<String, String> params);
+    /**
+     * Subject 삭제
+     */
+    public void subjectDelete(SubjectVO subjectVO){
+        subjectMapper.subjectDelete(subjectVO);
+    }
 
-	void subjectCategoryDeleteByCat(HashMap<String, String> params);
+    /**
+     * Subject 코드 중복 체크
+     */
+    public int subjectCheck(SubjectVO subjectVO){
+        return subjectMapper.subjectCheck(subjectVO);
+    }
 
-	void subjectCategoryOrderInsert(HashMap<String, String> params);
-	
-	int chkSubjectCategoryOrderCnt(HashMap<String, String> params);
+    /**
+     * Subject Category 등록
+     */
+    public void subjectCategoryInsert(SubjectVO subjectVO){
+        subjectMapper.subjectCategoryInsert(subjectVO);
+    }
 
-	int chkSubjectCategoryCnt(HashMap<String, String> params);
-	
-	void subjectCategoryOrderDeleteByOnoff(HashMap<String, String> params);
-	
-	String getSubjectCategoryOrderIdx(HashMap<String, String> params);
-	
-	
-	void subjectCategoryOrderDelete(HashMap<String, String> params);
+    /**
+     * Subject Category 삭제
+     */
+    public void subjectCategoryDelete(SubjectVO subjectVO){
+        subjectMapper.subjectCategoryDelete(subjectVO);
+    }
 
-	List<HashMap<String, String>> subjectCategoryView(HashMap<String, String> params);
+    /**
+     * Subject Category 삭제 (카테고리 기준)
+     */
+    public void subjectCategoryDeleteByCat(SubjectVO subjectVO){
+        subjectMapper.subjectCategoryDeleteByCat(subjectVO);
+    }
 
-	List<HashMap<String, String>> findSubjectCategoryList(HashMap<String, String> params);
+    /**
+     * Subject Category Order 등록
+     */
+    public void subjectCategoryOrderInsert(SubjectVO subjectVO){
+        subjectMapper.subjectCategoryOrderInsert(subjectVO);
+    }
 
-	void main_category_subject_order_Insert(HashMap<String, String> params);
+    /**
+     * Subject Category Order 개수 확인
+     */
+    public int chkSubjectCategoryOrderCnt(SubjectVO subjectVO){
+        return subjectMapper.chkSubjectCategoryOrderCnt(subjectVO);
+    }
 
+    /**
+     * Subject Category 개수 확인
+     */
+    public int chkSubjectCategoryCnt(SubjectVO subjectVO){
+        return subjectMapper.chkSubjectCategoryCnt(subjectVO);
+    }
+
+    /**
+     * Subject Category Order Index 조회
+     */
+    public String getSubjectCategoryOrderIdx(SubjectVO subjectVO){
+        return subjectMapper.getSubjectCategoryOrderIdx(subjectVO);
+    }
+
+    /**
+     * Subject Category Order 삭제 (온오프 기준)
+     */
+    public void subjectCategoryOrderDeleteByOnoff(SubjectVO subjectVO){
+        subjectMapper.subjectCategoryOrderDeleteByOnoff(subjectVO);
+    }
+
+    /**
+     * Subject Category Order 삭제
+     */
+    public void subjectCategoryOrderDelete(SubjectVO subjectVO){
+        subjectMapper.subjectCategoryOrderDelete(subjectVO);
+    }
+
+    /**
+     * Subject Category 상세 조회
+     */
+    public List<HashMap<String, String>> subjectCategoryView(SubjectVO subjectVO){
+        return subjectMapper.subjectCategoryView(subjectVO);
+    }
+
+    /**
+     * Subject Category 리스트 검색
+     */
+    public List<HashMap<String, String>> findSubjectCategoryList(SubjectVO subjectVO){
+        return subjectMapper.findSubjectCategoryList(subjectVO);
+    }
+
+    /**
+     * Main Category Subject Order 등록
+     */
+    public void main_category_subject_order_Insert(SubjectVO subjectVO){
+        subjectMapper.main_category_subject_order_Insert(subjectVO);
+    }
 }

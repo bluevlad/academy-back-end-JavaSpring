@@ -30,7 +30,7 @@ public class ExamVO extends CommonVO implements Serializable {
     private String examEnd;
     private int examPeriod;
     private int examTime;
-    private String isUse;
+    // isUse inherited from CommonVO
     private String useFlag;
     private int setId;
     private String userId;
@@ -105,13 +105,7 @@ public class ExamVO extends CommonVO implements Serializable {
         this.examTime = examTime;
     }
 
-    public String isUse() {
-        return isUse;
-    }
-
-    public void setUse(String use) {
-        isUse = use;
-    }
+    // isUse getter/setter inherited from CommonVO
 
     public String getUseFlag() {
         return useFlag;

@@ -24,9 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.CommonUtil;
+import com.academy.common.CommonUtil;
 import com.willbes.platform.util.file.FileUtil;
-import com.willbes.web.lecture.service.TeacherService;
+import com.academy.lecture.service.TeacherService;
 
 import egovframework.rte.fdl.property.EgovPropertyService;
 

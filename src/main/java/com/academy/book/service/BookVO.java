@@ -1,13 +1,18 @@
 package com.academy.book.service;
 
-import java.util.Date;
+import java.io.Serializable;
+
+import com.academy.common.CommonVO;
 
 /**
  * Book Value Object
  * TB_CA_BOOK 테이블 매핑 VO
  */
-public class BookVO {
+public class BookVO extends CommonVO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
+    // Book specific fields
     private Integer seq;
     private String rscId;
     private String subjectSjtCd;
@@ -42,10 +47,6 @@ public class BookVO {
     private String newBook;
     private String mainView;
     private String useYn;
-    private Date regDt;
-    private String regId;
-    private Date updDt;
-    private String updId;
     private String bookPage;
     private String bookFormat;
 
@@ -324,38 +325,6 @@ public class BookVO {
 
     public void setUseYn(String useYn) {
         this.useYn = useYn;
-    }
-
-    public Date getRegDt() {
-        return regDt;
-    }
-
-    public void setRegDt(Date regDt) {
-        this.regDt = regDt;
-    }
-
-    public String getRegId() {
-        return regId;
-    }
-
-    public void setRegId(String regId) {
-        this.regId = regId;
-    }
-
-    public Date getUpdDt() {
-        return updDt;
-    }
-
-    public void setUpdDt(Date updDt) {
-        this.updDt = updDt;
-    }
-
-    public String getUpdId() {
-        return updId;
-    }
-
-    public void setUpdId(String updId) {
-        this.updId = updId;
     }
 
     public String getBookPage() {

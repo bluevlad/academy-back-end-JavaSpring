@@ -3,12 +3,12 @@ package com.academy.lecture;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +20,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.CommonUtil;
-import com.willbes.web.lecture.service.FormService;
-
-import egovframework.rte.fdl.property.EgovPropertyService;
+import com.academy.lecture.service.FormService;
+import com.academy.lecture.service.FormVO;
 
 @RestController
 @RequestMapping("/api/form")
 public class FormApi extends CORSFilter {
 
-    @Resource(name="propertiesService")
-    protected EgovPropertyService propertiesService;
+    @Value("${pageUnit:10}")
+    private int pageUnit;
 
 	private FormService formservice;
 
@@ -43,25 +41,27 @@ public class FormApi extends CORSFilter {
 	 * @Method Name : list
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 학습형태 목록 조회
+	 * @param formVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/list")
-	public JSONObject list(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject list(@ModelAttribute FormVO formVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(formVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
-		int pageRow = Integer.parseInt(params.get("pageRow"));
+		int currentPage = formVO.getCurrentPage();
+		int pageRow = formVO.getPageRow();
+		if(pageRow == 0) pageRow = pageUnit;
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		formVO.setStartNo(String.valueOf(startNo));
+		formVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		List<HashMap<String, String>> list = formservice.formList(params);
-		int listCount = formservice.formListCount(params);
+		List<HashMap<String, String>> list = formservice.formList(formVO);
+		int listCount = formservice.formListCount(formVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -77,18 +77,21 @@ public class FormApi extends CORSFilter {
 	 * @Method Name : view
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 학습형태 상세 조회
+	 * @param formVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/view")
-	public JSONObject view(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject view(@ModelAttribute FormVO formVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(formVO, request);
 
-		List<HashMap<String, String>> view = formservice.formView(params);
-		params.put("SEARCHPCODE", "LEC_FORM");
-		params.put("SEARCHCODEISUSE", "Y");
-		List<HashMap<String, String>> codelist = formservice.getCodeList(params);
+		List<HashMap<String, String>> view = formservice.formView(formVO);
+
+		FormVO codeVO = new FormVO();
+		codeVO.setSearchPcode("LEC_FORM");
+		codeVO.setSearchCodeIsUse("Y");
+		List<HashMap<String, String>> codelist = formservice.getCodeList(codeVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("view", view);
@@ -102,15 +105,16 @@ public class FormApi extends CORSFilter {
 	 * @Method Name : codeCheck
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 코드 중복 체크
+	 * @param formVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/codeCheck")
-	public JSONObject codeCheck(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject codeCheck(@ModelAttribute FormVO formVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(formVO, request);
 
-	    int listCount = formservice.formCheck(params);
+	    int listCount = formservice.formCheck(formVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("available", listCount == 0);
@@ -124,16 +128,17 @@ public class FormApi extends CORSFilter {
 	 * @Method Name : save
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 학습형태 등록
+	 * @param formVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PostMapping(value="/save")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject save(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject save(@RequestBody FormVO formVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(formVO, request);
 
-		formservice.formInsert(params);
+		formservice.formInsert(formVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -147,16 +152,17 @@ public class FormApi extends CORSFilter {
 	 * @Method Name : update
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 학습형태 수정
+	 * @param formVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/update")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject update(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject update(@RequestBody FormVO formVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(formVO, request);
 
-		formservice.formUpdate(params);
+		formservice.formUpdate(formVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -170,16 +176,17 @@ public class FormApi extends CORSFilter {
 	 * @Method Name : delete
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 학습형태 삭제
+	 * @param formVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/delete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject delete(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject delete(@RequestBody FormVO formVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(formVO, request);
 
-		formservice.formDelete(params);
+		formservice.formDelete(formVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -193,20 +200,23 @@ public class FormApi extends CORSFilter {
 	 * @Method Name : listDelete
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 학습형태 다중 삭제
+	 * @param formVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/listDelete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject listDelete(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject listDelete(@RequestBody FormVO formVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(formVO, request);
 
 		String[] DEL_ARR = request.getParameterValues("DEL_ARR");
 		if(DEL_ARR != null){
 			for(int i=0; i<DEL_ARR.length; i++){
-				params.put("CODE", DEL_ARR[i]);
-				formservice.formDelete(params);
+				FormVO deleteVO = new FormVO();
+				deleteVO.setCode(DEL_ARR[i]);
+				setSessionInfo(deleteVO, request);
+				formservice.formDelete(deleteVO);
 			}
 		}
 
@@ -219,37 +229,24 @@ public class FormApi extends CORSFilter {
 	}
 
 	/**
-	 * @Method Name : setParam
+	 * @Method Name : setSessionInfo
 	 * @작성일 : 2013. 10.
-	 * @Method 설명 : 파라미터 SETTING
-	 * @param params
+	 * @Method 설명 : 세션 정보 설정
+	 * @param formVO
 	 * @param request
-	 * @return HashMap
+	 * @return void
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public void setParam(HashMap<String, String> params, HttpServletRequest request) throws Exception {
+	private void setSessionInfo(FormVO formVO, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 			HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
 			if(loginInfo != null) {
-				params.put("REG_ID",loginInfo.get("USER_ID"));
-				params.put("UPD_ID",loginInfo.get("USER_ID"));
+				formVO.setRegId(loginInfo.get("USER_ID"));
+				formVO.setUpdId(loginInfo.get("USER_ID"));
 			}
 		}
-
-		params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-		params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), propertiesService.getInt("pageUnit")+""));
-		params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-		params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-		params.put("CODE", CommonUtil.isNull(request.getParameter("CODE"), ""));
-		params.put("NAME", CommonUtil.isNull(request.getParameter("NAME"), ""));
-		params.put("SEQ", CommonUtil.isNull(request.getParameter("SEQ"), ""));
-		params.put("ISUSE", CommonUtil.isNull(request.getParameter("ISUSE"), "Y"));
-		params.put("ONOFFDIV", CommonUtil.isNull(request.getParameter("ONOFFDIV"), ""));
-		params.put("PCODE", CommonUtil.isNull(request.getParameter("PCODE"), ""));
-		params.put("SEARCHPCODE", CommonUtil.isNull(request.getParameter("SEARCHPCODE"), ""));
-		params.put("SEARCHCODEISUSE", CommonUtil.isNull(request.getParameter("SEARCHCODEISUSE"), ""));
 	}
 
 }
