@@ -29,8 +29,16 @@ public class ProductEventVO extends CommonVO implements Serializable {
     private String searchType;      // SEARCHTYPE - 검색 타입
     private String searchKeyword;   // SEARCHKEYWORD - 검색어
     private String catCd;           // CAT_CD - 카테고리 코드
+    private String sCatCd;          // S_CAT_CD - 카테고리 코드
     private String sjtCd;           // SJT_CD - 과목 코드
+    private String sSjtCd;          // S_SJT_CD - 과목 코드
     private String menuId;          // MENU_ID - 메뉴 ID
+    private String sMenuId;         // S_MENU_ID - 메뉴 ID
+    private String keyword;         // KEYWORD - 키워드
+
+    // Array fields
+    private String[] vLeccode;      // V_LECCODE - 강의 코드 배열
+    private String[] iLeccode;      // I_LECCODE - 강의 코드 배열
 
     // Getters and Setters
     public String getEventId() {
@@ -135,6 +143,54 @@ public class ProductEventVO extends CommonVO implements Serializable {
 
     public void setMenuId(String menuId) {
         this.menuId = menuId;
+    }
+
+    public String getSCatCd() {
+        return sCatCd;
+    }
+
+    public void setSCatCd(String sCatCd) {
+        this.sCatCd = sCatCd;
+    }
+
+    public String getSSjtCd() {
+        return sSjtCd;
+    }
+
+    public void setSSjtCd(String sSjtCd) {
+        this.sSjtCd = sSjtCd;
+    }
+
+    public String getSMenuId() {
+        return sMenuId;
+    }
+
+    public void setSMenuId(String sMenuId) {
+        this.sMenuId = sMenuId;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public String[] getVLeccode() {
+        return vLeccode;
+    }
+
+    public void setVLeccode(String[] vLeccode) {
+        this.vLeccode = vLeccode;
+    }
+
+    public String[] getILeccode() {
+        return iLeccode;
+    }
+
+    public void setILeccode(String[] iLeccode) {
+        this.iLeccode = iLeccode;
     }
 
     @Override

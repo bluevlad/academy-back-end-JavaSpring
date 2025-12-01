@@ -20,6 +20,8 @@ public class CategoryVO extends CommonVO implements Serializable {
     private Integer ordr;           // ORDR - 순서
     private String useOn;           // USE_ON - 온라인 사용 여부
     private String useOff;          // USE_OFF - 오프라인 사용 여부
+    private String srsCd;           // SRS_CD - 시리즈 코드
+    private String typeChoice;      // TYPE_CHOICE - 타입 선택 (C, S 등)
     // isUse, regDt, regId, updDt, updId inherited from CommonVO
 
     // Display fields (트리 구조 및 조회용)
@@ -106,6 +108,22 @@ public class CategoryVO extends CommonVO implements Serializable {
 
     public void setpName(String pName) {
         this.pName = pName;
+    }
+
+    public String getSrsCd() {
+        return srsCd;
+    }
+
+    public void setSrsCd(String srsCd) {
+        this.srsCd = srsCd;
+    }
+
+    public String getTypeChoice() {
+        return typeChoice;
+    }
+
+    public void setTypeChoice(String typeChoice) {
+        this.typeChoice = typeChoice;
     }
 
     @Override

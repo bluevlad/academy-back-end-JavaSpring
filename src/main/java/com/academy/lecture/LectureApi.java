@@ -26,8 +26,11 @@ import com.academy.common.service.CmmUseService;
 import com.academy.common.CommonUtil;
 import com.academy.book.service.BookService;
 import com.academy.lecture.service.LectureService;
+import com.academy.lecture.service.LectureVO;
 import com.academy.lecture.service.SubjectService;
+import com.academy.lecture.service.SubjectVO;
 import com.academy.lecture.service.TeacherService;
+import com.academy.lecture.service.TeacherVO;
 import com.academy.productorder.service.ProductOrderService;
 
 @RestController
@@ -44,6 +47,7 @@ public class LectureApi extends CORSFilter {
 	private SubjectService subjectService;
 	private ProductOrderService productOrderService;
 
+	@Autowired
 	public LectureApi(BookService bookservice, LectureService lectureservice,
 			TeacherService teacherservice, CmmUseService cmmUseService,
 			SubjectService subjectService, ProductOrderService productOrderService) {
@@ -59,29 +63,34 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : list
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 단과 강의 목록 조회
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/list")
-	public JSONObject list(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject list(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
-		int pageRow = Integer.parseInt(params.get("pageRow"));
+		int currentPage = lectureVO.getCurrentPage();
+		int pageRow = lectureVO.getPageRow();
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		lectureVO.setStartNo(String.valueOf(startNo));
+		lectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		params.put("SEARCHGUBN", "T");
-		List<HashMap<String, String>> kindlist = teacherservice.getKindList(params);
-		params.put("SEARCHCODEISUSE", "Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(params);
-		List<HashMap<String, String>> list = lectureservice.lectureList(params);
-		int listCount = lectureservice.lectureListCount(params);
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setGubun("T");
+		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
+
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setIsUse("Y");
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+		List<HashMap<String, String>> list = lectureservice.lectureList(lectureVO);
+		int listCount = lectureservice.lectureListCount(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -99,24 +108,29 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : view
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 강의 상세 조회
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/view")
-	public JSONObject view(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject view(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
-		List<HashMap<String, String>> view = lectureservice.lectureView(params);
-		List<HashMap<String, String>> viewlist = lectureservice.lectureViewList(params);
-		List<HashMap<String, String>> viewbooklist = lectureservice.lectureViewBookList(params);
+		List<HashMap<String, String>> view = lectureservice.lectureView(lectureVO);
+		List<HashMap<String, String>> viewlist = lectureservice.lectureViewList(lectureVO);
+		List<HashMap<String, String>> viewbooklist = lectureservice.lectureViewBookList(lectureVO);
 
-		params.put("SEARCHGUBN", "T");
-		List<HashMap<String, String>> kindlist = teacherservice.getKindList(params);
-		params.put("SEARCHCODEISUSE", "Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(params);
-		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(params);
-		int lectureOrderCount = lectureservice.lectureDeleteCheck(params);
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setGubun("T");
+		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
+
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setIsUse("Y");
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(lectureVO);
+		int lectureOrderCount = lectureservice.lectureDeleteCheck(lectureVO);
 
         Map<String, String> vo = new HashMap<String, String>();
         vo.put("SYS_CD", "ICON_GUBUN");
@@ -140,29 +154,34 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : bookList
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 교재 목록 조회
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/bookList")
-	public JSONObject bookList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject bookList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
-		int pageRow = Integer.parseInt(params.get("pageRow"));
+		int currentPage = lectureVO.getCurrentPage();
+		int pageRow = lectureVO.getPageRow();
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		lectureVO.setStartNo(String.valueOf(startNo));
+		lectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		params.put("SEARCHGUBN", "T");
-		List<HashMap<String, String>> kindlist = teacherservice.getKindList(params);
-		params.put("SEARCHCODEISUSE", "Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(params);
-		List<HashMap<String, String>> list = lectureservice.bookList(params);
-		int listCount = lectureservice.bookListCount(params);
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setGubun("T");
+		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
+
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setIsUse("Y");
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+		List<HashMap<String, String>> list = lectureservice.bookList(lectureVO);
+		int listCount = lectureservice.bookListCount(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -180,15 +199,16 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : bookView
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 교재 상세 조회
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/bookView")
-	public JSONObject bookView(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject bookView(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
-		List<HashMap<String, String>> view = lectureservice.bookView(params);
+		List<HashMap<String, String>> view = lectureservice.bookView(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("view", view);
@@ -201,26 +221,27 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : getCouponList
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 쿠폰 목록 조회
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/couponList")
-	public JSONObject getCouponList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject getCouponList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
+		int currentPage = lectureVO.getCurrentPage();
 		int pageRow = 4;
-		params.put("pageRow", "4");
+		lectureVO.setPageRow(4);
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		lectureVO.setStartNo(String.valueOf(startNo));
+		lectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		List<HashMap<String, String>> list = productOrderService.getTmCouponList(params);
-		int listCount = productOrderService.getTmCouponCount(params);
+		List<HashMap<String, String>> list = productOrderService.getTmCouponList(lectureVO);
+		int listCount = productOrderService.getTmCouponCount(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -236,26 +257,27 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : getMoCouponList
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 모바일 쿠폰 목록 조회
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/moCouponList")
-	public JSONObject getMoCouponList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject getMoCouponList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
+		int currentPage = lectureVO.getCurrentPage();
 		int pageRow = 4;
-		params.put("pageRow", "4");
+		lectureVO.setPageRow(4);
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		lectureVO.setStartNo(String.valueOf(startNo));
+		lectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		List<HashMap<String, String>> list = productOrderService.getTmMoCouponList(params);
-		int listCount = productOrderService.getTmMoCouponCount(params);
+		List<HashMap<String, String>> list = productOrderService.getTmMoCouponList(lectureVO);
+		int listCount = productOrderService.getTmMoCouponCount(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -271,43 +293,39 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : modifyLectureOnOff
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 강의 개설여부 수정
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/onOffStatus")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject modifyLectureOnOff(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject modifyLectureOnOff(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
-		String flag = CommonUtil.isNull(request.getParameter("flag"), "");
-		String flag2 = CommonUtil.isNull(request.getParameter("flag2"), "");
-
-		params.put("flag2", flag2);
+		String flag = lectureVO.getFlag() != null ? lectureVO.getFlag() : "";
+		String flag2 = lectureVO.getFlag2() != null ? lectureVO.getFlag2() : "";
 
 		if(flag.equals("ON")){
-			params.put("FLAG", "Y");
+			lectureVO.setFlag("Y");
 		}else{
-			params.put("FLAG", "N");
+			lectureVO.setFlag("N");
 		}
 
 		if(flag2.equals("list")){  // 단과 강의관리 리스트에서 개설여부 수정시
-			params.put("RCODE", CommonUtil.isNull(request.getParameter("Rcode"), ""));
-			List<HashMap<String, String>> BridgeLeccode = lectureservice.BridgeLeccode(params);
+			List<HashMap<String, String>> BridgeLeccode = lectureservice.BridgeLeccode(lectureVO);
 
 			if(BridgeLeccode.size() > 0){
 				for(int i = 0; i < BridgeLeccode.size(); i++){
 					String GET_CODE = String.valueOf(BridgeLeccode.get(i)).substring(9, 19);
-					params.put("GET_CODE", GET_CODE);
-					lectureservice.Modify_Lecture_On_Off(params);
+					lectureVO.setGetCode(GET_CODE);
+					lectureservice.Modify_Lecture_On_Off(lectureVO);
 				}
 			}
 		}else if(flag2.equals("jlist") || flag2.equals("ylist")){ // 종합반,패키지,연회원패키지 강의관리 리스트에서 개설여부 수정시
-			params.put("GET_CODE", CommonUtil.isNull(request.getParameter("Rcode"), ""));
-			lectureservice.Modify_Lecture_On_Off(params);
+			lectureservice.Modify_Lecture_On_Off(lectureVO);
 		}else{  // 단과 강의관리 상세페이지에서 개설여부 수정시
-			params.put("GET_CODE", CommonUtil.isNull(request.getParameter("Rcode"), ""));
-			lectureservice.Modify_Lecture_On_Off(params);
+			lectureservice.Modify_Lecture_On_Off(lectureVO);
 		}
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
@@ -323,80 +341,83 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : save
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 단과 강의 등록
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PostMapping(value="/save")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject save(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject save(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
 		Calendar cal = Calendar.getInstance();
-		String[] CATEGORY_CD_ARR = request.getParameterValues("CATEGORY_CD");
-		String[] LEARNING_CD_ARR = request.getParameterValues("LEARNING_CD");
-		String[] JU_RSC_ID_ARR = request.getParameterValues("JU_RSC_ID");
-		String[] BU_RSC_ID_ARR = request.getParameterValues("BU_RSC_ID");
-		String[] SU_RSC_ID_ARR = request.getParameterValues("SU_RSC_ID");
+		String[] CATEGORY_CD_ARR = lectureVO.getCategoryCdArr();
+		String[] LEARNING_CD_ARR = lectureVO.getLearningCdArr();
+		String[] JU_RSC_ID_ARR = lectureVO.getJuRscIdArr();
+		String[] BU_RSC_ID_ARR = lectureVO.getBuRscIdArr();
+		String[] SU_RSC_ID_ARR = lectureVO.getSuRscIdArr();
 		String BRIDGE_LECCODE = "";
 		String LECCODE = "";
 		String SEQ = "";
 
-		List<HashMap<String, String>> getBridgeLeccodeSeqList = lectureservice.getBridgeLeccodeSeq(params);
+		List<HashMap<String, String>> getBridgeLeccodeSeqList = lectureservice.getBridgeLeccodeSeq(lectureVO);
 		if(getBridgeLeccodeSeqList.size() > 0){
 			SEQ = getBridgeLeccodeSeqList.get(0).get("SEQ");
-			params.put("SEQ", getBridgeLeccodeSeqList.get(0).get("SEQ"));
+			lectureVO.setSeq(Integer.parseInt(getBridgeLeccodeSeqList.get(0).get("SEQ")));
 		}else{
 			SEQ = "1";
-			params.put("SEQ", "1");
+			lectureVO.setSeq(1);
 		}
 
-		params.put("PREFIX", "R" + cal.get(Calendar.YEAR));
-		List<HashMap<String, String>> getBridgeLeccodeList = lectureservice.getBridgeLeccode(params);
+		String prefix = "R" + cal.get(Calendar.YEAR);
+		lectureVO.setPrefix(prefix);
+		List<HashMap<String, String>> getBridgeLeccodeList = lectureservice.getBridgeLeccode(lectureVO);
 
 		if(getBridgeLeccodeList.size() > 0)
-			BRIDGE_LECCODE = params.get("PREFIX") + getBridgeLeccodeList.get(0).get("BRIDGE_LECCODE");
+			BRIDGE_LECCODE = prefix + getBridgeLeccodeList.get(0).get("BRIDGE_LECCODE");
 		else
-			BRIDGE_LECCODE = params.get("PREFIX") + "00001";
-		params.put("BRIDGE_LECCODE", BRIDGE_LECCODE.replace(" ", ""));
+			BRIDGE_LECCODE = prefix + "00001";
+		lectureVO.setBridgeLeccode(BRIDGE_LECCODE.replace(" ", ""));
 
-		params.put("PREFIX", params.get("LEC_TYPE_CHOICE").toString() + cal.get(Calendar.YEAR));
+		prefix = lectureVO.getLecTypeChoice() + cal.get(Calendar.YEAR);
+		lectureVO.setPrefix(prefix);
 		for(int i=0; i<CATEGORY_CD_ARR.length; i++){
-			params.put("CATEGORY_CD", CATEGORY_CD_ARR[i]);
+			lectureVO.setCategoryCd(CATEGORY_CD_ARR[i]);
 
 			for(int j=0; j<LEARNING_CD_ARR.length; j++){
-				params.put("LEARNING_CD", LEARNING_CD_ARR[j]);
+				lectureVO.setLearningCd(LEARNING_CD_ARR[j]);
 
-				List<HashMap<String, String>> getLeccodeList = lectureservice.getLeccode(params);
+				List<HashMap<String, String>> getLeccodeList = lectureservice.getLeccode(lectureVO);
 				if(getLeccodeList.size() > 0)
-					LECCODE = params.get("PREFIX") + getLeccodeList.get(0).get("LECCODE");
+					LECCODE = prefix + getLeccodeList.get(0).get("LECCODE");
 				else
-					LECCODE = params.get("PREFIX") + "00001";
-				params.put("LECCODE", LECCODE.replace(" ", ""));
+					LECCODE = prefix + "00001";
+				lectureVO.setLeccode(LECCODE.replace(" ", ""));
 
-				lectureservice.lectureInsert(params);
-				params.put("SEQ", SEQ);
-				lectureservice.lectureBridgeInsert(params);
+				lectureservice.lectureInsert(lectureVO);
+				lectureVO.setSeq(Integer.parseInt(SEQ));
+				lectureservice.lectureBridgeInsert(lectureVO);
 
 				if(JU_RSC_ID_ARR != null){
 					for(int k=0; k<JU_RSC_ID_ARR.length; k++){
-						params.put("RSC_ID", JU_RSC_ID_ARR[k]);
-						params.put("FLAG","J");
-						lectureservice.lectureBookInsert2(params);
+						lectureVO.setRscId(JU_RSC_ID_ARR[k]);
+						lectureVO.setFlag("J");
+						lectureservice.lectureBookInsert2(lectureVO);
 					}
 				}
 				if(BU_RSC_ID_ARR != null){
 					for(int k=0; k<BU_RSC_ID_ARR.length; k++){
-						params.put("RSC_ID", BU_RSC_ID_ARR[k]);
-						params.put("FLAG","B");
-						lectureservice.lectureBookInsert2(params);
+						lectureVO.setRscId(BU_RSC_ID_ARR[k]);
+						lectureVO.setFlag("B");
+						lectureservice.lectureBookInsert2(lectureVO);
 					}
 				}
 				if(SU_RSC_ID_ARR != null){
 					for(int k=0; k<SU_RSC_ID_ARR.length; k++){
-						params.put("RSC_ID", SU_RSC_ID_ARR[k]);
-						params.put("FLAG","S");
-						lectureservice.lectureBookInsert2(params);
+						lectureVO.setRscId(SU_RSC_ID_ARR[k]);
+						lectureVO.setFlag("S");
+						lectureservice.lectureBookInsert2(lectureVO);
 					}
 				}
 			}
@@ -414,61 +435,59 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : update
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 단과 강의 수정
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/update")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject update(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject update(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
-		params.put("BRIDGE_LEC", CommonUtil.isNull(request.getParameter("BRIDGE_LEC"), ""));
-		params.put("UPDATE_FLAG", CommonUtil.isNull(request.getParameter("UPDATE_FLAG"), ""));
-
-		String SUBJECT_DESC = params.get("SUBJECT_DESC");
+		String SUBJECT_DESC = lectureVO.getSubjectDesc();
 		if(SUBJECT_DESC != null) {
 			SUBJECT_DESC = SUBJECT_DESC.replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", "\"");
-			params.put("SUBJECT_DESC", SUBJECT_DESC);
+			lectureVO.setSubjectDesc(SUBJECT_DESC);
 		}
 
-		lectureservice.lectureBookDelete(params);
-		lectureservice.lectureUpdate(params);
+		lectureservice.lectureBookDelete(lectureVO);
+		lectureservice.lectureUpdate(lectureVO);
 
-		String[] JU_RSC_ID_ARR = request.getParameterValues("JU_RSC_ID");
-		String[] BU_RSC_ID_ARR = request.getParameterValues("BU_RSC_ID");
-		String[] SU_RSC_ID_ARR = request.getParameterValues("SU_RSC_ID");
+		String[] JU_RSC_ID_ARR = lectureVO.getJuRscIdArr();
+		String[] BU_RSC_ID_ARR = lectureVO.getBuRscIdArr();
+		String[] SU_RSC_ID_ARR = lectureVO.getSuRscIdArr();
 
 		if(JU_RSC_ID_ARR != null){
 			for(int k=0; k<JU_RSC_ID_ARR.length; k++){
-				params.put("RSC_ID", JU_RSC_ID_ARR[k]);
-				params.put("FLAG","J");
-				if(params.get("UPDATE_FLAG").equals("ALL")){
-					lectureservice.lectureBookInsert(params);
+				lectureVO.setRscId(JU_RSC_ID_ARR[k]);
+				lectureVO.setFlag("J");
+				if("ALL".equals(lectureVO.getUpdateFlag())){
+					lectureservice.lectureBookInsert(lectureVO);
 				}else{
-					lectureservice.lectureBookInsert2(params);
+					lectureservice.lectureBookInsert2(lectureVO);
 				}
 			}
 		}
 		if(BU_RSC_ID_ARR != null){
 			for(int k=0; k<BU_RSC_ID_ARR.length; k++){
-				params.put("RSC_ID", BU_RSC_ID_ARR[k]);
-				params.put("FLAG","B");
-				if(params.get("UPDATE_FLAG").equals("ALL")){
-					lectureservice.lectureBookInsert(params);
+				lectureVO.setRscId(BU_RSC_ID_ARR[k]);
+				lectureVO.setFlag("B");
+				if("ALL".equals(lectureVO.getUpdateFlag())){
+					lectureservice.lectureBookInsert(lectureVO);
 				}else{
-					lectureservice.lectureBookInsert2(params);
+					lectureservice.lectureBookInsert2(lectureVO);
 				}
 			}
 		}
 		if(SU_RSC_ID_ARR != null){
 			for(int k=0; k<SU_RSC_ID_ARR.length; k++){
-				params.put("RSC_ID", SU_RSC_ID_ARR[k]);
-				params.put("FLAG","S");
-				if(params.get("UPDATE_FLAG").equals("ALL")){
-					lectureservice.lectureBookInsert(params);
+				lectureVO.setRscId(SU_RSC_ID_ARR[k]);
+				lectureVO.setFlag("S");
+				if("ALL".equals(lectureVO.getUpdateFlag())){
+					lectureservice.lectureBookInsert(lectureVO);
 				}else{
-					lectureservice.lectureBookInsert2(params);
+					lectureservice.lectureBookInsert2(lectureVO);
 				}
 			}
 		}
@@ -485,18 +504,19 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : delete
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 강의 삭제
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/delete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject delete(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject delete(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
-		lectureservice.lectureDelete(params);
-		lectureservice.lectureBridgeDelete(params);
-		lectureservice.lectureBookDelete(params);
+		lectureservice.lectureDelete(lectureVO);
+		lectureservice.lectureBridgeDelete(lectureVO);
+		lectureservice.lectureBookDelete(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -510,28 +530,29 @@ public class LectureApi extends CORSFilter {
 	 * @Method Name : listDelete
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 강의 다중 삭제
+	 * @param lectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/listDelete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject listDelete(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject listDelete(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(lectureVO, request);
 
-		String[] DEL_ARR = request.getParameterValues("DEL_ARR");
+		String[] DEL_ARR = lectureVO.getDelArr();
 		if(DEL_ARR != null){
 			for(int i=0; i<DEL_ARR.length; i++){
 				String Lcode = DEL_ARR[i].split("/")[0];
 				String Bcode = DEL_ARR[i].split("/")[1];
 
-				params.put("LECCODE", Lcode);
-				params.put("BRIDGE_LECCODE", Bcode);
-				params.put("BRIDGE_LEC", Bcode);
+				lectureVO.setLeccode(Lcode);
+				lectureVO.setBridgeLeccode(Bcode);
+				lectureVO.setBridgeLec(Bcode);
 
-				lectureservice.lectureDelete(params);
-				lectureservice.lectureBridgeDelete(params);
-				lectureservice.lectureBookDelete(params);
+				lectureservice.lectureDelete(lectureVO);
+				lectureservice.lectureBridgeDelete(lectureVO);
+				lectureservice.lectureBookDelete(lectureVO);
 			}
 		}
 
@@ -544,66 +565,24 @@ public class LectureApi extends CORSFilter {
 	}
 
 	/**
-	 * @Method Name : setParam
-	 * @작성일 : 2013. 11.
-	 * @Method 설명 : 파라미터 SETTING
-	 * @param params
+	 * @Method Name : setSessionInfo
+	 * @작성일 : 2013. 10.
+	 * @Method 설명 : 세션 정보 설정
+	 * @param lectureVO
 	 * @param request
-	 * @return HashMap
+	 * @return void
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public void setParam(HashMap<String, String> params, HttpServletRequest request) throws Exception {
+	private void setSessionInfo(LectureVO lectureVO, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 			HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
 			if(loginInfo != null) {
-				params.put("REG_ID",loginInfo.get("USER_ID"));
-				params.put("UPD_ID",loginInfo.get("USER_ID"));
+				lectureVO.setRegId(loginInfo.get("USER_ID"));
+				lectureVO.setUpdId(loginInfo.get("USER_ID"));
 			}
 		}
-
-		params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-		params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), String.valueOf(pageUnit)));
-		params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-		params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-		params.put("SEARCHPAYYN", CommonUtil.isNull(request.getParameter("SEARCHPAYYN"), ""));
-		params.put("SEARCHPAYTYPE", CommonUtil.isNull(request.getParameter("SEARCHPAYTYPE"), ""));
-		params.put("SEARCHKIND", CommonUtil.isNull(request.getParameter("SEARCHKIND"), ""));
-		params.put("SEARCHFORM", CommonUtil.isNull(request.getParameter("SEARCHFORM"), ""));
-		params.put("SEARCHYEAR", CommonUtil.isNull(request.getParameter("SEARCHYEAR"), ""));
-		params.put("SEARCHOPENPAGE", CommonUtil.isNull(request.getParameter("SEARCHOPENPAGE"), ""));
-		params.put("LECCODE", CommonUtil.isNull(request.getParameter("LECCODE"), ""));
-		params.put("BRIDGE_LECCODE", CommonUtil.isNull(request.getParameter("BRIDGE_LECCODE"), ""));
-		params.put("CATEGORY_CD", CommonUtil.isNull(request.getParameter("CATEGORY_CD"), ""));
-		params.put("LEARNING_CD", CommonUtil.isNull(request.getParameter("LEARNING_CD"), ""));
-		params.put("LEC_TYPE_CHOICE", CommonUtil.isNull(request.getParameter("LEC_TYPE_CHOICE"), "D"));
-		params.put("PLAN", CommonUtil.isNull(request.getParameter("PLAN"), ""));
-		params.put("SUBJECT_TEACHER", CommonUtil.isNull(request.getParameter("SUBJECT_TEACHER"), ""));
-		params.put("SUBJECT_TEACHER_PAYMENT", CommonUtil.isNull(request.getParameter("SUBJECT_TEACHER_PAYMENT"), ""));
-		params.put("SUBJECT_TITLE", CommonUtil.isNull(request.getParameter("SUBJECT_TITLE"), ""));
-		params.put("SUBJECT_DESC", CommonUtil.isNull(request.getParameter("SUBJECT_DESC"), ""));
-		params.put("SUBJECT_MEMO", CommonUtil.isNull(request.getParameter("SUBJECT_MEMO"), ""));
-		params.put("SUBJECT_KEYWORD", CommonUtil.isNull(request.getParameter("SUBJECT_KEYWORD"), ""));
-		params.put("SUBJECT_PERIOD", CommonUtil.isNull(request.getParameter("SUBJECT_PERIOD"), ""));
-		params.put("SUBJECT_DISCOUNT", CommonUtil.isNull(request.getParameter("SUBJECT_DISCOUNT"), ""));
-
-		if("N".equals(params.get("LEC_TYPE_CHOICE"))){
-			params.put("SUBJECT_PRICE", CommonUtil.isNull(request.getParameter("SUBJECT_PRICE"), ""));
-		}else{
-			params.put("SUBJECT_PRICE", CommonUtil.isNull(request.getParameter("SUBJECT_PRICE"), "0"));
-		}
-
-		params.put("SUBJECT_POINT", CommonUtil.isNull(request.getParameter("SUBJECT_POINT"), "0"));
-		params.put("SUBJECT_MOVIE", CommonUtil.isNull(request.getParameter("SUBJECT_MOVIE"), "0"));
-		params.put("SUBJECT_PMP", CommonUtil.isNull(request.getParameter("SUBJECT_PMP"), "0"));
-		params.put("SUBJECT_MOVIE_PMP", CommonUtil.isNull(request.getParameter("SUBJECT_MOVIE_PMP"), "0"));
-		params.put("SUBJECT_MOVIE_MP4", CommonUtil.isNull(request.getParameter("SUBJECT_MOVIE_MP4"), "0"));
-		params.put("SUBJECT_MOVIE_VOD_MP4", CommonUtil.isNull(request.getParameter("SUBJECT_MOVIE_VOD_MP4"), "0"));
-		params.put("SUBJECT_OPTION", CommonUtil.isNull(request.getParameter("SUBJECT_OPTION"), ""));
-		params.put("SUBJECT_ISUSE", CommonUtil.isNull(request.getParameter("SUBJECT_ISUSE"), ""));
-		params.put("SUBJECT_SJT_CD", CommonUtil.isNull(request.getParameter("SUBJECT_SJT_CD"), ""));
-		params.put("RSC_ID", CommonUtil.isNull(request.getParameter("RSC_ID"), ""));
 	}
 
 }

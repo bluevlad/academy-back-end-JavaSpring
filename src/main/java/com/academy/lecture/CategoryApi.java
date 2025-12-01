@@ -2,7 +2,6 @@ package com.academy.lecture;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,13 +86,14 @@ public class CategoryApi extends CORSFilter {
      * @throws Exception
      */
     @GetMapping(value = "/maxOrdr")
-    public JSONObject getMaxOrdr(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
+    public JSONObject getMaxOrdr(@ModelAttribute("CategoryVO") CategoryVO categoryVO) throws Exception {
 
         JSONObject maxMenuMap = categoryService.getMaxOrdr(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         if(maxMenuMap == null){
-            String ORDR = CommonUtil.isNull((String) commandMap.get("ORDR"), "0");
+            Integer ordr = categoryVO.getOrdr();
+            String ORDR = ordr != null ? ordr.toString() : "0";
             if(ORDR.equals("0")){ //Root
                 result.put("ORDR", 1);
             }else{
@@ -103,7 +103,7 @@ public class CategoryApi extends CORSFilter {
             result.put("ORDR", maxMenuMap.get("ORDR"));
             result.put("P_NAME", maxMenuMap.get("P_NAME"));
         }
-        String CODE = CommonUtil.isNull((String) commandMap.get("CODE"), "");
+        String CODE = CommonUtil.isNull(categoryVO.getCode(), "");
         if(CODE!=null && CODE!=""){
             result.put("P_CODE", CODE);
         }
@@ -124,13 +124,13 @@ public class CategoryApi extends CORSFilter {
      */
     @DeleteMapping(value = "/delete")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject deleteProcess(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
+    public JSONObject deleteProcess(@RequestBody CategoryVO categoryVO) throws Exception {
 
         int isDelete = categoryService.deleteProcess(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("isDelete", isDelete);
-        result.put("VIEWCODE", commandMap.get("CODE"));
+        result.put("VIEWCODE", categoryVO.getCode());
 
         JSONObject jObject = new JSONObject(result);
         return jObject;
@@ -175,13 +175,13 @@ public class CategoryApi extends CORSFilter {
      * @throws Exception
      */
     @PostMapping(value = "/insert")
-    public JSONObject insertProcess(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
+    public JSONObject insertProcess(@RequestBody CategoryVO categoryVO) throws Exception {
 
         int isInsert = categoryService.insertProcess(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("isInsert", isInsert);
-        result.put("VIEWCODE", commandMap.get("CODE"));
+        result.put("VIEWCODE", categoryVO.getCode());
 
         JSONObject jObject = new JSONObject(result);
         return jObject;
@@ -198,13 +198,13 @@ public class CategoryApi extends CORSFilter {
      * @throws Exception
      */
     @PutMapping(value = "/update")
-    public JSONObject updateProcess(@ModelAttribute("CategoryVO") CategoryVO categoryVO, @RequestParam Map<?, ?> commandMap) throws Exception {
+    public JSONObject updateProcess(@RequestBody CategoryVO categoryVO) throws Exception {
 
         categoryService.updateProcess(categoryVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("isUpdate", 1);
-        result.put("VIEWCODE", commandMap.get("CODE"));
+        result.put("VIEWCODE", categoryVO.getCode());
 
         JSONObject jObject = new JSONObject(result);
         return jObject;

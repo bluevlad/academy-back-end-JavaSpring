@@ -3,9 +3,8 @@ package com.academy.lecture;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.academy.common.CommonUtil;
 import com.academy.lecture.service.MacAddressManagerService;
-
-import egovframework.rte.fdl.property.EgovPropertyService;
+import com.academy.lecture.service.MacAddressManagerVO;
 
 @RestController
 @RequestMapping("/api/macaddressmanager")
 public class MacAddressManagerApi extends CORSFilter {
-
-    @Resource(name="propertiesService")
-    protected EgovPropertyService propertiesService;
 
     private MacAddressManagerService macaddressmanagerservice;
 
@@ -41,25 +35,26 @@ public class MacAddressManagerApi extends CORSFilter {
      * @Method Name : list
      * @작성일 : 2013. 10.
      * @Method 설명 : MAC 주소 관리 목록 조회
+     * @param macAddressManagerVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @GetMapping(value="/list")
-    public JSONObject list(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject list(@ModelAttribute MacAddressManagerVO macAddressManagerVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(macAddressManagerVO, request);
 
         /* 페이징 */
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = macAddressManagerVO.getCurrentPage();
+        int pageRow = macAddressManagerVO.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        macAddressManagerVO.setStartNo(String.valueOf(startNo));
+        macAddressManagerVO.setEndNo(String.valueOf(endNo));
         /* 페이징 */
 
-        List<HashMap<String, String>> list = macaddressmanagerservice.macaddressmanagerList(params);
-        int listCount = macaddressmanagerservice.macaddressmanagerListCount(params);
+        List<HashMap<String, String>> list = macaddressmanagerservice.macaddressmanagerList(macAddressManagerVO);
+        int listCount = macaddressmanagerservice.macaddressmanagerListCount(macAddressManagerVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -75,15 +70,16 @@ public class MacAddressManagerApi extends CORSFilter {
      * @Method Name : view
      * @작성일 : 2013. 10.
      * @Method 설명 : MAC 주소 상세 조회
+     * @param macAddressManagerVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @GetMapping(value="/view")
-    public JSONObject view(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject view(@ModelAttribute MacAddressManagerVO macAddressManagerVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(macAddressManagerVO, request);
 
-        List<HashMap<String, String>> view = macaddressmanagerservice.macaddressView(params);
+        List<HashMap<String, String>> view = macaddressmanagerservice.macaddressView(macAddressManagerVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("view", view);
@@ -96,16 +92,17 @@ public class MacAddressManagerApi extends CORSFilter {
      * @Method Name : deviceList
      * @작성일 : 2013. 10.
      * @Method 설명 : 디바이스 목록 조회
+     * @param macAddressManagerVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @GetMapping(value="/deviceList")
-    public JSONObject deviceList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject deviceList(@ModelAttribute MacAddressManagerVO macAddressManagerVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(macAddressManagerVO, request);
 
-        List<HashMap<String, String>> list = macaddressmanagerservice.devicelist(params);
-        List<HashMap<String, String>> view = macaddressmanagerservice.macaddressView(params);
+        List<HashMap<String, String>> list = macaddressmanagerservice.devicelist(macAddressManagerVO);
+        List<HashMap<String, String>> view = macaddressmanagerservice.macaddressView(macAddressManagerVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -119,16 +116,17 @@ public class MacAddressManagerApi extends CORSFilter {
      * @Method Name : updateMacAddress
      * @작성일 : 2013. 10.
      * @Method 설명 : MAC 주소 업데이트
+     * @param macAddressManagerVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @PutMapping(value="/update")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject updateMacAddress(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject updateMacAddress(@RequestBody MacAddressManagerVO macAddressManagerVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(macAddressManagerVO, request);
 
-        macaddressmanagerservice.macaddressmanagerUpdate(params);
+        macaddressmanagerservice.macaddressmanagerUpdate(macAddressManagerVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -142,16 +140,17 @@ public class MacAddressManagerApi extends CORSFilter {
      * @Method Name : resetMobile
      * @작성일 : 2013. 10.
      * @Method 설명 : 모바일 초기화
+     * @param macAddressManagerVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @PutMapping(value="/resetMobile")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject resetMobile(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject resetMobile(@RequestBody MacAddressManagerVO macAddressManagerVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(macAddressManagerVO, request);
 
-        macaddressmanagerservice.macaddressmanagerUpdate1(params);
+        macaddressmanagerservice.macaddressmanagerUpdate1(macAddressManagerVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -162,36 +161,24 @@ public class MacAddressManagerApi extends CORSFilter {
     }
 
     /**
-     * @Method Name : setParam
+     * @Method Name : setSessionInfo
      * @작성일 : 2013. 10.
-     * @Method 설명 : 파라미터 SETTING
-     * @param params
+     * @Method 설명 : 세션 정보 설정
+     * @param macAddressManagerVO
      * @param request
-     * @return HashMap
+     * @return void
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-    public void setParam(HashMap<String, String> params, HttpServletRequest request) throws Exception {
+    private void setSessionInfo(MacAddressManagerVO macAddressManagerVO, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         if(session != null) {
             HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
             if(loginInfo != null) {
-                params.put("REG_ID", loginInfo.get("USER_ID"));
-                params.put("UPD_ID", loginInfo.get("USER_ID"));
+                macAddressManagerVO.setRegId(loginInfo.get("USER_ID"));
+                macAddressManagerVO.setUpdId(loginInfo.get("USER_ID"));
             }
         }
-
-        params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-        params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), propertiesService.getInt("pageUnit")+""));
-        params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-        params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-        params.put("SUBJECT_CD", CommonUtil.isNull(request.getParameter("SUBJECT_CD"),""));
-        params.put("SUBJECT_NM", CommonUtil.isNull(request.getParameter("SUBJECT_NM"),""));
-        params.put("SUBJECT_SHORT_NM", CommonUtil.isNull(request.getParameter("SUBJECT_SHORT_NM"),""));
-        params.put("ISUSE", CommonUtil.isNull(request.getParameter("ISUSE"), ""));
-        params.put("SEQ", CommonUtil.isNull(request.getParameter("SEQ"), ""));
-        params.put("V_USER_ID", CommonUtil.isNull(request.getParameter("V_USER_ID"), ""));
-        params.put("SEARCHGUBN", "T");
     }
 
 }

@@ -3,9 +3,8 @@ package com.academy.lecture;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.academy.common.CommonUtil;
 import com.academy.lecture.service.KindService;
 import com.academy.lecture.service.SeriesService;
-
-import egovframework.rte.fdl.property.EgovPropertyService;
+import com.academy.lecture.service.SeriesVO;
 
 @RestController
 @RequestMapping("/api/series")
 public class SeriesApi extends CORSFilter {
-
-    @Resource(name="propertiesService")
-    protected EgovPropertyService propertiesService;
 
     private SeriesService seriesService;
     private KindService kindservice;
@@ -46,25 +40,26 @@ public class SeriesApi extends CORSFilter {
      * @Method Name : list
      * @작성일 : 2015. 05.
      * @Method 설명 : 직렬관리 목록 조회
+     * @param seriesVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @GetMapping(value="/list")
-    public JSONObject list(@ModelAttribute HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject list(@ModelAttribute SeriesVO seriesVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(seriesVO, request);
 
         /* 페이징 */
-        int currentPage = Integer.parseInt(params.get("currentPage").toString());
-        int pageRow = Integer.parseInt(params.get("pageRow").toString());
+        int currentPage = seriesVO.getCurrentPage();
+        int pageRow = seriesVO.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        seriesVO.setStartNo(String.valueOf(startNo));
+        seriesVO.setEndNo(String.valueOf(endNo));
         /* 페이징 */
 
-        List<HashMap<String, String>> list = seriesService.seriesList(params);
-        int listCount = seriesService.seriesListCount(params);
+        List<HashMap<String, String>> list = seriesService.seriesList(seriesVO);
+        int listCount = seriesService.seriesListCount(seriesVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -80,15 +75,16 @@ public class SeriesApi extends CORSFilter {
      * @Method Name : view
      * @작성일 : 2015. 05.
      * @Method 설명 : 직렬관리 상세 조회
+     * @param seriesVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @GetMapping(value="/view")
-    public JSONObject view(@ModelAttribute HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject view(@ModelAttribute SeriesVO seriesVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(seriesVO, request);
 
-        List<HashMap<String, String>> view = seriesService.seriesView(params);
+        List<HashMap<String, String>> view = seriesService.seriesView(seriesVO);
         List<HashMap<String, String>> cat_list = kindservice.selectKindCode();
 
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -109,8 +105,6 @@ public class SeriesApi extends CORSFilter {
      */
     @GetMapping(value="/kindCodes")
     public JSONObject getKindCodeList(HttpServletRequest request) throws Exception {
-        HashMap<String, Object> params = new HashMap<String, Object>();
-
         List<HashMap<String, String>> list = kindservice.selectKindCode();
 
         HashMap<String, Object> result = new HashMap<String, Object>();
@@ -124,15 +118,16 @@ public class SeriesApi extends CORSFilter {
      * @Method Name : codeCheck
      * @작성일 : 2015. 05.
      * @Method 설명 : 코드 중복 체크
+     * @param seriesVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @GetMapping(value="/codeCheck")
-    public JSONObject codeCheck(@ModelAttribute HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject codeCheck(@ModelAttribute SeriesVO seriesVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(seriesVO, request);
 
-        int listCount = seriesService.seriesCheck(params);
+        int listCount = seriesService.seriesCheck(seriesVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("available", listCount == 0);
@@ -146,19 +141,20 @@ public class SeriesApi extends CORSFilter {
      * @Method Name : save
      * @작성일 : 2015. 05.
      * @Method 설명 : 직렬관리 등록
+     * @param seriesVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @PostMapping(value="/save")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject save(@RequestBody HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject save(@RequestBody SeriesVO seriesVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(seriesVO, request);
 
         String[] CAT_CDs = request.getParameterValues("CAT_CD");
-        params.put("CAT_CDs", CAT_CDs);
+        seriesVO.setCatCds(CAT_CDs);
 
-        seriesService.seriesInsert(params);
+        seriesService.seriesInsert(seriesVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -172,19 +168,20 @@ public class SeriesApi extends CORSFilter {
      * @Method Name : update
      * @작성일 : 2015. 05.
      * @Method 설명 : 직렬관리 수정
+     * @param seriesVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @PutMapping(value="/update")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject update(@RequestBody HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject update(@RequestBody SeriesVO seriesVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(seriesVO, request);
 
         String[] CAT_CDs = request.getParameterValues("CAT_CD");
-        params.put("CAT_CDs", CAT_CDs);
+        seriesVO.setCatCds(CAT_CDs);
 
-        seriesService.seriesUpdate(params);
+        seriesService.seriesUpdate(seriesVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -198,16 +195,17 @@ public class SeriesApi extends CORSFilter {
      * @Method Name : delete
      * @작성일 : 2015. 05.
      * @Method 설명 : 직렬 삭제
+     * @param seriesVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @DeleteMapping(value="/delete")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject delete(@RequestBody HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject delete(@RequestBody SeriesVO seriesVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(seriesVO, request);
 
-        seriesService.seriesDelete(params);
+        seriesService.seriesDelete(seriesVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -221,19 +219,20 @@ public class SeriesApi extends CORSFilter {
      * @Method Name : listDelete
      * @작성일 : 2015. 05.
      * @Method 설명 : 직렬 다중 삭제
+     * @param seriesVO
      * @param request
      * @return JSONObject
      * @throws Exception
      */
     @DeleteMapping(value="/listDelete")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public JSONObject listDelete(@RequestBody HashMap<String, Object> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject listDelete(@RequestBody SeriesVO seriesVO, HttpServletRequest request) throws Exception {
+        setSessionInfo(seriesVO, request);
 
         String[] DEL_ARR = request.getParameterValues("DEL_ARR");
-        params.put("SRS_CDs", DEL_ARR);
+        seriesVO.setSrsCds(DEL_ARR);
 
-        seriesService.seriesDelete(params);
+        seriesService.seriesDelete(seriesVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -244,34 +243,24 @@ public class SeriesApi extends CORSFilter {
     }
 
     /**
-     * @Method Name : setParam
+     * @Method Name : setSessionInfo
      * @작성일 : 2015. 05.
-     * @Method 설명 : 파라미터 SETTING
-     * @param params
+     * @Method 설명 : 세션 정보 설정
+     * @param seriesVO
      * @param request
-     * @return HashMap
+     * @return void
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
-    public void setParam(HashMap<String, Object> params, HttpServletRequest request) throws Exception {
+    private void setSessionInfo(SeriesVO seriesVO, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         if(session != null) {
             HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
             if(loginInfo != null) {
-                params.put("REG_ID", loginInfo.get("USER_ID"));
-                params.put("UPD_ID", loginInfo.get("USER_ID"));
+                seriesVO.setRegId(loginInfo.get("USER_ID"));
+                seriesVO.setUpdId(loginInfo.get("USER_ID"));
             }
         }
-
-        params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-        params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), propertiesService.getInt("pageUnit")+""));
-        params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-        params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-        params.put("SRS_CD", CommonUtil.isNull(request.getParameter("SRS_CD"), ""));
-        params.put("SRS_NAME", CommonUtil.isNull(request.getParameter("SRS_NAME"), ""));
-        params.put("SRS_YN", CommonUtil.isNull(request.getParameter("SRS_YN"), "Y"));
-        params.put("SRS_MEMO", CommonUtil.isNull(request.getParameter("SRS_MEMO"), ""));
-        params.put("USE_YN", CommonUtil.isNull(request.getParameter("USE_YN"), "Y"));
     }
 
 }

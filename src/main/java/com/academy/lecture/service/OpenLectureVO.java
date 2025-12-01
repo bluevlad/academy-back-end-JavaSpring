@@ -37,6 +37,14 @@ public class OpenLectureVO extends CommonVO implements Serializable {
     private String searchKind;      // SEARCHKIND - 검색 종류
     private String searchForm;      // SEARCHFORM - 검색 형태
     private String searchYear;      // SEARCHYEAR - 검색 연도
+    private String searchPayyn;     // SEARCHPAYYN - 검색 결제여부
+    private String searchPaytype;   // SEARCHPAYTYPE - 검색 결제타입
+    private String searchOpenpage;  // SEARCHOPENPAGE - 검색 공개페이지
+    private String openIsuse;       // OPEN_ISUSE - 공개강의 사용여부
+    private String openFileDel;     // OPEN_FILE_DEL - 공개강의 파일 삭제
+    private String openFileDelnm;   // OPEN_FILE_DELNM - 공개강의 파일 삭제명
+    private String prefix;          // PREFIX - 접두사
+    private String seq;             // SEQ - 순서
 
     // Getters and Setters
     public String getOpenleccode() {
@@ -213,6 +221,70 @@ public class OpenLectureVO extends CommonVO implements Serializable {
 
     public void setSearchYear(String searchYear) {
         this.searchYear = searchYear;
+    }
+
+    public String getSearchPayyn() {
+        return searchPayyn;
+    }
+
+    public void setSearchPayyn(String searchPayyn) {
+        this.searchPayyn = searchPayyn;
+    }
+
+    public String getSearchPaytype() {
+        return searchPaytype;
+    }
+
+    public void setSearchPaytype(String searchPaytype) {
+        this.searchPaytype = searchPaytype;
+    }
+
+    public String getSearchOpenpage() {
+        return searchOpenpage;
+    }
+
+    public void setSearchOpenpage(String searchOpenpage) {
+        this.searchOpenpage = searchOpenpage;
+    }
+
+    public String getOpenIsuse() {
+        return openIsuse;
+    }
+
+    public void setOpenIsuse(String openIsuse) {
+        this.openIsuse = openIsuse;
+    }
+
+    public String getOpenFileDel() {
+        return openFileDel;
+    }
+
+    public void setOpenFileDel(String openFileDel) {
+        this.openFileDel = openFileDel;
+    }
+
+    public String getOpenFileDelnm() {
+        return openFileDelnm;
+    }
+
+    public void setOpenFileDelnm(String openFileDelnm) {
+        this.openFileDelnm = openFileDelnm;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getSeq() {
+        return seq;
+    }
+
+    public void setSeq(String seq) {
+        this.seq = seq;
     }
 
     @Override

@@ -5,10 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +26,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.academy.common.CORSFilter;
 import com.academy.common.service.CmmUseService;
-import com.academy.common.CommonUtil;
 import com.willbes.platform.util.file.FileUtil;
 import com.academy.book.service.BookService;
 import com.academy.lecture.service.OpenLectureService;
+import com.academy.lecture.service.OpenLectureVO;
 import com.academy.lecture.service.SubjectService;
+import com.academy.lecture.service.SubjectVO;
 import com.academy.lecture.service.TeacherService;
+import com.academy.lecture.service.TeacherVO;
 import com.academy.productOrder.service.ProductOrderService;
 
 @RestController
@@ -41,7 +42,7 @@ public class OpenLectureApi extends CORSFilter {
 
 	@Inject
 	private FileSystemResource fsResource;
-	@Resource(name="fileUtil")
+	@Inject
 	private FileUtil fileUtil;
 
 	private BookService bookservice;
@@ -67,29 +68,34 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : list
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 공개강의 목록 조회
+	 * @param openLectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/list")
-	public JSONObject list(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject list(@ModelAttribute OpenLectureVO openLectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(openLectureVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
-		int pageRow = Integer.parseInt(params.get("pageRow"));
+		int currentPage = openLectureVO.getCurrentPage();
+		int pageRow = openLectureVO.getPageRow();
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		openLectureVO.setStartNo(String.valueOf(startNo));
+		openLectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		params.put("SEARCHGUBN", "T");
-		List<HashMap<String, String>> kindlist = teacherservice.getKindList(params);
-		params.put("SEARCHCODEISUSE", "Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(params);
-		List<HashMap<String, String>> list = openlectureservice.openlectureList(params);
-		int listCount = openlectureservice.openlectureListCount(params);
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setGubun("T");
+		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
+
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setIsUse("Y");
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+		List<HashMap<String, String>> list = openlectureservice.openlectureList(openLectureVO);
+		int listCount = openlectureservice.openlectureListCount(openLectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -107,31 +113,41 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : getWriteData
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 공개강의 등록을 위한 데이터 조회
+	 * @param openLectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/writeData")
-	public JSONObject getWriteData(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject getWriteData(@ModelAttribute OpenLectureVO openLectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(openLectureVO, request);
 
-		params.put("SEARCHGUBN", "T");
-		List<HashMap<String, String>> kindlist = teacherservice.getKindList(params);
-		params.put("SEARCHCODEISUSE", "Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(params);
-		params.put("startNo", "1");
-		params.put("endNo", "10000");
-		params.put("ISUSE", "Y");
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setGubun("T");
+		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
-		List<HashMap<String, String>> subjectlist = subjectservice.subjectList(params);
-		List<HashMap<String, String>> teacherlist = teacherservice.teacherList(params);
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setIsUse("Y");
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+		subjectVO.setStartNo("1");
+		subjectVO.setEndNo("10000");
+		subjectVO.setIsUse("Y");
+
+		List<HashMap<String, String>> subjectlist = subjectservice.subjectList(subjectVO);
+
+		teacherVO.setStartNo("1");
+		teacherVO.setEndNo("10000");
+		teacherVO.setIsUse("Y");
+		List<HashMap<String, String>> teacherlist = teacherservice.teacherList(teacherVO);
 
         Map<String, String> vo = new HashMap<String, String>();
         vo.put("SYS_CD", "ICON_GUBUN");
         List<HashMap<String, String>> ICON_GUBUNs = cmmUseService.selectCmmCodeMap(vo);
 
-        params.put("SYS_CD", "OPEN_CODE");
-        List<HashMap<String, String>> open_code_commoncode = cmmUseService.selectCmmCodeMap(params);
+        Map<String, String> openCodeVO = new HashMap<String, String>();
+        openCodeVO.put("SYS_CD", "OPEN_CODE");
+        List<HashMap<String, String>> open_code_commoncode = cmmUseService.selectCmmCodeMap(openCodeVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -149,32 +165,41 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : view
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 공개강의 상세 조회
+	 * @param openLectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/view")
-	public JSONObject view(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject view(@ModelAttribute OpenLectureVO openLectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(openLectureVO, request);
 
-		List<HashMap<String, String>> view = openlectureservice.openlectureView(params);
+		List<HashMap<String, String>> view = openlectureservice.openlectureView(openLectureVO);
 
-		params.put("SEARCHGUBN", "T");
-		List<HashMap<String, String>> kindlist = teacherservice.getKindList(params);
-		params.put("SEARCHCODEISUSE", "Y");
-		params.put("startNo", "1");
-		params.put("endNo", "10000");
-		params.put("ISUSE", "Y");
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setGubun("T");
+		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
-		List<HashMap<String, String>> subjectlist = subjectservice.subjectList(params);
-		List<HashMap<String, String>> teacherlist = teacherservice.teacherList(params);
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setIsUse("Y");
+		subjectVO.setStartNo("1");
+		subjectVO.setEndNo("10000");
+		subjectVO.setIsUse("Y");
+
+		List<HashMap<String, String>> subjectlist = subjectservice.subjectList(subjectVO);
+
+		teacherVO.setStartNo("1");
+		teacherVO.setEndNo("10000");
+		teacherVO.setIsUse("Y");
+		List<HashMap<String, String>> teacherlist = teacherservice.teacherList(teacherVO);
 
         Map<String, String> vo = new HashMap<String, String>();
         vo.put("SYS_CD", "ICON_GUBUN");
         List<HashMap<String, String>> ICON_GUBUNs = cmmUseService.selectCmmCodeMap(vo);
 
-        params.put("SYS_CD", "OPEN_CODE");
-        List<HashMap<String, String>> open_code_commoncode = cmmUseService.selectCmmCodeMap(params);
+        Map<String, String> openCodeVO = new HashMap<String, String>();
+        openCodeVO.put("SYS_CD", "OPEN_CODE");
+        List<HashMap<String, String>> open_code_commoncode = cmmUseService.selectCmmCodeMap(openCodeVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -194,29 +219,34 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : bookList
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 교재 목록 조회
+	 * @param openLectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/bookList")
-	public JSONObject bookList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject bookList(@ModelAttribute OpenLectureVO openLectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(openLectureVO, request);
 
 		/* 페이징 */
-		int currentPage = Integer.parseInt(params.get("currentPage"));
-		int pageRow = Integer.parseInt(params.get("pageRow"));
+		int currentPage = openLectureVO.getCurrentPage();
+		int pageRow = openLectureVO.getPageRow();
 		int startNo = (currentPage - 1) * pageRow;
 		int endNo = startNo + pageRow;
-		params.put("startNo", String.valueOf(startNo));
-		params.put("endNo", String.valueOf(endNo));
+		openLectureVO.setStartNo(String.valueOf(startNo));
+		openLectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		params.put("SEARCHGUBN", "T");
-		List<HashMap<String, String>> kindlist = teacherservice.getKindList(params);
-		params.put("SEARCHCODEISUSE", "Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(params);
-		List<HashMap<String, String>> list = openlectureservice.bookList(params);
-		int listCount = openlectureservice.bookListCount(params);
+		TeacherVO teacherVO = new TeacherVO();
+		teacherVO.setGubun("T");
+		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
+
+		SubjectVO subjectVO = new SubjectVO();
+		subjectVO.setIsUse("Y");
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+		List<HashMap<String, String>> list = openlectureservice.bookList(openLectureVO);
+		int listCount = openlectureservice.bookListCount(openLectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -234,39 +264,42 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : save
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 공개강의 등록
+	 * @param openLectureVO
 	 * @param request
+	 * @param multipartRequest
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PostMapping(value="/save")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject save(@ModelAttribute HashMap<String, String> params, HttpServletRequest request,
+	public JSONObject save(@ModelAttribute OpenLectureVO openLectureVO, HttpServletRequest request,
 			MultipartHttpServletRequest multipartRequest) throws Exception {
-		setParam(params, request);
-		lecFileProcess(params, multipartRequest);
+		setSessionInfo(openLectureVO, request);
+		lecFileProcess(openLectureVO, multipartRequest);
 
 		Calendar cal = Calendar.getInstance();
 		String LECCODE = "";
 		String SEQ = "";
 
-		List<HashMap<String, String>> getBridgeLeccodeSeqList = openlectureservice.getBridgeLeccodeSeq(params);
+		List<HashMap<String, String>> getBridgeLeccodeSeqList = openlectureservice.getBridgeLeccodeSeq(openLectureVO);
 		if(getBridgeLeccodeSeqList.size() > 0){
 			SEQ = getBridgeLeccodeSeqList.get(0).get("SEQ");
-			params.put("SEQ", getBridgeLeccodeSeqList.get(0).get("SEQ"));
+			openLectureVO.setSeq(Integer.parseInt(getBridgeLeccodeSeqList.get(0).get("SEQ")));
 		}else{
 			SEQ = "1";
-			params.put("SEQ", "1");
+			openLectureVO.setSeq(1);
 		}
 
-		params.put("PREFIX", "O" + cal.get(Calendar.YEAR));
-		List<HashMap<String, String>> getLeccodeList = openlectureservice.getopenLeccode(params);
+		String prefix = "O" + cal.get(Calendar.YEAR);
+		openLectureVO.setPrefix(prefix);
+		List<HashMap<String, String>> getLeccodeList = openlectureservice.getopenLeccode(openLectureVO);
 		if(getLeccodeList.size() > 0)
-			LECCODE = params.get("PREFIX") + getLeccodeList.get(0).get("OPENLECCODE");
+			LECCODE = prefix + getLeccodeList.get(0).get("OPENLECCODE");
 		else
-			LECCODE = params.get("PREFIX") + "00001";
-		params.put("OPENLECCODE", LECCODE.replace(" ", ""));
+			LECCODE = prefix + "00001";
+		openLectureVO.setOpenleccode(LECCODE.replace(" ", ""));
 
-		openlectureservice.openlectureInsert(params);
+		openlectureservice.openlectureInsert(openLectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -281,23 +314,25 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : update
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 공개강의 수정
+	 * @param openLectureVO
 	 * @param request
+	 * @param multipartRequest
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/update")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject update(@ModelAttribute HashMap<String, String> params, HttpServletRequest request,
+	public JSONObject update(@ModelAttribute OpenLectureVO openLectureVO, HttpServletRequest request,
 			MultipartHttpServletRequest multipartRequest) throws Exception {
-		setParam(params, request);
+		setSessionInfo(openLectureVO, request);
 
 		String rootPath = fsResource.getPath();
-		lecFileProcess(params, multipartRequest);
+		lecFileProcess(openLectureVO, multipartRequest);
 
-		if("Y".equals(params.get("OPEN_FILE_DEL")) || !"".equals(params.get("OPEN_FILE")))
-			fileUtil.deleteFile(rootPath + params.get("OPEN_FILE_DELNM"));
+		if("Y".equals(openLectureVO.getOpenFileDel()) || (openLectureVO.getOpenFile() != null && !"".equals(openLectureVO.getOpenFile())))
+			fileUtil.deleteFile(rootPath + openLectureVO.getOpenFileDelnm());
 
-		openlectureservice.openlectureUpdate(params);
+		openlectureservice.openlectureUpdate(openLectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -311,18 +346,19 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : delete
 	 * @작성일 : 2013. 11.
 	 * @Method 설명 : 공개강의 삭제
+	 * @param openLectureVO
 	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/delete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject delete(@RequestBody HashMap<String, String> params, HttpServletRequest request) throws Exception {
-		setParam(params, request);
+	public JSONObject delete(@RequestBody OpenLectureVO openLectureVO, HttpServletRequest request) throws Exception {
+		setSessionInfo(openLectureVO, request);
 
-		openlectureservice.openlectureDelete(params);
-		openlectureservice.openlectureBridgeDelete(params);
-		openlectureservice.openlectureBookDelete(params);
+		openlectureservice.openlectureDelete(openLectureVO);
+		openlectureservice.openlectureBridgeDelete(openLectureVO);
+		openlectureservice.openlectureBookDelete(openLectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -336,12 +372,12 @@ public class OpenLectureApi extends CORSFilter {
 	 * @Method Name : lecFileProcess
 	 * @작성일 : 2013. 10.
 	 * @Method 설명 : 파일처리 프로세스
-	 * @param params
+	 * @param openLectureVO
 	 * @param multipartRequest
-	 * @return HashMap
+	 * @return void
 	 * @throws Exception
 	 */
-	public HashMap<String, String> lecFileProcess(HashMap<String, String> params, MultipartHttpServletRequest multipartRequest) throws Exception {
+	private void lecFileProcess(OpenLectureVO openLectureVO, MultipartHttpServletRequest multipartRequest) throws Exception {
 		String rootPath = fsResource.getPath();
 		String subPath = "openlecture_upload/";
 
@@ -349,60 +385,30 @@ public class OpenLectureApi extends CORSFilter {
 
 		if(OPEN_FILE != null && OPEN_FILE.isEmpty() == false) {
 			HashMap<String, Object> fileMap1 = fileUtil.uploadFile(OPEN_FILE, rootPath, subPath);
-			params.put("OPEN_FILE", fileMap1.get("fileFullPath").toString());
+			openLectureVO.setOpenFile(fileMap1.get("fileFullPath").toString());
 			Thread.sleep(100);
 		}
-
-		return params;
 	}
 
 	/**
-	 * @Method Name : setParam
+	 * @Method Name : setSessionInfo
 	 * @작성일 : 2013. 10.
-	 * @Method 설명 : 파라미터 SETTING
-	 * @param params
+	 * @Method 설명 : 세션 정보 설정
+	 * @param openLectureVO
 	 * @param request
-	 * @return HashMap
+	 * @return void
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public void setParam(HashMap<String, String> params, HttpServletRequest request) throws Exception {
+	private void setSessionInfo(OpenLectureVO openLectureVO, HttpServletRequest request) throws Exception {
 		HttpSession session = request.getSession(false);
 		if(session != null) {
 			HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
 			if(loginInfo != null) {
-				params.put("REG_ID", loginInfo.get("USER_ID"));
-				params.put("UPD_ID", loginInfo.get("USER_ID"));
+				openLectureVO.setRegId(loginInfo.get("USER_ID"));
+				openLectureVO.setUpdId(loginInfo.get("USER_ID"));
 			}
 		}
-
-		params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-		params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), "15"));
-		params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-		params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-		params.put("SEARCHPAYYN", CommonUtil.isNull(request.getParameter("SEARCHPAYYN"), ""));
-		params.put("SEARCHPAYTYPE", CommonUtil.isNull(request.getParameter("SEARCHPAYTYPE"), ""));
-		params.put("SEARCHKIND", CommonUtil.isNull(request.getParameter("SEARCHKIND"), ""));
-		params.put("SEARCHFORM", CommonUtil.isNull(request.getParameter("SEARCHFORM"), ""));
-		params.put("SEARCHYEAR", CommonUtil.isNull(request.getParameter("SEARCHYEAR"), ""));
-		params.put("SEARCHOPENPAGE", CommonUtil.isNull(request.getParameter("SEARCHOPENPAGE"), ""));
-		params.put("OPENLECCODE", CommonUtil.isNull(request.getParameter("OPENLECCODE"), ""));
-		params.put("CATEGORY_CD", CommonUtil.isNull(request.getParameter("CATEGORY_CD"), ""));
-		params.put("OPENBUNRU", CommonUtil.isNull(request.getParameter("OPENBUNRU"), ""));
-		params.put("OPEN_TITLE", CommonUtil.isNull(request.getParameter("OPEN_TITLE"), ""));
-		params.put("OPEN_SJT_CD", CommonUtil.isNull(request.getParameter("OPEN_SJT_CD"), ""));
-		params.put("OPEN_TEACHER", CommonUtil.isNull(request.getParameter("OPEN_TEACHER"), ""));
-		params.put("OPEN_MEMO", CommonUtil.isNull(request.getParameter("OPEN_MEMO"), ""));
-		params.put("OPEN_DESC", CommonUtil.isNull(request.getParameter("OPEN_DESC"), ""));
-		params.put("OPEN_HIMOVIE_PATH", CommonUtil.isNull(request.getParameter("OPEN_HIMOVIE_PATH"), ""));
-		params.put("OPEN_NOMALMOVIE_PATH", CommonUtil.isNull(request.getParameter("OPEN_NOMALMOVIE_PATH"), ""));
-		params.put("OPEN_FILE", CommonUtil.isNull(request.getParameter("OPEN_FILE"), ""));
-		params.put("OPEN_FILE_DEL", CommonUtil.isNull(request.getParameter("OPEN_FILE_DEL"), ""));
-		params.put("OPEN_FILE_DELNM", CommonUtil.isNull(request.getParameter("OPEN_FILE_DELNM"), ""));
-		params.put("OPEN_ISUSE", CommonUtil.isNull(request.getParameter("OPEN_ISUSE"), ""));
-		params.put("OPEN_PASSWORD", CommonUtil.isNull(request.getParameter("OPEN_PASSWORD"), ""));
-		params.put("OPEN_POINT", CommonUtil.isNull(request.getParameter("OPEN_POINT"), ""));
-		params.put("OPEN_HIT", CommonUtil.isNull(request.getParameter("OPEN_HIT"), "0"));
 	}
 
 }

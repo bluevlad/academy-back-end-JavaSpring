@@ -14,9 +14,15 @@ public class SeriesVO extends CommonVO implements Serializable {
 
     // Series specific fields
     private String srsCd;       // SRS_CD - 시리즈 코드
-    private String srsNm;       // SRS_NM - 시리즈 이름
+    private String srsNm;       // SRS_NM - 시리즈 이름 (SRS_NAME)
     private String srsDiv;      // SRS_DIV - 시리즈 구분
-    // isUse, regDt, regId, updDt, updId inherited from CommonVO
+    private String srsYn;       // SRS_YN - 시리즈 사용 여부
+    private String srsMemo;     // SRS_MEMO - 시리즈 메모
+    // isUse (maps to USE_YN), regDt, regId, updDt, updId inherited from CommonVO
+
+    // Additional fields for API
+    private String[] catCds;    // CAT_CD[] - 카테고리 코드 배열
+    private String[] srsCds;    // SRS_CD[] - 시리즈 코드 배열 (다중 삭제용)
 
     // Display fields
     private String srsDivNm;    // SRS_DIVNM - 시리즈 구분명
@@ -60,6 +66,38 @@ public class SeriesVO extends CommonVO implements Serializable {
 
     public void setIsUseNm(String isUseNm) {
         this.isUseNm = isUseNm;
+    }
+
+    public String getSrsYn() {
+        return srsYn;
+    }
+
+    public void setSrsYn(String srsYn) {
+        this.srsYn = srsYn;
+    }
+
+    public String getSrsMemo() {
+        return srsMemo;
+    }
+
+    public void setSrsMemo(String srsMemo) {
+        this.srsMemo = srsMemo;
+    }
+
+    public String[] getCatCds() {
+        return catCds;
+    }
+
+    public void setCatCds(String[] catCds) {
+        this.catCds = catCds;
+    }
+
+    public String[] getSrsCds() {
+        return srsCds;
+    }
+
+    public void setSrsCds(String[] srsCds) {
+        this.srsCds = srsCds;
     }
 
     @Override

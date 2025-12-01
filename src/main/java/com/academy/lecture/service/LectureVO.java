@@ -68,12 +68,37 @@ public class LectureVO extends CommonVO implements Serializable {
     private String lecBaesu;                    // LEC_BAESU - 강의 배수
     // regDt, regId, updDt, updId, isUse inherited from CommonVO
 
+    // Additional fields for API
+    private String searchType;                  // SEARCHTYPE - 검색 타입
+    private String searchText;                  // SEARCHTEXT - 검색 텍스트
+    private String searchPayYn;                 // SEARCHPAYYN - 검색 결제 여부
+    private String searchPayType;               // SEARCHPAYTYPE - 검색 결제 타입
+    private String searchKind;                  // SEARCHKIND - 검색 종류
+    private String searchForm;                  // SEARCHFORM - 검색 형태
+    private String searchYear;                  // SEARCHYEAR - 검색 연도
+    private String searchOpenPage;              // SEARCHOPENPAGE - 검색 오픈 페이지
+    private String searchGubn;                  // SEARCHGUBN - 검색 구분
+    private String searchCodeIsuse;             // SEARCHCODEISUSE - 검색 코드 사용여부
+    private String rscId;                       // RSC_ID - 리소스 ID
+    private String prefix;                      // PREFIX - 접두어
+    private String flag;                        // FLAG - 플래그
+    private String flag2;                       // FLAG2 - 플래그2
+    private String updateFlag;                  // UPDATE_FLAG - 업데이트 플래그
+    private String bridgeLec;                   // BRIDGE_LEC - 브릿지 강의
+    private String getCode;                     // GET_CODE - 코드 조회
+    private String rcode;                       // RCODE - R코드
+    private String[] categoryCdArr;             // CATEGORY_CD[] - 카테고리 코드 배열
+    private String[] learningCdArr;             // LEARNING_CD[] - 학습형태 코드 배열
+    private String[] juRscIdArr;                // JU_RSC_ID[] - 주교재 리소스 ID 배열
+    private String[] buRscIdArr;                // BU_RSC_ID[] - 부교재 리소스 ID 배열
+    private String[] suRscIdArr;                // SU_RSC_ID[] - 학생교재 리소스 ID 배열
+    private String[] delArr;                    // DEL_ARR - 삭제 배열
+
     // Display fields (조인 결과용)
     private String categoryNm;                  // CATEGORY_NM - 카테고리명
     private String subjectNm;                   // SUBJECT_NM - 과목명
     private String subjectTeacherNm;            // SUBJECT_TEACHER_NM - 강사명
     private String learningNm;                  // LEARNING_NM - 학습형태명
-    private String bridgeLeccode;               // BRIDGE_LECCODE - 브릿지 강의코드
     private String isUseNm;                     // ISUSENM - 사용여부명
 
     // Getters and Setters
@@ -548,6 +573,199 @@ public class LectureVO extends CommonVO implements Serializable {
 
     public void setIsUseNm(String isUseNm) {
         this.isUseNm = isUseNm;
+    }
+
+    // Additional fields getters and setters
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public String getSearchPayYn() {
+        return searchPayYn;
+    }
+
+    public void setSearchPayYn(String searchPayYn) {
+        this.searchPayYn = searchPayYn;
+    }
+
+    public String getSearchPayType() {
+        return searchPayType;
+    }
+
+    public void setSearchPayType(String searchPayType) {
+        this.searchPayType = searchPayType;
+    }
+
+    public String getSearchKind() {
+        return searchKind;
+    }
+
+    public void setSearchKind(String searchKind) {
+        this.searchKind = searchKind;
+    }
+
+    public String getSearchForm() {
+        return searchForm;
+    }
+
+    public void setSearchForm(String searchForm) {
+        this.searchForm = searchForm;
+    }
+
+    public String getSearchYear() {
+        return searchYear;
+    }
+
+    public void setSearchYear(String searchYear) {
+        this.searchYear = searchYear;
+    }
+
+    public String getSearchOpenPage() {
+        return searchOpenPage;
+    }
+
+    public void setSearchOpenPage(String searchOpenPage) {
+        this.searchOpenPage = searchOpenPage;
+    }
+
+    public String getSearchGubn() {
+        return searchGubn;
+    }
+
+    public void setSearchGubn(String searchGubn) {
+        this.searchGubn = searchGubn;
+    }
+
+    public String getSearchCodeIsuse() {
+        return searchCodeIsuse;
+    }
+
+    public void setSearchCodeIsuse(String searchCodeIsuse) {
+        this.searchCodeIsuse = searchCodeIsuse;
+    }
+
+    public String getRscId() {
+        return rscId;
+    }
+
+    public void setRscId(String rscId) {
+        this.rscId = rscId;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getFlag2() {
+        return flag2;
+    }
+
+    public void setFlag2(String flag2) {
+        this.flag2 = flag2;
+    }
+
+    public String getUpdateFlag() {
+        return updateFlag;
+    }
+
+    public void setUpdateFlag(String updateFlag) {
+        this.updateFlag = updateFlag;
+    }
+
+    public String getBridgeLec() {
+        return bridgeLec;
+    }
+
+    public void setBridgeLec(String bridgeLec) {
+        this.bridgeLec = bridgeLec;
+    }
+
+    public String getGetCode() {
+        return getCode;
+    }
+
+    public void setGetCode(String getCode) {
+        this.getCode = getCode;
+    }
+
+    public String getRcode() {
+        return rcode;
+    }
+
+    public void setRcode(String rcode) {
+        this.rcode = rcode;
+    }
+
+    public String[] getCategoryCdArr() {
+        return categoryCdArr;
+    }
+
+    public void setCategoryCdArr(String[] categoryCdArr) {
+        this.categoryCdArr = categoryCdArr;
+    }
+
+    public String[] getLearningCdArr() {
+        return learningCdArr;
+    }
+
+    public void setLearningCdArr(String[] learningCdArr) {
+        this.learningCdArr = learningCdArr;
+    }
+
+    public String[] getJuRscIdArr() {
+        return juRscIdArr;
+    }
+
+    public void setJuRscIdArr(String[] juRscIdArr) {
+        this.juRscIdArr = juRscIdArr;
+    }
+
+    public String[] getBuRscIdArr() {
+        return buRscIdArr;
+    }
+
+    public void setBuRscIdArr(String[] buRscIdArr) {
+        this.buRscIdArr = buRscIdArr;
+    }
+
+    public String[] getSuRscIdArr() {
+        return suRscIdArr;
+    }
+
+    public void setSuRscIdArr(String[] suRscIdArr) {
+        this.suRscIdArr = suRscIdArr;
+    }
+
+    public String[] getDelArr() {
+        return delArr;
+    }
+
+    public void setDelArr(String[] delArr) {
+        this.delArr = delArr;
     }
 
     @Override
