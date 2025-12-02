@@ -3,83 +3,129 @@ package com.academy.book.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.academy.mapper.BookMapper;
+
 /**
- * Book Service Interface
+ * Book Service
+ * @author Y.K.KIM
+ * @since 2025.11
+ * @version 1.0
  */
-public interface BookService {
+@Service
+public class BookService {
+
+    private final BookMapper bookMapper;
+
+    @Autowired
+    public BookService(BookMapper bookMapper) {
+        this.bookMapper = bookMapper;
+    }
 
     /**
      * 교재 목록 조회
      */
-    List<HashMap<String, String>> bookList(BookVO bookVO);
+    public List<HashMap<String, String>> bookList(BookVO bookVO) {
+        return bookMapper.bookList(bookVO);
+    }
 
     /**
      * 교재 목록 카운트
      */
-    int bookListCount(BookVO bookVO);
+    public int bookListCount(BookVO bookVO) {
+        return bookMapper.bookListCount(bookVO);
+    }
 
     /**
      * 학습형태 목록 조회
      */
-    List<HashMap<String, String>> getLearningFormList(BookVO bookVO);
+    public List<HashMap<String, String>> getLearningFormList(BookVO bookVO) {
+        return bookMapper.getLearningFormList(bookVO);
+    }
 
     /**
      * 과목(강사) 목록 조회
      */
-    List<HashMap<String, String>> getCaSubjectTeacherList(BookVO bookVO);
+    public List<HashMap<String, String>> getCaSubjectTeacherList(BookVO bookVO) {
+        return bookMapper.getCaSubjectTeacherList(bookVO);
+    }
 
     /**
      * 교재 SEQ 조회
      */
-    int getCaBookSeq(BookVO bookVO);
+    public int getCaBookSeq(BookVO bookVO) {
+        return bookMapper.getCaBookSeq(bookVO);
+    }
 
     /**
      * 교재 RSC_ID 생성
      */
-    String getCaBookRscId(BookVO bookVO);
+    public String getCaBookRscId(BookVO bookVO) {
+        return bookMapper.getCaBookRscId(bookVO);
+    }
 
     /**
      * 교재 등록
      */
-    void bookInsert(BookVO bookVO);
+    public void bookInsert(BookVO bookVO) {
+        bookMapper.bookInsert(bookVO);
+    }
 
     /**
      * 교재 상세 목록 조회 (관련 도서)
      */
-    List<HashMap<String, String>> bookViewList(BookVO bookVO);
+    public List<HashMap<String, String>> bookViewList(BookVO bookVO) {
+        return bookMapper.bookViewList(bookVO);
+    }
 
     /**
      * 교재 상세 조회
      */
-    List<HashMap<String, String>> bookView(BookVO bookVO);
+    public List<HashMap<String, String>> bookView(BookVO bookVO) {
+        return bookMapper.bookView(bookVO);
+    }
 
     /**
      * 교재 사용 여부 확인
      */
-    int bookUseCheck(BookVO bookVO);
+    public int bookUseCheck(BookVO bookVO) {
+        return bookMapper.bookUseCheck(bookVO);
+    }
 
     /**
      * 교재 수정
      */
-    void bookUpdate(BookVO bookVO);
+    public void bookUpdate(BookVO bookVO) {
+        bookMapper.bookUpdate(bookVO);
+    }
 
     /**
      * 교재 삭제
      */
-    void bookDelete(BookVO bookVO);
+    public void bookDelete(BookVO bookVO) {
+        bookMapper.bookDelete(bookVO);
+    }
 
     /**
      * 교재 판매 목록 조회
      */
-    List<HashMap<String, String>> bookSellList(BookVO bookVO);
+    public List<HashMap<String, String>> bookSellList(BookVO bookVO) {
+        return bookMapper.bookSellList(bookVO);
+    }
 
     /**
      * 교재 판매 목록 카운트
      */
-    int bookSellListCount(BookVO bookVO);
+    public int bookSellListCount(BookVO bookVO) {
+        return bookMapper.bookSellListCount(bookVO);
+    }
 
     /**
      * 교재 판매 목록 엑셀 다운로드용
      */
-    List<HashMap<String, String>> bookSellListExcel(BookVO bookVO);
+    public List<HashMap<String, String>> bookSellListExcel(BookVO bookVO) {
+        return bookMapper.bookSellListExcel(bookVO);
+    }
 }
