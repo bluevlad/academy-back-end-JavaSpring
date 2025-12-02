@@ -57,8 +57,7 @@ public class BookApi extends CORSFilter {
      * @throws Exception
      */
     @GetMapping("/list")
-    public JSONObject list(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject list(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
         /* 페이징 */
         int currentPage = bookVO.getCurrentPage();
@@ -70,7 +69,6 @@ public class BookApi extends CORSFilter {
         /* 페이징 */
 
         TeacherVO teacherVO = new TeacherVO();
-        teacherVO.setGubun("T");
         List<HashMap<String, String>> kindlist = teacherService.getKindList(teacherVO);
         List<HashMap<String, String>> list = bookService.bookList(bookVO);
         int listCount = bookService.bookListCount(bookVO);
@@ -96,8 +94,7 @@ public class BookApi extends CORSFilter {
      * @throws Exception
      */
     @GetMapping("/view")
-    public JSONObject view(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject view(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
         List<HashMap<String, String>> view = bookService.bookView(bookVO);
         List<HashMap<String, String>> viewlist = bookService.bookViewList(bookVO);
@@ -117,7 +114,6 @@ public class BookApi extends CORSFilter {
         }
 
         TeacherVO teacherVO = new TeacherVO();
-        teacherVO.setGubun("T");
         List<HashMap<String, String>> kindlist = teacherService.getKindList(teacherVO);
         bookVO.setSearchCodeIsUse("Y");
         List<HashMap<String, String>> formlist = bookService.getLearningFormList(bookVO);
@@ -146,11 +142,9 @@ public class BookApi extends CORSFilter {
      * @throws Exception
      */
     @GetMapping("/writeData")
-    public JSONObject writeData(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject writeData(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
         TeacherVO teacherVO = new TeacherVO();
-        teacherVO.setGubun("T");
         List<HashMap<String, String>> kindlist = teacherService.getKindList(teacherVO);
         bookVO.setSearchCodeIsUse("Y");
         List<HashMap<String, String>> formlist = bookService.getLearningFormList(bookVO);
@@ -176,12 +170,11 @@ public class BookApi extends CORSFilter {
      */
     @PostMapping("/save")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject save(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
-
-        String[] SUBJECT_SJT_CD_ARR = request.getParameterValues("SUBJECT_SJT_CD");
-        String[] CATEGORY_CD_ARR = request.getParameterValues("CATEGORY_CD");
-        String[] LEARNING_CD_ARR = request.getParameterValues("LEARNING_CD");
+    public JSONObject save(@ModelAttribute("BookVO") BookVO bookVO,
+                           @RequestParam Map<?, ?> commandMap,
+                           @RequestParam(value = "SUBJECT_SJT_CD", required = false) String[] SUBJECT_SJT_CD_ARR,
+                           @RequestParam(value = "CATEGORY_CD", required = false) String[] CATEGORY_CD_ARR,
+                           @RequestParam(value = "LEARNING_CD", required = false) String[] LEARNING_CD_ARR) throws Exception {
 
         bookVO.setSeq(bookService.getCaBookSeq(bookVO));
         for(int j=0; j<CATEGORY_CD_ARR.length; j++){
@@ -222,11 +215,12 @@ public class BookApi extends CORSFilter {
      */
     @PutMapping("/update")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject update(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject update(@ModelAttribute("BookVO") BookVO bookVO,
+                             @RequestParam Map<?, ?> commandMap,
+                             @RequestParam(value = "SUBJECT_SJT_CD", required = false) String[] SUBJECT_SJT_CD_ARR,
+                             @RequestParam(value = "UPDATE_FLAG", required = false) String updateFlag) throws Exception {
 
-        String[] SUBJECT_SJT_CD_ARR = request.getParameterValues("SUBJECT_SJT_CD");
-        bookVO.setUpdateFlag(CommonUtil.isNull(request.getParameter("UPDATE_FLAG"), ""));
+        bookVO.setUpdateFlag(CommonUtil.isNull(updateFlag, ""));
         String SUBJECT_SJT_CD = "";
         for(int i=0; i<SUBJECT_SJT_CD_ARR.length; i++){
             if(!"".equals(SUBJECT_SJT_CD)){
@@ -256,8 +250,7 @@ public class BookApi extends CORSFilter {
      */
     @DeleteMapping("/delete")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject delete(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject delete(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
         bookService.bookDelete(bookVO);
 
@@ -280,8 +273,7 @@ public class BookApi extends CORSFilter {
      */
     @DeleteMapping("/deleteAll")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject deleteAll(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject deleteAll(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
         bookVO.setGubn("all");
         bookService.bookDelete(bookVO);
@@ -304,8 +296,7 @@ public class BookApi extends CORSFilter {
      * @throws Exception
      */
     @GetMapping("/sellList")
-    public JSONObject sellList(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject sellList(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
         /* 페이징 */
         int currentPage = bookVO.getCurrentPage();
@@ -339,8 +330,7 @@ public class BookApi extends CORSFilter {
      * @throws Exception
      */
     @GetMapping("/sellListExcel")
-    public JSONObject sellListExcel(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        setParam(bookVO, commandMap, request);
+    public JSONObject sellListExcel(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap) throws Exception {
 
         /* 페이징 */
         int currentPage = bookVO.getCurrentPage();
@@ -360,33 +350,4 @@ public class BookApi extends CORSFilter {
         return jObject;
     }
 
-    /**
-     * @Method Name : setParam
-     * @작성일 : 2024
-     * @Method 설명 : 파라미터 SETTING
-     * @param bookVO
-     * @param commandMap
-     * @param request
-     * @throws Exception
-     */
-    @SuppressWarnings("unchecked")
-    public void setParam(BookVO bookVO, Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
-        HttpSession session = request.getSession(false);
-        if(session != null) {
-            HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
-            if(loginInfo != null) {
-                bookVO.setRegId(loginInfo.get("USER_ID"));
-                bookVO.setUpdId(loginInfo.get("USER_ID"));
-            }
-        }
-
-        // Set pagination parameters (using CommonVO fields)
-        bookVO.setPageIndex(Integer.parseInt(CommonUtil.isNull(request.getParameter("currentPage"), "1")));
-        bookVO.setPageUnit(Integer.parseInt(CommonUtil.isNull(request.getParameter("pageRow"), String.valueOf(pageUnit))));
-
-        // Set search parameters (using CommonVO fields)
-        bookVO.setSearchKind(CommonUtil.isNull(request.getParameter("SEARCHKIND"), ""));
-        bookVO.setSearchType(CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-        bookVO.setSearchText(CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-    }
 }

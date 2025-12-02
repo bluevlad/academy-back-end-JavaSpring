@@ -52,14 +52,12 @@ public class LectureMstApi extends CORSFilter {
 	 * @Method Name : list
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 마스터 목록 조회
-	 * @param lectureMstVO
-	 * @param request
+	 * @param LectureVO
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/list")
-	public JSONObject list(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject list(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		/* 페이징 */
 		int currentPage = lectureVO.getCurrentPage();
@@ -71,7 +69,6 @@ public class LectureMstApi extends CORSFilter {
 		/* 페이징 */
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
         BookVO bookVO = new BookVO();
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
@@ -98,16 +95,16 @@ public class LectureMstApi extends CORSFilter {
 	 * @Method Name : getSubjectTeacherList
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 과목(강사) 검색 목록
-	 * @param lectureMstVO
-	 * @param request
+	 * @param LectureVO
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/subjectTeacherList")
-	public JSONObject getSubjectTeacherList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject getSubjectTeacherList(@ModelAttribute LectureVO lectureVO) throws Exception {
 
-		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(lectureVO);
+        BookVO bookVO = new BookVO();
+
+		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(bookVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("subjectteacherlist", subjectteacherlist);
@@ -120,18 +117,18 @@ public class LectureMstApi extends CORSFilter {
 	 * @Method Name : view
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 마스터 상세 조회
-	 * @param lectureMstVO
-	 * @param request
+	 * @param LectureVO
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/view")
-	public JSONObject view(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject view(@ModelAttribute LectureVO lectureVO) throws Exception {
 
-		List<HashMap<String, String>> view = lecturemstservice.lectureView(lectureVO);
+        BookVO bookVO = new BookVO();
+
+        List<HashMap<String, String>> view = lecturemstservice.lectureView(lectureVO);
 		List<HashMap<String, String>> viewbooklist = lecturemstservice.lectureViewBookList(lectureVO);
-		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(lectureVO);
+		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(bookVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("subjectteacherlist", subjectteacherlist);
@@ -148,14 +145,12 @@ public class LectureMstApi extends CORSFilter {
 	 * @Method Name : getDataViewList
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 데이터 뷰 리스트 조회
-	 * @param lectureMstVO
-	 * @param request
+	 * @param LectureVO
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/dataViewList")
-	public JSONObject getDataViewList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject getDataViewList(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		List<HashMap<String, String>> memolist = lecturemstservice.lectureDataMemoViewList(lectureVO);
 		List<HashMap<String, String>> list = lecturemstservice.lectureDataViewList(lectureVO);
@@ -176,15 +171,13 @@ public class LectureMstApi extends CORSFilter {
 	 * @Method Name : save
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 마스터 등록
-	 * @param lectureMstVO
-	 * @param request
+	 * @param LectureVO
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PostMapping(value="/save")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject save(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject save(@RequestBody LectureVO lectureVO) throws Exception {
 
 		Calendar cal = Calendar.getInstance();
 		String[] CATEGORY_CD_ARR = lectureVO.getCategoryCdArr();
@@ -265,15 +258,13 @@ public class LectureMstApi extends CORSFilter {
 	 * @Method Name : update
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 마스터 수정
-	 * @param lectureMstVO
-	 * @param request
+	 * @param LectureVO
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/update")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject update(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject update(@RequestBody LectureVO lectureVO) throws Exception {
 
 		lecturemstservice.lectureBookDelete(lectureVO);
 		lecturemstservice.lecturemstUpdate(lectureVO);
@@ -328,15 +319,13 @@ public class LectureMstApi extends CORSFilter {
 	 * @Method Name : delete
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 마스터 삭제
-	 * @param lectureMstVO
-	 * @param request
+	 * @param LectureVO
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/delete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject delete(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject delete(@RequestBody LectureVO lectureVO) throws Exception {
 
 		lecturemstservice.lectureDelete(lectureVO);
 		lecturemstservice.lectureBridgeDelete(lectureVO);
@@ -348,27 +337,6 @@ public class LectureMstApi extends CORSFilter {
 
 		JSONObject jObject = new JSONObject(result);
 		return jObject;
-	}
-
-	/**
-	 * @Method Name : setSessionInfo
-	 * @작성일 : 2025.11
-	 * @Method 설명 : 세션 정보 설정
-	 * @param lectureMstVO
-	 * @param request
-	 * @return void
-	 * @throws Exception
-	 */
-	@SuppressWarnings("unchecked")
-	private void setSessionInfo(LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
-			if(loginInfo != null) {
-				lectureVO.setRegId(loginInfo.get("USER_ID"));
-				lectureVO.setUpdId(loginInfo.get("USER_ID"));
-			}
-		}
 	}
 
 }
