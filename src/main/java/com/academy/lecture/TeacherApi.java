@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.academy.common.CORSFilter;
 import com.academy.common.CommonUtil;
-import com.willbes.platform.util.file.FileUtil;
+import com.academy.common.file.FileUtil;
 import com.academy.lecture.service.TeacherService;
 import com.academy.lecture.service.TeacherVO;
 
@@ -38,8 +37,9 @@ public class TeacherApi extends CORSFilter {
     @Resource(name="propertiesService")
     protected EgovPropertyService propertiesService;
 
-	@Inject
-	private FileSystemResource fsResource;
+	@Value("${file.upload.path:C:/upload/}")
+	private String uploadPath;
+
 	@Resource(name="fileUtil")
 	private FileUtil fileUtil;
 
@@ -216,7 +216,7 @@ public class TeacherApi extends CORSFilter {
 		setSessionInfo(vo, request);
 		lecFileProcess(vo, multipartRequest);
 
-		String rootPath = fsResource.getPath();
+		String rootPath = uploadPath;
 		deleteOldFiles(vo, rootPath);
 
         String[] ORI_CATEGORY_CODE = request.getParameterValues("ORI_CATEGORY_CODE");
@@ -415,7 +415,7 @@ public class TeacherApi extends CORSFilter {
 	 * @throws Exception
 	 */
     public TeacherVO lecFileProcess(TeacherVO vo, MultipartHttpServletRequest multipartRequest) throws Exception {
-		String rootPath = fsResource.getPath();
+		String rootPath = uploadPath;
 		String subPath = "member_upload/";
 
 		String[] picFields = {"PIC1", "PIC2", "PIC3", "PIC4", "PIC5", "PIC6", "PIC7", "PIC8", "PIC9", "PIC10",

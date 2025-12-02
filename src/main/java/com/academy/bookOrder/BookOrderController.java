@@ -21,14 +21,13 @@ import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -43,7 +42,7 @@ import com.willbes.cmm.service.MirProperties;
 import com.willbes.platform.util.CommonUtil;
 import com.willbes.platform.util.excel.ExcelDownloadView;
 import com.willbes.platform.util.excel.ExcelRead;
-import com.willbes.platform.util.file.FileUtil;
+import com.academy.common.file.FileUtil;
 import com.willbes.platform.util.paging.Paging;
 import com.willbes.web.bookOrder.service.BookOrderService;
 import com.willbes.web.productOrder.service.ProductOrderService;
@@ -69,8 +68,8 @@ public class BookOrderController {
     @Autowired
 	private ProductOrderService productOrderService;
 
-	@Inject
-	private FileSystemResource fsResource;	//DI
+	@Value("${file.upload.path:C:/upload/}")
+	private String uploadPath;
 
 	@Resource(name="fileUtil")
 	FileUtil fileUtil;
@@ -1222,7 +1221,7 @@ public class BookOrderController {
 
 		if (imgFile3_sts.equals("Y")) {
 
-			String rootPath = fsResource.getPath();
+			String rootPath = uploadPath;
 			String subPath = "excel/";
 
 			MultipartFile uploadFile = multipartRequest.getFile("imgFile3");

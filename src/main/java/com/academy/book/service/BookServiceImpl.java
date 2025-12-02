@@ -18,77 +18,77 @@ public class BookServiceImpl implements BookService {
     private BookMapper bookMapper;
 
     @Override
-    public List<HashMap<String, String>> bookList(HashMap<String, String> params) {
-        return bookMapper.bookList(params);
+    public List<HashMap<String, String>> bookList(BookVO bookVO) {
+        return bookMapper.bookList(bookVO);
     }
 
     @Override
-    public int bookListCount(HashMap<String, String> params) {
-        return bookMapper.bookListCount(params);
+    public int bookListCount(BookVO bookVO) {
+        return bookMapper.bookListCount(bookVO);
     }
 
     @Override
-    public List<HashMap<String, String>> getLearningFormList(HashMap<String, String> params) {
-        return bookMapper.getLearningFormList(params);
+    public List<HashMap<String, String>> getLearningFormList(BookVO bookVO) {
+        return bookMapper.getLearningFormList(bookVO);
     }
 
     @Override
-    public List<HashMap<String, String>> getCaSubjectTeacherList(HashMap<String, String> params) {
-        return bookMapper.getCaSubjectTeacherList(params);
+    public List<HashMap<String, String>> getCaSubjectTeacherList(BookVO bookVO) {
+        return bookMapper.getCaSubjectTeacherList(bookVO);
     }
 
     @Override
-    public int getCaBookSeq(HashMap<String, String> params) {
-        return bookMapper.getCaBookSeq(params);
+    public int getCaBookSeq(BookVO bookVO) {
+        return bookMapper.getCaBookSeq(bookVO);
     }
 
     @Override
-    public String getCaBookRscId(HashMap<String, String> params) {
-        return bookMapper.getCaBookRscId(params);
+    public String getCaBookRscId(BookVO bookVO) {
+        return bookMapper.getCaBookRscId(bookVO);
     }
 
     @Override
-    public void bookInsert(HashMap<String, String> params) {
-        bookMapper.bookInsert(params);
+    public void bookInsert(BookVO bookVO) {
+        bookMapper.bookInsert(bookVO);
     }
 
     @Override
-    public List<HashMap<String, String>> bookViewList(HashMap<String, String> params) {
-        return bookMapper.bookViewList(params);
+    public List<HashMap<String, String>> bookViewList(BookVO bookVO) {
+        return bookMapper.bookViewList(bookVO);
     }
 
     @Override
-    public List<HashMap<String, String>> bookView(HashMap<String, String> params) {
-        return bookMapper.bookView(params);
+    public List<HashMap<String, String>> bookView(BookVO bookVO) {
+        return bookMapper.bookView(bookVO);
     }
 
     @Override
-    public int bookUseCheck(HashMap<String, String> params) {
-        return bookMapper.bookUseCheck(params);
+    public int bookUseCheck(BookVO bookVO) {
+        return bookMapper.bookUseCheck(bookVO);
     }
 
     @Override
-    public void bookUpdate(HashMap<String, String> params) {
-        bookMapper.bookUpdate(params);
+    public void bookUpdate(BookVO bookVO) {
+        bookMapper.bookUpdate(bookVO);
     }
 
     @Override
-    public void bookDelete(HashMap<String, String> params) {
-        bookMapper.bookDelete(params);
+    public void bookDelete(BookVO bookVO) {
+        bookMapper.bookDelete(bookVO);
     }
 
     @Override
-    public List<HashMap<String, String>> bookSellList(HashMap<String, String> params) {
-        return bookMapper.bookSellList(params);
+    public List<HashMap<String, String>> bookSellList(BookVO bookVO) {
+        return bookMapper.bookSellList(bookVO);
     }
 
     @Override
-    public int bookSellListCount(HashMap<String, String> params) {
-        return bookMapper.bookSellListCount(params);
+    public int bookSellListCount(BookVO bookVO) {
+        return bookMapper.bookSellListCount(bookVO);
     }
 
     @Override
-    public List<HashMap<String, String>> bookSellListExcel(HashMap<String, String> params) {
-        return bookMapper.bookSellListExcel(params);
+    public List<HashMap<String, String>> bookSellListExcel(BookVO bookVO) {
+        return bookMapper.bookSellListExcel(bookVO);
     }
 }

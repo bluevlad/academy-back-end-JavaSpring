@@ -25,6 +25,7 @@ import com.academy.common.CommonUtil;
 import com.academy.book.service.BookService;
 import com.academy.book.service.BookVO;
 import com.academy.lecture.service.TeacherService;
+import com.academy.lecture.service.TeacherVO;
 
 /**
  * Book API Controller
@@ -59,22 +60,20 @@ public class BookApi extends CORSFilter {
     public JSONObject list(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-
         /* 페이징 */
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = bookVO.getCurrentPage();
+        int pageRow = bookVO.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        bookVO.setStartNo(String.valueOf(startNo));
+        bookVO.setEndNo(String.valueOf(endNo));
         /* 페이징 */
 
-        params.put("SEARCHGUBN", "T");
-        List<HashMap<String, String>> kindlist = teacherService.getKindList(params);
-        List<HashMap<String, String>> list = bookService.bookList(params);
-        int listCount = bookService.bookListCount(params);
+        TeacherVO teacherVO = new TeacherVO();
+        teacherVO.setGubun("T");
+        List<HashMap<String, String>> kindlist = teacherService.getKindList(teacherVO);
+        List<HashMap<String, String>> list = bookService.bookList(bookVO);
+        int listCount = bookService.bookListCount(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("kindlist", kindlist);
@@ -100,31 +99,29 @@ public class BookApi extends CORSFilter {
     public JSONObject view(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-
-        List<HashMap<String, String>> view = bookService.bookView(params);
-        List<HashMap<String, String>> viewlist = bookService.bookViewList(params);
+        List<HashMap<String, String>> view = bookService.bookView(bookVO);
+        List<HashMap<String, String>> viewlist = bookService.bookViewList(bookVO);
         String rdelyn = "Y";        // 현재 선택글 삭제가능여부
         String sdelyn = "Y";        // 관련글 삭제 가능여부
 
-        int checkCnt = bookService.bookUseCheck(params);
+        int checkCnt = bookService.bookUseCheck(bookVO);
         if(checkCnt > 0)
             rdelyn = "N";
 
-        HashMap<String, String> vparams = new HashMap<String, String>();
+        BookVO checkVO = new BookVO();
         for (int j = 0; j < viewlist.size(); j++) {
-            vparams.put("RSC_ID", viewlist.get(j).get("RSC_ID"));
-            checkCnt = bookService.bookUseCheck(vparams);
+            checkVO.setRscId(viewlist.get(j).get("RSC_ID"));
+            checkCnt = bookService.bookUseCheck(checkVO);
             if(checkCnt > 0)
                 sdelyn = "N";
         }
 
-        params.put("SEARCHGUBN", "T");
-        List<HashMap<String, String>> kindlist = teacherService.getKindList(params);
-        params.put("SEARCHCODEISUSE", "Y");
-        List<HashMap<String, String>> formlist = bookService.getLearningFormList(params);
-        List<HashMap<String, String>> subjectteacherlist = bookService.getCaSubjectTeacherList(params);
+        TeacherVO teacherVO = new TeacherVO();
+        teacherVO.setGubun("T");
+        List<HashMap<String, String>> kindlist = teacherService.getKindList(teacherVO);
+        bookVO.setSearchCodeIsUse("Y");
+        List<HashMap<String, String>> formlist = bookService.getLearningFormList(bookVO);
+        List<HashMap<String, String>> subjectteacherlist = bookService.getCaSubjectTeacherList(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("kindlist", kindlist);
@@ -152,14 +149,12 @@ public class BookApi extends CORSFilter {
     public JSONObject writeData(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-
-        params.put("SEARCHGUBN", "T");
-        List<HashMap<String, String>> kindlist = teacherService.getKindList(params);
-        params.put("SEARCHCODEISUSE", "Y");
-        List<HashMap<String, String>> formlist = bookService.getLearningFormList(params);
-        List<HashMap<String, String>> subjectteacherlist = bookService.getCaSubjectTeacherList(params);
+        TeacherVO teacherVO = new TeacherVO();
+        teacherVO.setGubun("T");
+        List<HashMap<String, String>> kindlist = teacherService.getKindList(teacherVO);
+        bookVO.setSearchCodeIsUse("Y");
+        List<HashMap<String, String>> formlist = bookService.getLearningFormList(bookVO);
+        List<HashMap<String, String>> subjectteacherlist = bookService.getCaSubjectTeacherList(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("kindlist", kindlist);
@@ -184,19 +179,16 @@ public class BookApi extends CORSFilter {
     public JSONObject save(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-
         String[] SUBJECT_SJT_CD_ARR = request.getParameterValues("SUBJECT_SJT_CD");
         String[] CATEGORY_CD_ARR = request.getParameterValues("CATEGORY_CD");
         String[] LEARNING_CD_ARR = request.getParameterValues("LEARNING_CD");
 
-        params.put("SEQ", String.valueOf(bookService.getCaBookSeq(params)));
+        bookVO.setSeq(bookService.getCaBookSeq(bookVO));
         for(int j=0; j<CATEGORY_CD_ARR.length; j++){
-            params.put("CATEGORY_CD", CATEGORY_CD_ARR[j]);
+            bookVO.setCategoryCd(CATEGORY_CD_ARR[j]);
 
             for(int k=0; k<LEARNING_CD_ARR.length; k++){
-                params.put("LEARNING_CD", LEARNING_CD_ARR[k]);
+                bookVO.setLearningCd(LEARNING_CD_ARR[k]);
                 String SUBJECT_SJT_CD = "";
 
                 for(int i=0; i<SUBJECT_SJT_CD_ARR.length; i++){
@@ -205,9 +197,9 @@ public class BookApi extends CORSFilter {
                     }
                     SUBJECT_SJT_CD += SUBJECT_SJT_CD_ARR[i];
                 }
-                params.put("SUBJECT_SJT_CD", SUBJECT_SJT_CD);
-                params.put("RSC_ID", bookService.getCaBookRscId(params));
-                bookService.bookInsert(params);
+                bookVO.setSubjectSjtCd(SUBJECT_SJT_CD);
+                bookVO.setRscId(bookService.getCaBookRscId(bookVO));
+                bookService.bookInsert(bookVO);
             }
         }
 
@@ -233,11 +225,8 @@ public class BookApi extends CORSFilter {
     public JSONObject update(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-
         String[] SUBJECT_SJT_CD_ARR = request.getParameterValues("SUBJECT_SJT_CD");
-        params.put("UPDATE_FLAG", CommonUtil.isNull(request.getParameter("UPDATE_FLAG"), ""));
+        bookVO.setUpdateFlag(CommonUtil.isNull(request.getParameter("UPDATE_FLAG"), ""));
         String SUBJECT_SJT_CD = "";
         for(int i=0; i<SUBJECT_SJT_CD_ARR.length; i++){
             if(!"".equals(SUBJECT_SJT_CD)){
@@ -245,8 +234,8 @@ public class BookApi extends CORSFilter {
             }
             SUBJECT_SJT_CD += SUBJECT_SJT_CD_ARR[i];
         }
-        params.put("SUBJECT_SJT_CD", SUBJECT_SJT_CD);
-        bookService.bookUpdate(params);
+        bookVO.setSubjectSjtCd(SUBJECT_SJT_CD);
+        bookService.bookUpdate(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -270,9 +259,7 @@ public class BookApi extends CORSFilter {
     public JSONObject delete(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-        bookService.bookDelete(params);
+        bookService.bookDelete(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -296,10 +283,8 @@ public class BookApi extends CORSFilter {
     public JSONObject deleteAll(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-        params.put("GUBN","all");
-        bookService.bookDelete(params);
+        bookVO.setGubn("all");
+        bookService.bookDelete(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -322,20 +307,17 @@ public class BookApi extends CORSFilter {
     public JSONObject sellList(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-
         /* 페이징 */
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = bookVO.getCurrentPage();
+        int pageRow = bookVO.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        bookVO.setStartNo(String.valueOf(startNo));
+        bookVO.setEndNo(String.valueOf(endNo));
         /* 페이징 */
 
-        List<HashMap<String, String>> list = bookService.bookSellList(params);
-        int listCount = bookService.bookSellListCount(params);
+        List<HashMap<String, String>> list = bookService.bookSellList(bookVO);
+        int listCount = bookService.bookSellListCount(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -360,19 +342,16 @@ public class BookApi extends CORSFilter {
     public JSONObject sellListExcel(@ModelAttribute("BookVO") BookVO bookVO, @RequestParam Map<?, ?> commandMap, HttpServletRequest request) throws Exception {
         setParam(bookVO, commandMap, request);
 
-        // Convert BookVO to HashMap for service layer
-        HashMap<String, String> params = convertToHashMap(bookVO);
-
         /* 페이징 */
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = bookVO.getCurrentPage();
+        int pageRow = bookVO.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        bookVO.setStartNo(String.valueOf(startNo));
+        bookVO.setEndNo(String.valueOf(endNo));
         /* 페이징 */
 
-        List<HashMap<String, String>> list = bookService.bookSellListExcel(params);
+        List<HashMap<String, String>> list = bookService.bookSellListExcel(bookVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -409,69 +388,5 @@ public class BookApi extends CORSFilter {
         bookVO.setSearchKind(CommonUtil.isNull(request.getParameter("SEARCHKIND"), ""));
         bookVO.setSearchType(CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
         bookVO.setSearchText(CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-    }
-
-    /**
-     * @Method Name : convertToHashMap
-     * @작성일 : 2024
-     * @Method 설명 : BookVO를 HashMap으로 변환 (Service Layer 호환성)
-     * @param bookVO
-     * @return HashMap<String, String>
-     * @throws Exception
-     */
-    private HashMap<String, String> convertToHashMap(BookVO bookVO) throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
-
-        // Basic fields
-        if(bookVO.getSeq() != null) params.put("SEQ", String.valueOf(bookVO.getSeq()));
-        if(bookVO.getRscId() != null) params.put("RSC_ID", bookVO.getRscId());
-        if(bookVO.getSubjectSjtCd() != null) params.put("SUBJECT_SJT_CD", bookVO.getSubjectSjtCd());
-        if(bookVO.getCategoryCd() != null) params.put("CATEGORY_CD", bookVO.getCategoryCd());
-        if(bookVO.getLearningCd() != null) params.put("LEARNING_CD", bookVO.getLearningCd());
-        if(bookVO.getBookNm() != null) params.put("BOOK_NM", bookVO.getBookNm());
-        if(bookVO.getBookInfo() != null) params.put("BOOK_INFO", bookVO.getBookInfo());
-        if(bookVO.getBookMemo() != null) params.put("BOOK_MEMO", bookVO.getBookMemo());
-        if(bookVO.getBookKeyword() != null) params.put("BOOK_KEYWORD", bookVO.getBookKeyword());
-        if(bookVO.getIssueDate() != null) params.put("ISSUE_DATE", bookVO.getIssueDate());
-        if(bookVO.getCoverType() != null) params.put("COVER_TYPE", bookVO.getCoverType());
-        if(bookVO.getBookContents() != null) params.put("BOOK_CONTENTS", bookVO.getBookContents());
-        if(bookVO.getPrice() != null) params.put("PRICE", String.valueOf(bookVO.getPrice()));
-        if(bookVO.getDiscount() != null) params.put("DISCOUNT", String.valueOf(bookVO.getDiscount()));
-        if(bookVO.getDiscountPrice() != null) params.put("DISCOUNT_PRICE", String.valueOf(bookVO.getDiscountPrice()));
-        if(bookVO.getPoint() != null) params.put("POINT", String.valueOf(bookVO.getPoint()));
-        if(bookVO.getBookPublishers() != null) params.put("BOOK_PUBLISHERS", bookVO.getBookPublishers());
-        if(bookVO.getBookAuthor() != null) params.put("BOOK_AUTHOR", bookVO.getBookAuthor());
-        if(bookVO.getBookSupplementdata() != null) params.put("BOOK_SUPPLEMENTDATA", bookVO.getBookSupplementdata());
-        if(bookVO.getBookPrintingdate() != null) params.put("BOOK_PRINTINGDATE", bookVO.getBookPrintingdate());
-        if(bookVO.getBookMain() != null) params.put("BOOK_MAIN", bookVO.getBookMain());
-        if(bookVO.getBookSub() != null) params.put("BOOK_SUB", bookVO.getBookSub());
-        if(bookVO.getBookStudentbook() != null) params.put("BOOK_STUDENTBOOK", bookVO.getBookStudentbook());
-        if(bookVO.getBookStock() != null) params.put("BOOK_STOCK", String.valueOf(bookVO.getBookStock()));
-        if(bookVO.getFreePost() != null) params.put("FREE_POST", bookVO.getFreePost());
-        if(bookVO.getBookDate() != null) params.put("BOOK_DATE", bookVO.getBookDate());
-        if(bookVO.getNewBook() != null) params.put("NEW_BOOK", bookVO.getNewBook());
-        if(bookVO.getMainView() != null) params.put("MAIN_VIEW", bookVO.getMainView());
-        if(bookVO.getUseYn() != null) params.put("USE_YN", bookVO.getUseYn());
-        if(bookVO.getBookPage() != null) params.put("BOOK_PAGE", bookVO.getBookPage());
-        if(bookVO.getBookFormat() != null) params.put("BOOK_FORMAT", bookVO.getBookFormat());
-
-        // Audit fields
-        if(bookVO.getRegId() != null) params.put("REG_ID", bookVO.getRegId());
-        if(bookVO.getUpdId() != null) params.put("UPD_ID", bookVO.getUpdId());
-
-        // Search and pagination fields (using CommonVO methods)
-        params.put("currentPage", String.valueOf(bookVO.getCurrentPage()));  // alias for pageIndex
-        params.put("pageRow", String.valueOf(bookVO.getPageRow()));  // alias for pageUnit
-        if(bookVO.getStartNo() != null && !bookVO.getStartNo().isEmpty()) params.put("startNo", bookVO.getStartNo());
-        if(bookVO.getEndNo() != null && !bookVO.getEndNo().isEmpty()) params.put("endNo", bookVO.getEndNo());
-        if(bookVO.getSearchKind() != null && !bookVO.getSearchKind().isEmpty()) params.put("SEARCHKIND", bookVO.getSearchKind());
-        if(bookVO.getSearchType() != null && !bookVO.getSearchType().isEmpty()) params.put("SEARCHTYPE", bookVO.getSearchType());
-        if(bookVO.getSearchText() != null && !bookVO.getSearchText().isEmpty()) params.put("SEARCHTEXT", bookVO.getSearchText());
-        if(bookVO.getSearchGubn() != null && !bookVO.getSearchGubn().isEmpty()) params.put("SEARCHGUBN", bookVO.getSearchGubn());
-        if(bookVO.getSearchCodeIsUse() != null && !bookVO.getSearchCodeIsUse().isEmpty()) params.put("SEARCHCODEISUSE", bookVO.getSearchCodeIsUse());
-        if(bookVO.getUpdateFlag() != null && !bookVO.getUpdateFlag().isEmpty()) params.put("UPDATE_FLAG", bookVO.getUpdateFlag());
-        if(bookVO.getGubn() != null && !bookVO.getGubn().isEmpty()) params.put("GUBN", bookVO.getGubn());
-
-        return params;
     }
 }

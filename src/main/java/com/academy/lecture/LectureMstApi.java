@@ -4,13 +4,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
-import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.academy.common.CORSFilter;
-import com.willbes.platform.util.file.FileUtil;
+import com.academy.common.file.FileUtil;
 import com.academy.book.service.BookService;
 import com.academy.lecture.service.LectureMstService;
 import com.academy.lecture.service.LectureMstVO;
@@ -34,18 +32,16 @@ import com.academy.lecture.service.TeacherVO;
 @RequestMapping("/api/lecturemst")
 public class LectureMstApi extends CORSFilter {
 
-	@Inject
-	private FileSystemResource fsResource;
-	@Inject
-	private FileUtil fileUtil;
-
-	private BookService bookservice;
-	private LectureMstService lecturemstservice;
-	private TeacherService teacherservice;
+	private final FileUtil fileUtil;
+	private final BookService bookservice;
+	private final LectureMstService lecturemstservice;
+	private final TeacherService teacherservice;
 
 	@Autowired
-	public LectureMstApi(BookService bookservice, LectureMstService lecturemstservice,
+	public LectureMstApi(FileUtil fileUtil,
+			BookService bookservice, LectureMstService lecturemstservice,
 			TeacherService teacherservice) {
+		this.fileUtil = fileUtil;
 		this.bookservice = bookservice;
 		this.lecturemstservice = lecturemstservice;
 		this.teacherservice = teacherservice;

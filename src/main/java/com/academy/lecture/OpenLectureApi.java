@@ -5,13 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.academy.common.CORSFilter;
 import com.academy.common.service.CmmUseService;
-import com.willbes.platform.util.file.FileUtil;
+import com.academy.common.file.FileUtil;
 import com.academy.book.service.BookService;
 import com.academy.lecture.service.OpenLectureService;
 import com.academy.lecture.service.OpenLectureVO;
@@ -40,22 +39,23 @@ import com.academy.productOrder.service.ProductOrderService;
 @RequestMapping("/api/openlecture")
 public class OpenLectureApi extends CORSFilter {
 
-	@Inject
-	private FileSystemResource fsResource;
-	@Inject
-	private FileUtil fileUtil;
+	@Value("${file.upload.path:C:/upload/}")
+	private String uploadPath;
 
-	private BookService bookservice;
-	private OpenLectureService openlectureservice;
-	private TeacherService teacherservice;
-	private CmmUseService cmmUseService;
-	private SubjectService subjectservice;
-	private ProductOrderService productOrderService;
+	private final FileUtil fileUtil;
+	private final BookService bookservice;
+	private final OpenLectureService openlectureservice;
+	private final TeacherService teacherservice;
+	private final CmmUseService cmmUseService;
+	private final SubjectService subjectservice;
+	private final ProductOrderService productOrderService;
 
 	@Autowired
-	public OpenLectureApi(BookService bookservice, OpenLectureService openlectureservice,
+	public OpenLectureApi(FileUtil fileUtil,
+			BookService bookservice, OpenLectureService openlectureservice,
 			TeacherService teacherservice, CmmUseService cmmUseService,
 			SubjectService subjectservice, ProductOrderService productOrderService) {
+		this.fileUtil = fileUtil;
 		this.bookservice = bookservice;
 		this.openlectureservice = openlectureservice;
 		this.teacherservice = teacherservice;
@@ -326,7 +326,7 @@ public class OpenLectureApi extends CORSFilter {
 			MultipartHttpServletRequest multipartRequest) throws Exception {
 		setSessionInfo(openLectureVO, request);
 
-		String rootPath = fsResource.getPath();
+		String rootPath = uploadPath;
 		lecFileProcess(openLectureVO, multipartRequest);
 
 		if("Y".equals(openLectureVO.getOpenFileDel()) || (openLectureVO.getOpenFile() != null && !"".equals(openLectureVO.getOpenFile())))
@@ -378,7 +378,7 @@ public class OpenLectureApi extends CORSFilter {
 	 * @throws Exception
 	 */
 	private void lecFileProcess(OpenLectureVO openLectureVO, MultipartHttpServletRequest multipartRequest) throws Exception {
-		String rootPath = fsResource.getPath();
+		String rootPath = uploadPath;
 		String subPath = "openlecture_upload/";
 
 		MultipartFile OPEN_FILE = multipartRequest.getFile("OPEN_FILE");
