@@ -2,9 +2,10 @@ package com.academy.mapper;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import com.academy.productorder.service.ProductOrderVO;
 
 /**
  * ProductOrder Mapper Interface
@@ -12,462 +13,317 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ProductOrderMapper {
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOrderStatuscodeList(Map keyName);
+    List<HashMap<String, Object>> getOrderStatuscodeList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getPaymentList(Map keyName);
+    List<HashMap<String, Object>> getPaymentList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOrderListDB_0(Map keyName);
+    List<HashMap<String, Object>> getOrderListDB_0(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getOrderListCount_0(Map keyName);
+    int getOrderListCount_0(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOrderListDB_freelec(Map keyName);
+    List<HashMap<String, Object>> getOrderListDB_freelec(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getOrderListCount_freelec(Map keyName);
+    int getOrderListCount_freelec(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOrderListDB(Map keyName);
+    List<HashMap<String, Object>> getOrderListDB(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getOrderListCount(Map keyName);
+    int getOrderListCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTblOrderMgntListDB(Map keyName);
+    List<HashMap<String, Object>> getTblOrderMgntListDB(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List<HashMap<String, String>> getOrderExcelListDB(HashMap<String, String> params);
+    List<HashMap<String, String>> getOrderExcelListDB(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int setPayKindUpdate(Map keyName);
+    int setPayKindUpdate(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateDepositStatus1(Map keyName);
+    int updateDepositStatus1(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getDepositStatusCount(Map keyName);
+    int getDepositStatusCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateDepositStatus2(Map keyName);
+    int updateDepositStatus2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateDepositStatus3(Map keyName);
+    int updateDepositStatus3(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateDepositStatus4(Map keyName);
+    int updateDepositStatus4(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateDepositStatus5(Map keyName);
+    int updateDepositStatus5(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateBookStockPlus(Map keyName);
+    int updateBookStockPlus(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getPmpdownloadListPop(Map keyName);
+    List<HashMap<String, Object>> getPmpdownloadListPop(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getMobiledownloadListPop(Map keyName);
+    List<HashMap<String, Object>> getMobiledownloadListPop(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTblOrderList(Map keyName);
+    List<HashMap<String, Object>> getTblOrderList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOrderListPopDB(Map keyName);
+    List<HashMap<String, Object>> getOrderListPopDB(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCourse_type_code(Map keyName);
+    List<HashMap<String, Object>> getCourse_type_code(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getPlayyn(Map keyName);
+    List<HashMap<String, Object>> getPlayyn(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getPoint(Map keyName);
+    List<HashMap<String, Object>> getPoint(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTblOrderMgntNoPopViewList(Map keyName);
+    List<HashMap<String, Object>> getTblOrderMgntNoPopViewList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getTblOrderMgntNoPopViewCount(Map keyName);
+    int getTblOrderMgntNoPopViewCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getPrice_Sum(Map keyName);
+    int getPrice_Sum(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getOldRefundViewCount(Map keyName);
+    int getOldRefundViewCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getRefund_Point(Map keyName);
+    List<HashMap<String, Object>> getRefund_Point(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOldRefundView(Map keyName);
+    List<HashMap<String, Object>> getOldRefundView(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTblDeliver_refund_list(Map keyName);
+    List<HashMap<String, Object>> getTblDeliver_refund_list(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTblApprovalsViewList(Map keyName);
+    List<HashMap<String, Object>> getTblApprovalsViewList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getTblDeliversViewListCount(Map keyName);
+    int getTblDeliversViewListCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTblDeliversViewList(Map keyName);
+    List<HashMap<String, Object>> getTblDeliversViewList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTblOrdersViewList(Map keyName);
+    List<HashMap<String, Object>> getTblOrdersViewList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getLecMstViewList(Map keyName);
+    List<HashMap<String, Object>> getLecMstViewList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateDelivers(Map keyName);
+    int updateDelivers(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateApprovals(Map keyName);
+    int updateApprovals(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateDeliversWmv(Map keyName);
+    int updateDeliversWmv(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMoney1(Map keyName);
+    int updateMoney1(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateStudy_Per(Map keyName);
+    int updateStudy_Per(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getMoneySum(Map keyName);
+    int getMoneySum(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMoney2(Map keyName);
+    int updateMoney2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int refund_money_delete(Map keyName);
+    int refund_money_delete(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getMylecture(Map keyName);
+    List<HashMap<String, Object>> getMylecture(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture1(Map keyName);
+    int updateMylecture1(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture2(Map keyName);
+    int updateMylecture2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture3(Map keyName);
+    int updateMylecture3(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture4(Map keyName);
+    int updateMylecture4(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateEndDateMyLecture(Map keyName);
+    int updateEndDateMyLecture(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getMylectureCount(Map keyName);
+    int getMylectureCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture5(Map keyName);
+    int updateMylecture5(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertMylecture6(Map keyName);
+    int insertMylecture6(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOrderMgntNo1(Map keyName);
+    int insertOrderMgntNo1(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOrderMgntNo2(Map keyName);
+    int updateOrderMgntNo2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOrderMgntNo3(Map keyName);
+    int updateOrderMgntNo3(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOrderMgntNo2(Map keyName);
+    int insertOrderMgntNo2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateApprovals2(Map keyName);
+    int updateApprovals2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertMileageHistory(Map keyName);
+    int insertMileageHistory(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertMileageHistory3(Map keyName);
+    int insertMileageHistory3(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMaMember(Map keyName);
+    int updateMaMember(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture_1(Map keyName);
+    int updateMylecture_1(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture_2(Map keyName);
+    int updateMylecture_2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOrderMgntNo1(Map keyName);
+    int updateOrderMgntNo1(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMileageHistory(Map keyName);
+    int updateMileageHistory(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMaMember2(Map keyName);
+    int updateMaMember2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateApprovals3(Map keyName);
+    int updateApprovals3(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteOrderMgntNo(Map keyName);
+    int deleteOrderMgntNo(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMaMember3(Map keyName);
+    int updateMaMember3(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateApprovals4(Map keyName);
+    int updateApprovals4(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertMileageHistory2(Map keyName);
+    int insertMileageHistory2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMylecture_3(Map keyName);
+    int updateMylecture_3(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateApprovals5(Map keyName);
+    int updateApprovals5(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertSendMsgMultiSendUser(Map keyName);
+    int insertSendMsgMultiSendUser(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTmMember_View(Map keyName);
+    List<HashMap<String, Object>> getTmMember_View(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCsccode(Map keyName);
+    List<HashMap<String, Object>> getCsccode(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List Cs_board_list(Map keyName);
+    List<HashMap<String, Object>> Cs_board_list(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getCsBoardListCount(Map keyName);
+    int getCsBoardListCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTm_mycoupon_list_admin(Map keyName);
+    List<HashMap<String, Object>> getTm_mycoupon_list_admin(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getTm_mycoupon_listCount_admin(Map keyName);
+    int getTm_mycoupon_listCount_admin(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List Tm_Class_List(Map keyName);
+    List<HashMap<String, Object>> Tm_Class_List(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List Off_Class_List(Map keyName);
+    List<HashMap<String, Object>> Off_Class_List(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getTmClassListCount(Map keyName);
+    int getTmClassListCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getMemoList(Map keyName);
+    List<HashMap<String, Object>> getMemoList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getMemoListCount(Map keyName);
+    int getMemoListCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertBoardCs(Map keyName);
+    int insertBoardCs(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateMemo(Map keyName);
+    int updateMemo(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getSelectBefore_Point(Map keyName);
+    int getSelectBefore_Point(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTmCoupon(Map keyName);
+    List<HashMap<String, Object>> getTmCoupon(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTmCouponList(Map keyName);
+    List<HashMap<String, Object>> getTmCouponList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getTmMoCouponList(Map keyName);
+    List<HashMap<String, Object>> getTmMoCouponList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getTmCouponCount(Map keyName);
+    int getTmCouponCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getTmMoCouponCount(Map keyName);
+    int getTmMoCouponCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getCouponCount(Map keyName);
+    int getCouponCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertTmCoupon(Map keyName);
+    int insertTmCoupon(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertMyCoupon(Map keyName);
+    int insertMyCoupon(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOffOrderListDB(Map keyName);
+    List<HashMap<String, Object>> getOffOrderListDB(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getOffOrderListCount(Map keyName);
+    int getOffOrderListCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getOffTblOrderMgntListDB(Map keyName);
+    List<HashMap<String, Object>> getOffTblOrderMgntListDB(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List<HashMap<String, String>> getOffOrderExcelListDB(HashMap<String, String> params);
+    List<HashMap<String, String>> getOffOrderExcelListDB(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getIdChk(Map keyName);
+    List<HashMap<String, Object>> getIdChk(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCaCatCdList(Map keyName);
+    List<HashMap<String, Object>> getCaCatCdList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getVwMenuMstTree_lec(Map keyName);
+    List<HashMap<String, Object>> getVwMenuMstTree_lec(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCaSubjectCdList(Map keyName);
+    List<HashMap<String, Object>> getCaSubjectCdList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getCbLecMstFreeOrderList(Map keyName);
+    List<HashMap<String, Object>> getCbLecMstFreeOrderList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getCbLecMstListFreeOrderCount(Map keyName);
+    int getCbLecMstListFreeOrderCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getChangePrice(Map keyName);
+    List<HashMap<String, Object>> getChangePrice(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getUCount(Map keyName);
+    List<HashMap<String, Object>> getUCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertCart(Map keyName);
+    int insertCart(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getSubCode2(Map keyName);
+    List<HashMap<String, Object>> getSubCode2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteCart(Map keyName);
+    int deleteCart(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteAllCart(Map keyName);
+    int deleteAllCart(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getMCount(Map keyName);
+    List<HashMap<String, Object>> getMCount(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOffOrders(Map keyName);
+    int insertOffOrders(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOffApprovals(Map keyName);
+    int insertOffApprovals(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOffOrderMgntNo(Map keyName);
+    int insertOffOrderMgntNo(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOffMylecture(Map keyName);
+    int insertOffMylecture(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int modifyOffMylecture(Map keyName);
+    int modifyOffMylecture(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOffMylecture_N(Map keyName);
+    int insertOffMylecture_N(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getUpdateDetail(Map keyName);
+    List<HashMap<String, Object>> getUpdateDetail(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getSubCodeUp(Map keyName);
+    List<HashMap<String, Object>> getSubCodeUp(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getSubList(Map keyName);
+    List<HashMap<String, Object>> getSubList(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffOrders(Map keyName);
+    int updateOffOrders(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int Coupon_Del(Map keyName);
+    int Coupon_Del(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffApprovals(Map keyName);
+    int updateOffApprovals(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffMgntNo(Map keyName);
+    int updateOffMgntNo(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffMgntNo_N(Map keyName);
+    int updateOffMgntNo_N(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteOffOrderMgntNo(Map keyName);
+    int deleteOffOrderMgntNo(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteOffMylecture(Map keyName);
+    int deleteOffMylecture(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteOffOrders(Map keyName);
+    int deleteOffOrders(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteOffApprovals(Map keyName);
+    int deleteOffApprovals(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    List getPrintPop(Map keyName);
+    List<HashMap<String, Object>> getPrintPop(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updatePrintOffOrders1(Map keyName);
+    int updatePrintOffOrders1(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updatePrintOffOrders2(Map keyName);
+    int updatePrintOffOrders2(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffRefund(Map keyName);
+    int updateOffRefund(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertRefundOffOrderMgntNo(Map keyName);
+    int insertRefundOffOrderMgntNo(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffMylecture(Map keyName);
+    int updateOffMylecture(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffMylectureRefund(Map keyName);
+    int updateOffMylectureRefund(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int insertOffRefund(Map keyName);
+    int insertOffRefund(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteOffCancelOrderMgntNo(Map keyName);
+    int deleteOffCancelOrderMgntNo(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int deleteOffCancelRefund(Map keyName);
+    int deleteOffCancelRefund(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int updateOffCancelMylecture(Map keyName);
+    int updateOffCancelMylecture(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int Delete_Year_Package_Point(Map keyName);
+    int Delete_Year_Package_Point(ProductOrderVO vo);
 
-    List<HashMap<String, String>> getTmPointHistory(HashMap<String, String> params);
+    List<HashMap<String, String>> getTmPointHistory(ProductOrderVO vo);
 
-    void insertTmBoard(Map<String, Object> searchMap);
+    void insertTmBoard(ProductOrderVO vo);
 
-    List<HashMap<String, String>> getTmBoardList(Map<String, Object> searchMap);
+    List<HashMap<String, String>> getTmBoardList(ProductOrderVO vo);
 
-    List<HashMap<String, String>> getVOCCODEList(HashMap<String, String> params);
+    List<HashMap<String, String>> getVOCCODEList(ProductOrderVO vo);
 
-    List<HashMap<String, String>> getDUTYCODEList(HashMap<String, String> params);
+    List<HashMap<String, String>> getDUTYCODEList(ProductOrderVO vo);
 
-    List<HashMap<String, String>> getOffApprovalsCount(Map<String, String> searchMap);
+    List<HashMap<String, String>> getOffApprovalsCount(ProductOrderVO vo);
 
-    List<HashMap<String, String>> getCcode(HashMap<String, String> params);
+    List<HashMap<String, String>> getCcode(ProductOrderVO vo);
 
-    void insertMyLecture(Map<String, String> params);
+    void insertMyLecture(ProductOrderVO vo);
 
-    void insertMyLectureN(Map<String, String> params);
+    void insertMyLectureN(ProductOrderVO vo);
 
-    @SuppressWarnings({ "rawtypes" })
-    int getPlusPoint(Map keyName);
+    int getPlusPoint(ProductOrderVO vo);
 
-    void BookPointDel(Map<String, Object> params);
+    void BookPointDel(ProductOrderVO vo);
 
-    void BookPointIns(Map<String, Object> params);
+    void BookPointIns(ProductOrderVO vo);
 
-    void insertOffOrderLog(Map<String, Object> params);
+    void insertOffOrderLog(ProductOrderVO vo);
 }

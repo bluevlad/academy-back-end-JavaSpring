@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.academy.book.service.BookVO;
+import com.academy.productorder.service.ProductOrderVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -64,13 +66,11 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 단과 강의 목록 조회
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/list")
-	public JSONObject list(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject list(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		/* 페이징 */
 		int currentPage = lectureVO.getCurrentPage();
@@ -82,12 +82,14 @@ public class LectureApi extends CORSFilter {
 		/* 페이징 */
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
 		SubjectVO subjectVO = new SubjectVO();
 		subjectVO.setIsUse("Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+        BookVO bookVO = new BookVO();
+
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(bookVO);
 
 		List<HashMap<String, String>> list = lectureservice.lectureList(lectureVO);
 		int listCount = lectureservice.lectureListCount(lectureVO);
@@ -109,27 +111,26 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 상세 조회
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/view")
-	public JSONObject view(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject view(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		List<HashMap<String, String>> view = lectureservice.lectureView(lectureVO);
 		List<HashMap<String, String>> viewlist = lectureservice.lectureViewList(lectureVO);
 		List<HashMap<String, String>> viewbooklist = lectureservice.lectureViewBookList(lectureVO);
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
 		SubjectVO subjectVO = new SubjectVO();
 		subjectVO.setIsUse("Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
 
-		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(lectureVO);
+        BookVO bookVO = new BookVO();
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(bookVO);
+
+		List<HashMap<String, String>> subjectteacherlist = bookservice.getCaSubjectTeacherList(bookVO);
 		int lectureOrderCount = lectureservice.lectureDeleteCheck(lectureVO);
 
         Map<String, String> vo = new HashMap<String, String>();
@@ -155,13 +156,11 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 교재 목록 조회
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/bookList")
-	public JSONObject bookList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject bookList(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		/* 페이징 */
 		int currentPage = lectureVO.getCurrentPage();
@@ -173,12 +172,14 @@ public class LectureApi extends CORSFilter {
 		/* 페이징 */
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
 		SubjectVO subjectVO = new SubjectVO();
 		subjectVO.setIsUse("Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+        BookVO bookVO = new BookVO();
+
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(bookVO);
 
 		List<HashMap<String, String>> list = lectureservice.bookList(lectureVO);
 		int listCount = lectureservice.bookListCount(lectureVO);
@@ -200,13 +201,11 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 교재 상세 조회
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/bookView")
-	public JSONObject bookView(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject bookView(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		List<HashMap<String, String>> view = lectureservice.bookView(lectureVO);
 
@@ -222,13 +221,11 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 쿠폰 목록 조회
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/couponList")
-	public JSONObject getCouponList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject getCouponList(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		/* 페이징 */
 		int currentPage = lectureVO.getCurrentPage();
@@ -240,8 +237,10 @@ public class LectureApi extends CORSFilter {
 		lectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		List<HashMap<String, String>> list = productOrderService.getTmCouponList(lectureVO);
-		int listCount = productOrderService.getTmCouponCount(lectureVO);
+        ProductOrderVO productOrderVO = new ProductOrderVO();
+
+		List<HashMap<String, Object>> list = productOrderService.getTmCouponList(productOrderVO);
+		int listCount = productOrderService.getTmCouponCount(productOrderVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -258,13 +257,11 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 모바일 쿠폰 목록 조회
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@GetMapping(value="/moCouponList")
-	public JSONObject getMoCouponList(@ModelAttribute LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject getMoCouponList(@ModelAttribute LectureVO lectureVO) throws Exception {
 
 		/* 페이징 */
 		int currentPage = lectureVO.getCurrentPage();
@@ -276,8 +273,10 @@ public class LectureApi extends CORSFilter {
 		lectureVO.setEndNo(String.valueOf(endNo));
 		/* 페이징 */
 
-		List<HashMap<String, String>> list = productOrderService.getTmMoCouponList(lectureVO);
-		int listCount = productOrderService.getTmMoCouponCount(lectureVO);
+        ProductOrderVO productOrderVO = new ProductOrderVO();
+
+		List<HashMap<String, Object>> list = productOrderService.getTmMoCouponList(productOrderVO);
+		int listCount = productOrderService.getTmMoCouponCount(productOrderVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("list", list);
@@ -294,14 +293,12 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 개설여부 수정
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/onOffStatus")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject modifyLectureOnOff(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject modifyLectureOnOff(@RequestBody LectureVO lectureVO) throws Exception {
 
 		String flag = lectureVO.getFlag() != null ? lectureVO.getFlag() : "";
 		String flag2 = lectureVO.getFlag2() != null ? lectureVO.getFlag2() : "";
@@ -342,14 +339,12 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 단과 강의 등록
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PostMapping(value="/save")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject save(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject save(@RequestBody LectureVO lectureVO) throws Exception {
 
 		Calendar cal = Calendar.getInstance();
 		String[] CATEGORY_CD_ARR = lectureVO.getCategoryCdArr();
@@ -436,14 +431,12 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 단과 강의 수정
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@PutMapping(value="/update")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject update(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject update(@RequestBody LectureVO lectureVO) throws Exception {
 
 		String SUBJECT_DESC = lectureVO.getSubjectDesc();
 		if(SUBJECT_DESC != null) {
@@ -505,14 +498,12 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 삭제
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/delete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject delete(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject delete(@RequestBody LectureVO lectureVO) throws Exception {
 
 		lectureservice.lectureDelete(lectureVO);
 		lectureservice.lectureBridgeDelete(lectureVO);
@@ -531,14 +522,12 @@ public class LectureApi extends CORSFilter {
 	 * @작성일 : 2025.11
 	 * @Method 설명 : 강의 다중 삭제
 	 * @param lectureVO
-	 * @param request
 	 * @return JSONObject
 	 * @throws Exception
 	 */
 	@DeleteMapping(value="/listDelete")
 	@Transactional(readOnly=false,rollbackFor=Exception.class)
-	public JSONObject listDelete(@RequestBody LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		setSessionInfo(lectureVO, request);
+	public JSONObject listDelete(@RequestBody LectureVO lectureVO) throws Exception {
 
 		String[] DEL_ARR = lectureVO.getDelArr();
 		if(DEL_ARR != null){
@@ -562,27 +551,6 @@ public class LectureApi extends CORSFilter {
 
 		JSONObject jObject = new JSONObject(result);
 		return jObject;
-	}
-
-	/**
-	 * @Method Name : setSessionInfo
-	 * @작성일 : 2025.11
-	 * @Method 설명 : 세션 정보 설정
-	 * @param lectureVO
-	 * @param request
-	 * @return void
-	 * @throws Exception
-	 */
-	@SuppressWarnings("unchecked")
-	private void setSessionInfo(LectureVO lectureVO, HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
-			if(loginInfo != null) {
-				lectureVO.setRegId(loginInfo.get("USER_ID"));
-				lectureVO.setUpdId(loginInfo.get("USER_ID"));
-			}
-		}
 	}
 
 }

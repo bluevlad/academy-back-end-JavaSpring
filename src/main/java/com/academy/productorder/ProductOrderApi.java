@@ -1,11 +1,7 @@
 package com.academy.productorder;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.academy.common.CORSFilter;
 import com.academy.common.CommonUtil;
 import com.academy.productorder.service.ProductOrderService;
+import com.academy.productorder.service.ProductOrderVO;
 
 /**
  * ProductOrder API Controller
@@ -48,20 +45,19 @@ public class ProductOrderApi extends CORSFilter {
      * 온라인 주문 목록 조회
      */
     @GetMapping("/list")
-    public JSONObject list(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject list(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.getOrderListDB(params);
-        int listCount = productOrderService.getOrderListCount(params);
+        List<HashMap<String, Object>> list = productOrderService.getOrderListDB(vo);
+        int listCount = productOrderService.getOrderListCount(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -77,20 +73,19 @@ public class ProductOrderApi extends CORSFilter {
      * 0원 주문 목록 조회
      */
     @GetMapping("/list0")
-    public JSONObject list0(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject list0(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.getOrderListDB_0(params);
-        int listCount = productOrderService.getOrderListCount_0(params);
+        List<HashMap<String, Object>> list = productOrderService.getOrderListDB_0(vo);
+        int listCount = productOrderService.getOrderListCount_0(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -106,20 +101,19 @@ public class ProductOrderApi extends CORSFilter {
      * 무료 강의 주문 목록 조회
      */
     @GetMapping("/listFreelec")
-    public JSONObject listFreelec(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject listFreelec(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.getOrderListDB_freelec(params);
-        int listCount = productOrderService.getOrderListCount_freelec(params);
+        List<HashMap<String, Object>> list = productOrderService.getOrderListDB_freelec(vo);
+        int listCount = productOrderService.getOrderListCount_freelec(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -135,20 +129,19 @@ public class ProductOrderApi extends CORSFilter {
      * 오프라인 주문 목록 조회
      */
     @GetMapping("/offList")
-    public JSONObject offList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject offList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.getOffOrderListDB(params);
-        int listCount = productOrderService.getOffOrderListCount(params);
+        List<HashMap<String, Object>> list = productOrderService.getOffOrderListDB(vo);
+        int listCount = productOrderService.getOffOrderListCount(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -164,15 +157,12 @@ public class ProductOrderApi extends CORSFilter {
      * 주문 상세 조회
      */
     @GetMapping("/view")
-    public JSONObject view(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject view(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        @SuppressWarnings("rawtypes")
-        List approvalsList = productOrderService.getTblApprovalsViewList(params);
-        @SuppressWarnings("rawtypes")
-        List ordersList = productOrderService.getTblOrdersViewList(params);
-        @SuppressWarnings("rawtypes")
-        List orderMgntList = productOrderService.getTblOrderMgntNoPopViewList(params);
+        List<HashMap<String, Object>> approvalsList = productOrderService.getTblApprovalsViewList(vo);
+        List<HashMap<String, Object>> ordersList = productOrderService.getTblOrdersViewList(vo);
+        List<HashMap<String, Object>> orderMgntList = productOrderService.getTblOrderMgntNoPopViewList(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("approvalsList", approvalsList);
@@ -187,11 +177,10 @@ public class ProductOrderApi extends CORSFilter {
      * 주문 상태 코드 목록
      */
     @GetMapping("/statusCodeList")
-    public JSONObject statusCodeList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject statusCodeList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        @SuppressWarnings("rawtypes")
-        List statusList = productOrderService.getOrderStatuscodeList(params);
+        List<HashMap<String, Object>> statusList = productOrderService.getOrderStatuscodeList(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("statusList", statusList);
@@ -204,11 +193,10 @@ public class ProductOrderApi extends CORSFilter {
      * 결제 수단 목록
      */
     @GetMapping("/paymentList")
-    public JSONObject paymentList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject paymentList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        @SuppressWarnings("rawtypes")
-        List paymentList = productOrderService.getPaymentList(params);
+        List<HashMap<String, Object>> paymentList = productOrderService.getPaymentList(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("paymentList", paymentList);
@@ -221,10 +209,10 @@ public class ProductOrderApi extends CORSFilter {
      * 온라인 주문 엑셀 다운로드
      */
     @GetMapping("/excelList")
-    public JSONObject excelList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject excelList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        List<HashMap<String, String>> list = productOrderService.getOrderExcelListDB(params);
+        List<HashMap<String, String>> list = productOrderService.getOrderExcelListDB(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -237,10 +225,10 @@ public class ProductOrderApi extends CORSFilter {
      * 오프라인 주문 엑셀 다운로드
      */
     @GetMapping("/offExcelList")
-    public JSONObject offExcelList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject offExcelList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        List<HashMap<String, String>> list = productOrderService.getOffOrderExcelListDB(params);
+        List<HashMap<String, String>> list = productOrderService.getOffOrderExcelListDB(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -254,10 +242,10 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PutMapping("/updatePayKind")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject updatePayKind(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject updatePayKind(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.setPayKindUpdate(params);
+        productOrderService.setPayKindUpdate(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -272,14 +260,14 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PutMapping("/updateDepositStatus")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject updateDepositStatus(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject updateDepositStatus(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.updateDepositStatus1(params);
-        productOrderService.updateDepositStatus2(params);
-        productOrderService.updateDepositStatus3(params);
-        productOrderService.updateDepositStatus4(params);
-        productOrderService.updateDepositStatus5(params);
+        productOrderService.updateDepositStatus1(vo);
+        productOrderService.updateDepositStatus2(vo);
+        productOrderService.updateDepositStatus3(vo);
+        productOrderService.updateDepositStatus4(vo);
+        productOrderService.updateDepositStatus5(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -294,10 +282,10 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PutMapping("/updateStudyPer")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject updateStudyPer(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject updateStudyPer(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.updateStudy_Per(params);
+        productOrderService.updateStudy_Per(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -312,12 +300,12 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PostMapping("/insertOffOrder")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject insertOffOrder(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject insertOffOrder(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.insertOffOrders(params);
-        productOrderService.insertOffApprovals(params);
-        productOrderService.insertOffOrderMgntNo(params);
+        productOrderService.insertOffOrders(vo);
+        productOrderService.insertOffApprovals(vo);
+        productOrderService.insertOffOrderMgntNo(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -332,12 +320,12 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PutMapping("/updateOffOrder")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject updateOffOrder(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject updateOffOrder(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.updateOffOrders(params);
-        productOrderService.updateOffApprovals(params);
-        productOrderService.updateOffMgntNo(params);
+        productOrderService.updateOffOrders(vo);
+        productOrderService.updateOffApprovals(vo);
+        productOrderService.updateOffMgntNo(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -352,13 +340,13 @@ public class ProductOrderApi extends CORSFilter {
      */
     @DeleteMapping("/deleteOffOrder")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject deleteOffOrder(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject deleteOffOrder(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.deleteOffOrderMgntNo(params);
-        productOrderService.deleteOffMylecture(params);
-        productOrderService.deleteOffOrders(params);
-        productOrderService.deleteOffApprovals(params);
+        productOrderService.deleteOffOrderMgntNo(vo);
+        productOrderService.deleteOffMylecture(vo);
+        productOrderService.deleteOffOrders(vo);
+        productOrderService.deleteOffApprovals(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -373,13 +361,13 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PostMapping("/insertRefund")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject insertRefund(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject insertRefund(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.updateOffRefund(params);
-        productOrderService.insertRefundOffOrderMgntNo(params);
-        productOrderService.updateOffMylecture(params);
-        productOrderService.insertOffRefund(params);
+        productOrderService.updateOffRefund(vo);
+        productOrderService.insertRefundOffOrderMgntNo(vo);
+        productOrderService.updateOffMylecture(vo);
+        productOrderService.insertOffRefund(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -394,12 +382,12 @@ public class ProductOrderApi extends CORSFilter {
      */
     @DeleteMapping("/deleteRefund")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject deleteRefund(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject deleteRefund(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.deleteOffCancelOrderMgntNo(params);
-        productOrderService.deleteOffCancelRefund(params);
-        productOrderService.updateOffCancelMylecture(params);
+        productOrderService.deleteOffCancelOrderMgntNo(vo);
+        productOrderService.deleteOffCancelRefund(vo);
+        productOrderService.updateOffCancelMylecture(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -413,11 +401,10 @@ public class ProductOrderApi extends CORSFilter {
      * 회원 정보 조회
      */
     @GetMapping("/memberView")
-    public JSONObject memberView(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject memberView(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        @SuppressWarnings("rawtypes")
-        List memberInfo = productOrderService.getTmMember_View(params);
+        List<HashMap<String, Object>> memberInfo = productOrderService.getTmMember_View(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("memberInfo", memberInfo);
@@ -430,10 +417,10 @@ public class ProductOrderApi extends CORSFilter {
      * 회원 포인트 히스토리
      */
     @GetMapping("/pointHistory")
-    public JSONObject pointHistory(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject pointHistory(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        List<HashMap<String, String>> list = productOrderService.getTmPointHistory(params);
+        List<HashMap<String, String>> list = productOrderService.getTmPointHistory(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -446,20 +433,19 @@ public class ProductOrderApi extends CORSFilter {
      * 회원 쿠폰 목록
      */
     @GetMapping("/memberCouponList")
-    public JSONObject memberCouponList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject memberCouponList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.getTm_mycoupon_list_admin(params);
-        int listCount = productOrderService.getTm_mycoupon_listCount_admin(params);
+        List<HashMap<String, Object>> list = productOrderService.getTm_mycoupon_list_admin(vo);
+        int listCount = productOrderService.getTm_mycoupon_listCount_admin(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -475,20 +461,19 @@ public class ProductOrderApi extends CORSFilter {
      * 회원 강의 목록 (온라인)
      */
     @GetMapping("/memberClassList")
-    public JSONObject memberClassList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject memberClassList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.Tm_Class_List(params);
-        int listCount = productOrderService.getTmClassListCount(params);
+        List<HashMap<String, Object>> list = productOrderService.Tm_Class_List(vo);
+        int listCount = productOrderService.getTmClassListCount(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -504,11 +489,10 @@ public class ProductOrderApi extends CORSFilter {
      * 회원 강의 목록 (오프라인)
      */
     @GetMapping("/memberOffClassList")
-    public JSONObject memberOffClassList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject memberOffClassList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.Off_Class_List(params);
+        List<HashMap<String, Object>> list = productOrderService.Off_Class_List(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -521,20 +505,19 @@ public class ProductOrderApi extends CORSFilter {
      * CS 게시판 목록
      */
     @GetMapping("/csBoardList")
-    public JSONObject csBoardList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject csBoardList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.Cs_board_list(params);
-        int listCount = productOrderService.getCsBoardListCount(params);
+        List<HashMap<String, Object>> list = productOrderService.Cs_board_list(vo);
+        int listCount = productOrderService.getCsBoardListCount(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -551,10 +534,10 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PostMapping("/insertCsBoard")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject insertCsBoard(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject insertCsBoard(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.insertBoardCs(params);
+        productOrderService.insertBoardCs(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -568,20 +551,19 @@ public class ProductOrderApi extends CORSFilter {
      * 메모 목록
      */
     @GetMapping("/memoList")
-    public JSONObject memoList(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject memoList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        int currentPage = Integer.parseInt(params.get("currentPage"));
-        int pageRow = Integer.parseInt(params.get("pageRow"));
+        int currentPage = vo.getCurrentPage();
+        int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
 
-        params.put("startNo", String.valueOf(startNo));
-        params.put("endNo", String.valueOf(endNo));
+        vo.setStartNo(startNo);
+        vo.setEndNo(endNo);
 
-        @SuppressWarnings("rawtypes")
-        List list = productOrderService.getMemoList(params);
-        int listCount = productOrderService.getMemoListCount(params);
+        List<HashMap<String, Object>> list = productOrderService.getMemoList(vo);
+        int listCount = productOrderService.getMemoListCount(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("list", list);
@@ -598,10 +580,10 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PutMapping("/updateMemo")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject updateMemo(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject updateMemo(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.updateMemo(params);
+        productOrderService.updateMemo(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -616,11 +598,11 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PostMapping("/insertCoupon")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject insertCoupon(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject insertCoupon(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.insertTmCoupon(params);
-        productOrderService.insertMyCoupon(params);
+        productOrderService.insertTmCoupon(vo);
+        productOrderService.insertMyCoupon(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -635,10 +617,10 @@ public class ProductOrderApi extends CORSFilter {
      */
     @DeleteMapping("/deleteCoupon")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject deleteCoupon(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject deleteCoupon(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.Coupon_Del(params);
+        productOrderService.Coupon_Del(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -653,10 +635,10 @@ public class ProductOrderApi extends CORSFilter {
      */
     @PostMapping("/insertMyLecture")
     @Transactional(readOnly=false, rollbackFor=Exception.class)
-    public JSONObject insertMyLecture(@ModelAttribute HashMap<String, String> params, HttpServletRequest request) throws Exception {
-        setParam(params, request);
+    public JSONObject insertMyLecture(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
+        setParam(vo, request);
 
-        productOrderService.insertMyLecture(params);
+        productOrderService.insertMyLecture(vo);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("result", "success");
@@ -669,53 +651,68 @@ public class ProductOrderApi extends CORSFilter {
     /**
      * 파라미터 SETTING
      */
-    private void setParam(HashMap<String, String> params, HttpServletRequest request) throws Exception {
+    private void setParam(ProductOrderVO vo, HttpServletRequest request) throws Exception {
         HttpSession session = request.getSession(false);
         @SuppressWarnings("unchecked")
         HashMap<String, String> loginInfo = (HashMap<String, String>)session.getAttribute("AdmUserInfo");
 
-        params.put("REG_ID", loginInfo.get("USER_ID"));
-        params.put("UPD_ID", loginInfo.get("USER_ID"));
-        params.put("MANAGER_ID", loginInfo.get("USER_ID"));
+        vo.setRegId(loginInfo.get("USER_ID"));
+        vo.setUpdId(loginInfo.get("USER_ID"));
+        vo.setManagerId(loginInfo.get("USER_ID"));
 
-        params.put("currentPage", CommonUtil.isNull(request.getParameter("currentPage"), "1"));
-        params.put("pageRow", CommonUtil.isNull(request.getParameter("pageRow"), String.valueOf(pageUnit)));
+        // 페이징 파라미터
+        String currentPageStr = request.getParameter("currentPage");
+        String pageRowStr = request.getParameter("pageRow");
+        vo.setCurrentPage(currentPageStr != null && !currentPageStr.isEmpty() ? Integer.parseInt(currentPageStr) : 1);
+        vo.setPageRow(pageRowStr != null && !pageRowStr.isEmpty() ? Integer.parseInt(pageRowStr) : pageUnit);
 
         // 공통 검색 파라미터
-        params.put("SEARCHTEXT", CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
-        params.put("SEARCHTYPE", CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
-        params.put("schtype", CommonUtil.isNull(request.getParameter("schtype"), ""));
-        params.put("keyword", CommonUtil.isNull(request.getParameter("keyword"), ""));
-        params.put("searchkey", CommonUtil.isNull(request.getParameter("searchkey"), ""));
-        params.put("searchtype", CommonUtil.isNull(request.getParameter("searchtype"), ""));
+        vo.setSearchText(CommonUtil.isNull(request.getParameter("SEARCHTEXT"), ""));
+        vo.setSearchType(CommonUtil.isNull(request.getParameter("SEARCHTYPE"), ""));
+        vo.setSchtype(CommonUtil.isNull(request.getParameter("schtype"), ""));
+        vo.setKeyword(CommonUtil.isNull(request.getParameter("keyword"), ""));
+        vo.setSearchkey(CommonUtil.isNull(request.getParameter("searchkey"), ""));
+        vo.setSearchtype(CommonUtil.isNull(request.getParameter("searchtype"), ""));
 
         // 날짜 관련 파라미터
-        params.put("sdate", CommonUtil.isNull(request.getParameter("sdate"), ""));
-        params.put("edate", CommonUtil.isNull(request.getParameter("edate"), ""));
-        params.put("SDATE", CommonUtil.isNull(request.getParameter("SDATE"), ""));
-        params.put("EDATE", CommonUtil.isNull(request.getParameter("EDATE"), ""));
-        params.put("search_date_type", CommonUtil.isNull(request.getParameter("search_date_type"), ""));
+        vo.setSdate(CommonUtil.isNull(request.getParameter("sdate"), ""));
+        vo.setEdate(CommonUtil.isNull(request.getParameter("edate"), ""));
+        vo.setSearchDateType(CommonUtil.isNull(request.getParameter("search_date_type"), ""));
 
         // 주문 관련 파라미터
-        params.put("orderstatuscode", CommonUtil.isNull(request.getParameter("orderstatuscode"), ""));
-        params.put("code_no", CommonUtil.isNull(request.getParameter("code_no"), ""));
-        params.put("sys_cd", CommonUtil.isNull(request.getParameter("sys_cd"), ""));
-        params.put("sortfield", CommonUtil.isNull(request.getParameter("sortfield"), ""));
-        params.put("sort", CommonUtil.isNull(request.getParameter("sort"), ""));
+        vo.setOrderstatuscode(CommonUtil.isNull(request.getParameter("orderstatuscode"), ""));
+        vo.setCodeNo(CommonUtil.isNull(request.getParameter("code_no"), ""));
+        vo.setSysCd(CommonUtil.isNull(request.getParameter("sys_cd"), ""));
+        vo.setSortfield(CommonUtil.isNull(request.getParameter("sortfield"), ""));
+        vo.setSort(CommonUtil.isNull(request.getParameter("sort"), ""));
 
         // 기타 파라미터
-        params.put("ORDER_NO", CommonUtil.isNull(request.getParameter("ORDER_NO"), ""));
-        params.put("APPROVAL_NO", CommonUtil.isNull(request.getParameter("APPROVAL_NO"), ""));
-        params.put("USER_ID", CommonUtil.isNull(request.getParameter("USER_ID"), ""));
-        params.put("MEMBER_ID", CommonUtil.isNull(request.getParameter("MEMBER_ID"), ""));
-        params.put("LEC_CD", CommonUtil.isNull(request.getParameter("LEC_CD"), ""));
-        params.put("COURSE_CD", CommonUtil.isNull(request.getParameter("COURSE_CD"), ""));
-        params.put("CCODE", CommonUtil.isNull(request.getParameter("CCODE"), ""));
-        params.put("PRICE", CommonUtil.isNull(request.getParameter("PRICE"), ""));
-        params.put("POINT", CommonUtil.isNull(request.getParameter("POINT"), ""));
-        params.put("PAY_KIND", CommonUtil.isNull(request.getParameter("PAY_KIND"), ""));
-        params.put("DEPOSIT_STATUS", CommonUtil.isNull(request.getParameter("DEPOSIT_STATUS"), ""));
-        params.put("REFUND_PRICE", CommonUtil.isNull(request.getParameter("REFUND_PRICE"), ""));
-        params.put("REFUND_REASON", CommonUtil.isNull(request.getParameter("REFUND_REASON"), ""));
+        vo.setOrderno(CommonUtil.isNull(request.getParameter("ORDER_NO"), ""));
+        vo.setApprovalNo(CommonUtil.isNull(request.getParameter("APPROVAL_NO"), ""));
+        vo.setUserId(CommonUtil.isNull(request.getParameter("USER_ID"), ""));
+        vo.setMemberId(CommonUtil.isNull(request.getParameter("MEMBER_ID"), ""));
+        vo.setLecCd(CommonUtil.isNull(request.getParameter("LEC_CD"), ""));
+        vo.setCourseCd(CommonUtil.isNull(request.getParameter("COURSE_CD"), ""));
+        vo.setCcode(CommonUtil.isNull(request.getParameter("CCODE"), ""));
+
+        String priceStr = CommonUtil.isNull(request.getParameter("PRICE"), "");
+        if (!priceStr.isEmpty()) {
+            vo.setPrice(Integer.parseInt(priceStr));
+        }
+
+        String pointStr = CommonUtil.isNull(request.getParameter("POINT"), "");
+        if (!pointStr.isEmpty()) {
+            vo.setPoint(Integer.parseInt(pointStr));
+        }
+
+        vo.setPayKind(CommonUtil.isNull(request.getParameter("PAY_KIND"), ""));
+        vo.setDepositStatus(CommonUtil.isNull(request.getParameter("DEPOSIT_STATUS"), ""));
+
+        String refundPriceStr = CommonUtil.isNull(request.getParameter("REFUND_PRICE"), "");
+        if (!refundPriceStr.isEmpty()) {
+            vo.setRefundPrice(Integer.parseInt(refundPriceStr));
+        }
+
+        vo.setRefundReason(CommonUtil.isNull(request.getParameter("REFUND_REASON"), ""));
     }
 }

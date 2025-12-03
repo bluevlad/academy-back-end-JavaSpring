@@ -1,12 +1,49 @@
 package com.academy.productorder.service;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import com.academy.common.CommonVO;
 
 /**
  * ProductOrder Value Object
  * TB_ORDERS, TB_OFF_ORDERS 테이블 매핑 VO
  */
-public class ProductOrderVO {
+public class ProductOrderVO extends CommonVO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    // 페이징 및 검색 관련
+    private int currentPage = 1;
+    private int pageRow = 10;
+    private int startNo;
+    private int endNo;
+    private String searchText;
+    private String searchType;
+    private String schtype;
+    private String keyword;
+    private String searchkey;
+    private String searchtype;
+    private String sdate;
+    private String edate;
+    private String searchDateType;
+
+    // 주문 상태 및 코드 관련
+    private String orderstatuscode;
+    private String codeNo;
+    private String sysCd;
+    private String sortfield;
+    private String sort;
+
+    // 사용자 및 관리자 정보
+    private String managerId;
+    private String memberId;
+    private String approvalNo;
+    private String courseCd;
+    private String lecCd;
+    private String payKind;
+    private String depositStatus;
+    private String prefix;
 
     // 공통 주문 정보
     private String orderno;
@@ -618,6 +655,215 @@ public class ProductOrderVO {
 
     public void setPriceSts(String priceSts) {
         this.priceSts = priceSts;
+    }
+
+    // 페이징 및 검색 관련 getter/setter
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+
+    public int getPageRow() {
+        return pageRow;
+    }
+
+    public void setPageRow(int pageRow) {
+        this.pageRow = pageRow;
+    }
+
+    public int getStartNo() {
+        return startNo;
+    }
+
+    public void setStartNo(int startNo) {
+        this.startNo = startNo;
+    }
+
+    public int getEndNo() {
+        return endNo;
+    }
+
+    public void setEndNo(int endNo) {
+        this.endNo = endNo;
+    }
+
+    public String getSearchText() {
+        return searchText;
+    }
+
+    public void setSearchText(String searchText) {
+        this.searchText = searchText;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
+
+    public String getSchtype() {
+        return schtype;
+    }
+
+    public void setSchtype(String schtype) {
+        this.schtype = schtype;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public String getSearchkey() {
+        return searchkey;
+    }
+
+    public void setSearchkey(String searchkey) {
+        this.searchkey = searchkey;
+    }
+
+    public String getSearchtype() {
+        return searchtype;
+    }
+
+    public void setSearchtype(String searchtype) {
+        this.searchtype = searchtype;
+    }
+
+    public String getSdate() {
+        return sdate;
+    }
+
+    public void setSdate(String sdate) {
+        this.sdate = sdate;
+    }
+
+    public String getEdate() {
+        return edate;
+    }
+
+    public void setEdate(String edate) {
+        this.edate = edate;
+    }
+
+    public String getSearchDateType() {
+        return searchDateType;
+    }
+
+    public void setSearchDateType(String searchDateType) {
+        this.searchDateType = searchDateType;
+    }
+
+    public String getOrderstatuscode() {
+        return orderstatuscode;
+    }
+
+    public void setOrderstatuscode(String orderstatuscode) {
+        this.orderstatuscode = orderstatuscode;
+    }
+
+    public String getCodeNo() {
+        return codeNo;
+    }
+
+    public void setCodeNo(String codeNo) {
+        this.codeNo = codeNo;
+    }
+
+    public String getSysCd() {
+        return sysCd;
+    }
+
+    public void setSysCd(String sysCd) {
+        this.sysCd = sysCd;
+    }
+
+    public String getSortfield() {
+        return sortfield;
+    }
+
+    public void setSortfield(String sortfield) {
+        this.sortfield = sortfield;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    public String getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(String managerId) {
+        this.managerId = managerId;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getApprovalNo() {
+        return approvalNo;
+    }
+
+    public void setApprovalNo(String approvalNo) {
+        this.approvalNo = approvalNo;
+    }
+
+    public String getCourseCd() {
+        return courseCd;
+    }
+
+    public void setCourseCd(String courseCd) {
+        this.courseCd = courseCd;
+    }
+
+    public String getLecCd() {
+        return lecCd;
+    }
+
+    public void setLecCd(String lecCd) {
+        this.lecCd = lecCd;
+    }
+
+    public String getPayKind() {
+        return payKind;
+    }
+
+    public void setPayKind(String payKind) {
+        this.payKind = payKind;
+    }
+
+    public String getDepositStatus() {
+        return depositStatus;
+    }
+
+    public void setDepositStatus(String depositStatus) {
+        this.depositStatus = depositStatus;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
     @Override

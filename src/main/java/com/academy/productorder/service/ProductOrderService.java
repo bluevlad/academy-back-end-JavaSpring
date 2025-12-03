@@ -1,8 +1,8 @@
 package com.academy.productorder.service;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -14,784 +14,641 @@ import com.academy.mapper.ProductOrderMapper;
  * last modified 2014-08-20
  */
 @Service
-public class ProductOrderService {
+public class ProductOrderService implements Serializable {
 
-	private ProductOrderMapper productOrderMapper;
+	private static final long serialVersionUID = 1L;
+
+	private final ProductOrderMapper productOrderMapper;
 
 	public ProductOrderService(ProductOrderMapper productOrderMapper) {
 		this.productOrderMapper = productOrderMapper;
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOrderStatuscodeList(Map keyName) {
-		return productOrderMapper.getOrderStatuscodeList(keyName);
+	public List<HashMap<String, Object>> getOrderStatuscodeList(ProductOrderVO vo) {
+		return productOrderMapper.getOrderStatuscodeList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getPaymentList(Map keyName) {
-		return productOrderMapper.getPaymentList(keyName);
+	public List<HashMap<String, Object>> getPaymentList(ProductOrderVO vo) {
+		return productOrderMapper.getPaymentList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOrderListDB_0(Map keyName) {
-		return productOrderMapper.getOrderListDB_0(keyName);
+	public List<HashMap<String, Object>> getOrderListDB_0(ProductOrderVO vo) {
+		return productOrderMapper.getOrderListDB_0(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getOrderListCount_0(Map keyName) {
-		return productOrderMapper.getOrderListCount_0(keyName);
+	public int getOrderListCount_0(ProductOrderVO vo) {
+		return productOrderMapper.getOrderListCount_0(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOrderListDB_freelec(Map keyName) {
-		return productOrderMapper.getOrderListDB_freelec(keyName);
+	public List<HashMap<String, Object>> getOrderListDB_freelec(ProductOrderVO vo) {
+		return productOrderMapper.getOrderListDB_freelec(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getOrderListCount_freelec(Map keyName) {
-		return productOrderMapper.getOrderListCount_freelec(keyName);
+	public int getOrderListCount_freelec(ProductOrderVO vo) {
+		return productOrderMapper.getOrderListCount_freelec(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOrderListDB(Map keyName) {
-		return productOrderMapper.getOrderListDB(keyName);
+	public List<HashMap<String, Object>> getOrderListDB(ProductOrderVO vo) {
+		return productOrderMapper.getOrderListDB(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getOrderListCount(Map keyName) {
-		return productOrderMapper.getOrderListCount(keyName);
+	public int getOrderListCount(ProductOrderVO vo) {
+		return productOrderMapper.getOrderListCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTblOrderMgntListDB(Map keyName) {
-		return productOrderMapper.getTblOrderMgntListDB(keyName);
+	public List<HashMap<String, Object>> getTblOrderMgntListDB(ProductOrderVO vo) {
+		return productOrderMapper.getTblOrderMgntListDB(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List<HashMap<String, String>> getOrderExcelListDB(HashMap<String, String> params) {
-		return productOrderMapper.getOrderExcelListDB(params);
+	public List<HashMap<String, String>> getOrderExcelListDB(ProductOrderVO vo) {
+		return productOrderMapper.getOrderExcelListDB(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int setPayKindUpdate(Map keyName) {
-		return productOrderMapper.setPayKindUpdate(keyName);
+	public int setPayKindUpdate(ProductOrderVO vo) {
+		return productOrderMapper.setPayKindUpdate(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateDepositStatus1(Map keyName) {
-		return productOrderMapper.updateDepositStatus1(keyName);
+	public int updateDepositStatus1(ProductOrderVO vo) {
+		return productOrderMapper.updateDepositStatus1(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getDepositStatusCount(Map keyName) {
-		return productOrderMapper.getDepositStatusCount(keyName);
+	public int getDepositStatusCount(ProductOrderVO vo) {
+		return productOrderMapper.getDepositStatusCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateDepositStatus2(Map keyName) {
-		return productOrderMapper.updateDepositStatus2(keyName);
+	public int updateDepositStatus2(ProductOrderVO vo) {
+		return productOrderMapper.updateDepositStatus2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateDepositStatus3(Map keyName) {
-		return productOrderMapper.updateDepositStatus3(keyName);
+	public int updateDepositStatus3(ProductOrderVO vo) {
+		return productOrderMapper.updateDepositStatus3(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateDepositStatus4(Map keyName) {
-		return productOrderMapper.updateDepositStatus4(keyName);
+	public int updateDepositStatus4(ProductOrderVO vo) {
+		return productOrderMapper.updateDepositStatus4(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateDepositStatus5(Map keyName) {
-		return productOrderMapper.updateDepositStatus5(keyName);
+	public int updateDepositStatus5(ProductOrderVO vo) {
+		return productOrderMapper.updateDepositStatus5(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateBookStockPlus(Map keyName) {
-		return productOrderMapper.updateBookStockPlus(keyName);
+	public int updateBookStockPlus(ProductOrderVO vo) {
+		return productOrderMapper.updateBookStockPlus(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getPmpdownloadListPop(Map keyName) {
-		return productOrderMapper.getPmpdownloadListPop(keyName);
+	public List<HashMap<String, Object>> getPmpdownloadListPop(ProductOrderVO vo) {
+		return productOrderMapper.getPmpdownloadListPop(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getMobiledownloadListPop(Map keyName) {
-		return productOrderMapper.getMobiledownloadListPop(keyName);
+	public List<HashMap<String, Object>> getMobiledownloadListPop(ProductOrderVO vo) {
+		return productOrderMapper.getMobiledownloadListPop(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTblOrderList(Map keyName) {
-		return productOrderMapper.getTblOrderList(keyName);
+	public List<HashMap<String, Object>> getTblOrderList(ProductOrderVO vo) {
+		return productOrderMapper.getTblOrderList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOrderListPopDB(Map keyName) {
-		return productOrderMapper.getOrderListPopDB(keyName);
+	public List<HashMap<String, Object>> getOrderListPopDB(ProductOrderVO vo) {
+		return productOrderMapper.getOrderListPopDB(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getCourse_type_code(Map keyName) {
-		return productOrderMapper.getCourse_type_code(keyName);
+	public List<HashMap<String, Object>> getCourse_type_code(ProductOrderVO vo) {
+		return productOrderMapper.getCourse_type_code(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getPlayyn(Map keyName) {
-		return productOrderMapper.getPlayyn(keyName);
+	public List<HashMap<String, Object>> getPlayyn(ProductOrderVO vo) {
+		return productOrderMapper.getPlayyn(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getPoint(Map keyName) {
-		return productOrderMapper.getPoint(keyName);
+	public List<HashMap<String, Object>> getPoint(ProductOrderVO vo) {
+		return productOrderMapper.getPoint(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTblOrderMgntNoPopViewList(Map keyName) {
-		return productOrderMapper.getTblOrderMgntNoPopViewList(keyName);
+	public List<HashMap<String, Object>> getTblOrderMgntNoPopViewList(ProductOrderVO vo) {
+		return productOrderMapper.getTblOrderMgntNoPopViewList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getTblOrderMgntNoPopViewCount(Map keyName) {
-		return productOrderMapper.getTblOrderMgntNoPopViewCount(keyName);
+	public int getTblOrderMgntNoPopViewCount(ProductOrderVO vo) {
+		return productOrderMapper.getTblOrderMgntNoPopViewCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getPrice_Sum(Map keyName) {
-		return productOrderMapper.getPrice_Sum(keyName);
+	public int getPrice_Sum(ProductOrderVO vo) {
+		return productOrderMapper.getPrice_Sum(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getOldRefundViewCount(Map keyName) {
-		return productOrderMapper.getOldRefundViewCount(keyName);
+	public int getOldRefundViewCount(ProductOrderVO vo) {
+		return productOrderMapper.getOldRefundViewCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getRefund_Point(Map keyName) {
-		return productOrderMapper.getRefund_Point(keyName);
+	public List<HashMap<String, Object>> getRefund_Point(ProductOrderVO vo) {
+		return productOrderMapper.getRefund_Point(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOldRefundView(Map keyName) {
-		return productOrderMapper.getOldRefundView(keyName);
+	public List<HashMap<String, Object>> getOldRefundView(ProductOrderVO vo) {
+		return productOrderMapper.getOldRefundView(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTblDeliver_refund_list(Map keyName) {
-		return productOrderMapper.getTblDeliver_refund_list(keyName);
+	public List<HashMap<String, Object>> getTblDeliver_refund_list(ProductOrderVO vo) {
+		return productOrderMapper.getTblDeliver_refund_list(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTblApprovalsViewList(Map keyName) {
-		return productOrderMapper.getTblApprovalsViewList(keyName);
+	public List<HashMap<String, Object>> getTblApprovalsViewList(ProductOrderVO vo) {
+		return productOrderMapper.getTblApprovalsViewList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getTblDeliversViewListCount(Map keyName) {
-		return productOrderMapper.getTblDeliversViewListCount(keyName);
+	public int getTblDeliversViewListCount(ProductOrderVO vo) {
+		return productOrderMapper.getTblDeliversViewListCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTblDeliversViewList(Map keyName) {
-		return productOrderMapper.getTblDeliversViewList(keyName);
+	public List<HashMap<String, Object>> getTblDeliversViewList(ProductOrderVO vo) {
+		return productOrderMapper.getTblDeliversViewList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTblOrdersViewList(Map keyName) {
-		return productOrderMapper.getTblOrdersViewList(keyName);
+	public List<HashMap<String, Object>> getTblOrdersViewList(ProductOrderVO vo) {
+		return productOrderMapper.getTblOrdersViewList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getLecMstViewList(Map keyName) {
-		return productOrderMapper.getLecMstViewList(keyName);
+	public List<HashMap<String, Object>> getLecMstViewList(ProductOrderVO vo) {
+		return productOrderMapper.getLecMstViewList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateDelivers(Map keyName) {
-		return productOrderMapper.updateDelivers(keyName);
+	public int updateDelivers(ProductOrderVO vo) {
+		return productOrderMapper.updateDelivers(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateApprovals(Map keyName) {
-		return productOrderMapper.updateApprovals(keyName);
+	public int updateApprovals(ProductOrderVO vo) {
+		return productOrderMapper.updateApprovals(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateDeliversWmv(Map keyName) {
-		return productOrderMapper.updateDeliversWmv(keyName);
+	public int updateDeliversWmv(ProductOrderVO vo) {
+		return productOrderMapper.updateDeliversWmv(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMoney1(Map keyName) {
-		return productOrderMapper.updateMoney1(keyName);
+	public int updateMoney1(ProductOrderVO vo) {
+		return productOrderMapper.updateMoney1(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateStudy_Per(Map keyName) {
-		return productOrderMapper.updateStudy_Per(keyName);
+	public int updateStudy_Per(ProductOrderVO vo) {
+		return productOrderMapper.updateStudy_Per(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getMoneySum(Map keyName) {
-		return productOrderMapper.getMoneySum(keyName);
+	public int getMoneySum(ProductOrderVO vo) {
+		return productOrderMapper.getMoneySum(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMoney2(Map keyName) {
-		return productOrderMapper.updateMoney2(keyName);
+	public int updateMoney2(ProductOrderVO vo) {
+		return productOrderMapper.updateMoney2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int refund_money_delete(Map keyName) {
-		return productOrderMapper.refund_money_delete(keyName);
+	public int refund_money_delete(ProductOrderVO vo) {
+		return productOrderMapper.refund_money_delete(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getMylecture(Map keyName) {
-		return productOrderMapper.getMylecture(keyName);
+	public List<HashMap<String, Object>> getMylecture(ProductOrderVO vo) {
+		return productOrderMapper.getMylecture(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture1(Map keyName) {
-		return productOrderMapper.updateMylecture1(keyName);
+	public int updateMylecture1(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture1(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture2(Map keyName) {
-		return productOrderMapper.updateMylecture2(keyName);
+	public int updateMylecture2(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture3(Map keyName) {
-		return productOrderMapper.updateMylecture3(keyName);
+	public int updateMylecture3(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture3(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture4(Map keyName) {
-		return productOrderMapper.updateMylecture4(keyName);
+	public int updateMylecture4(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture4(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateEndDateMyLecture(Map keyName) {
-		return productOrderMapper.updateEndDateMyLecture(keyName);
+	public int updateEndDateMyLecture(ProductOrderVO vo) {
+		return productOrderMapper.updateEndDateMyLecture(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getMylectureCount(Map keyName) {
-		return productOrderMapper.getMylectureCount(keyName);
+	public int getMylectureCount(ProductOrderVO vo) {
+		return productOrderMapper.getMylectureCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture5(Map keyName) {
-		return productOrderMapper.updateMylecture5(keyName);
+	public int updateMylecture5(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture5(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertMylecture6(Map keyName) {
-		return productOrderMapper.insertMylecture6(keyName);
+	public int insertMylecture6(ProductOrderVO vo) {
+		return productOrderMapper.insertMylecture6(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOrderMgntNo1(Map keyName) {
-		return productOrderMapper.insertOrderMgntNo1(keyName);
+	public int insertOrderMgntNo1(ProductOrderVO vo) {
+		return productOrderMapper.insertOrderMgntNo1(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOrderMgntNo2(Map keyName) {
-		return productOrderMapper.updateOrderMgntNo2(keyName);
+	public int updateOrderMgntNo2(ProductOrderVO vo) {
+		return productOrderMapper.updateOrderMgntNo2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOrderMgntNo3(Map keyName) {
-		return productOrderMapper.updateOrderMgntNo3(keyName);
+	public int updateOrderMgntNo3(ProductOrderVO vo) {
+		return productOrderMapper.updateOrderMgntNo3(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOrderMgntNo2(Map keyName) {
-		return productOrderMapper.insertOrderMgntNo2(keyName);
+	public int insertOrderMgntNo2(ProductOrderVO vo) {
+		return productOrderMapper.insertOrderMgntNo2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateApprovals2(Map keyName) {
-		return productOrderMapper.updateApprovals2(keyName);
+	public int updateApprovals2(ProductOrderVO vo) {
+		return productOrderMapper.updateApprovals2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertMileageHistory(Map keyName) {
-		return productOrderMapper.insertMileageHistory(keyName);
+	public int insertMileageHistory(ProductOrderVO vo) {
+		return productOrderMapper.insertMileageHistory(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertMileageHistory3(Map keyName) {
-		return productOrderMapper.insertMileageHistory3(keyName);
+	public int insertMileageHistory3(ProductOrderVO vo) {
+		return productOrderMapper.insertMileageHistory3(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMaMember(Map keyName) {
-		return productOrderMapper.updateMaMember(keyName);
+	public int updateMaMember(ProductOrderVO vo) {
+		return productOrderMapper.updateMaMember(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture_1(Map keyName) {
-		return productOrderMapper.updateMylecture_1(keyName);
+	public int updateMylecture_1(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture_1(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture_2(Map keyName) {
-		return productOrderMapper.updateMylecture_2(keyName);
+	public int updateMylecture_2(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture_2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOrderMgntNo1(Map keyName) {
-		return productOrderMapper.updateOrderMgntNo1(keyName);
+	public int updateOrderMgntNo1(ProductOrderVO vo) {
+		return productOrderMapper.updateOrderMgntNo1(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMileageHistory(Map keyName) {
-		return productOrderMapper.updateMileageHistory(keyName);
+	public int updateMileageHistory(ProductOrderVO vo) {
+		return productOrderMapper.updateMileageHistory(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMaMember2(Map keyName) {
-		return productOrderMapper.updateMaMember2(keyName);
+	public int updateMaMember2(ProductOrderVO vo) {
+		return productOrderMapper.updateMaMember2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateApprovals3(Map keyName) {
-		return productOrderMapper.updateApprovals3(keyName);
+	public int updateApprovals3(ProductOrderVO vo) {
+		return productOrderMapper.updateApprovals3(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteOrderMgntNo(Map keyName) {
-		return productOrderMapper.deleteOrderMgntNo(keyName);
+	public int deleteOrderMgntNo(ProductOrderVO vo) {
+		return productOrderMapper.deleteOrderMgntNo(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMaMember3(Map keyName) {
-		return productOrderMapper.updateMaMember3(keyName);
+	public int updateMaMember3(ProductOrderVO vo) {
+		return productOrderMapper.updateMaMember3(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateApprovals4(Map keyName) {
-		return productOrderMapper.updateApprovals4(keyName);
+	public int updateApprovals4(ProductOrderVO vo) {
+		return productOrderMapper.updateApprovals4(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertMileageHistory2(Map keyName) {
-		return productOrderMapper.insertMileageHistory2(keyName);
+	public int insertMileageHistory2(ProductOrderVO vo) {
+		return productOrderMapper.insertMileageHistory2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMylecture_3(Map keyName) {
-		return productOrderMapper.updateMylecture_3(keyName);
+	public int updateMylecture_3(ProductOrderVO vo) {
+		return productOrderMapper.updateMylecture_3(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateApprovals5(Map keyName) {
-		return productOrderMapper.updateApprovals5(keyName);
+	public int updateApprovals5(ProductOrderVO vo) {
+		return productOrderMapper.updateApprovals5(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertSendMsgMultiSendUser(Map keyName) {
-		return productOrderMapper.insertSendMsgMultiSendUser(keyName);
+	public int insertSendMsgMultiSendUser(ProductOrderVO vo) {
+		return productOrderMapper.insertSendMsgMultiSendUser(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTmMember_View(Map keyName) {
-		return productOrderMapper.getTmMember_View(keyName);
+	public List<HashMap<String, Object>> getTmMember_View(ProductOrderVO vo) {
+		return productOrderMapper.getTmMember_View(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getCsccode(Map keyName) {
-		return productOrderMapper.getCsccode(keyName);
+	public List<HashMap<String, Object>> getCsccode(ProductOrderVO vo) {
+		return productOrderMapper.getCsccode(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List Cs_board_list(Map keyName) {
-		return productOrderMapper.Cs_board_list(keyName);
+	public List<HashMap<String, Object>> Cs_board_list(ProductOrderVO vo) {
+		return productOrderMapper.Cs_board_list(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getCsBoardListCount(Map keyName) {
-		return productOrderMapper.getCsBoardListCount(keyName);
+	public int getCsBoardListCount(ProductOrderVO vo) {
+		return productOrderMapper.getCsBoardListCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTm_mycoupon_list_admin(Map keyName) {
-		return productOrderMapper.getTm_mycoupon_list_admin(keyName);
+	public List<HashMap<String, Object>> getTm_mycoupon_list_admin(ProductOrderVO vo) {
+		return productOrderMapper.getTm_mycoupon_list_admin(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getTm_mycoupon_listCount_admin(Map keyName) {
-		return productOrderMapper.getTm_mycoupon_listCount_admin(keyName);
+	public int getTm_mycoupon_listCount_admin(ProductOrderVO vo) {
+		return productOrderMapper.getTm_mycoupon_listCount_admin(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List Tm_Class_List(Map keyName) {
-		return productOrderMapper.Tm_Class_List(keyName);
+	public List<HashMap<String, Object>> Tm_Class_List(ProductOrderVO vo) {
+		return productOrderMapper.Tm_Class_List(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List Off_Class_List(Map keyName) {
-		return productOrderMapper.Off_Class_List(keyName);
+	public List<HashMap<String, Object>> Off_Class_List(ProductOrderVO vo) {
+		return productOrderMapper.Off_Class_List(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getTmClassListCount(Map keyName) {
-		return productOrderMapper.getTmClassListCount(keyName);
+	public int getTmClassListCount(ProductOrderVO vo) {
+		return productOrderMapper.getTmClassListCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getMemoList(Map keyName) {
-		return productOrderMapper.getMemoList(keyName);
+	public List<HashMap<String, Object>> getMemoList(ProductOrderVO vo) {
+		return productOrderMapper.getMemoList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getMemoListCount(Map keyName) {
-		return productOrderMapper.getMemoListCount(keyName);
+	public int getMemoListCount(ProductOrderVO vo) {
+		return productOrderMapper.getMemoListCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertBoardCs(Map keyName) {
-		return productOrderMapper.insertBoardCs(keyName);
+	public int insertBoardCs(ProductOrderVO vo) {
+		return productOrderMapper.insertBoardCs(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateMemo(Map keyName) {
-		return productOrderMapper.updateMemo(keyName);
+	public int updateMemo(ProductOrderVO vo) {
+		return productOrderMapper.updateMemo(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getSelectBefore_Point(Map keyName) {
-		return productOrderMapper.getSelectBefore_Point(keyName);
+	public int getSelectBefore_Point(ProductOrderVO vo) {
+		return productOrderMapper.getSelectBefore_Point(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTmCoupon(Map keyName) {
-		return productOrderMapper.getTmCoupon(keyName);
+	public List<HashMap<String, Object>> getTmCoupon(ProductOrderVO vo) {
+		return productOrderMapper.getTmCoupon(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTmCouponList(Map keyName) {
-		return productOrderMapper.getTmCouponList(keyName);
+	public List<HashMap<String, Object>> getTmCouponList(ProductOrderVO vo) {
+		return productOrderMapper.getTmCouponList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getTmMoCouponList(Map keyName) {
-		return productOrderMapper.getTmMoCouponList(keyName);
+	public List<HashMap<String, Object>> getTmMoCouponList(ProductOrderVO vo) {
+		return productOrderMapper.getTmMoCouponList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getTmCouponCount(Map keyName) {
-		return productOrderMapper.getTmCouponCount(keyName);
+	public int getTmCouponCount(ProductOrderVO vo) {
+		return productOrderMapper.getTmCouponCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getTmMoCouponCount(Map keyName) {
-		return productOrderMapper.getTmMoCouponCount(keyName);
+	public int getTmMoCouponCount(ProductOrderVO vo) {
+		return productOrderMapper.getTmMoCouponCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getCouponCount(Map keyName) {
-		return productOrderMapper.getCouponCount(keyName);
+	public int getCouponCount(ProductOrderVO vo) {
+		return productOrderMapper.getCouponCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertTmCoupon(Map keyName) {
-		return productOrderMapper.insertTmCoupon(keyName);
+	public int insertTmCoupon(ProductOrderVO vo) {
+		return productOrderMapper.insertTmCoupon(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertMyCoupon(Map keyName) {
-		return productOrderMapper.insertMyCoupon(keyName);
+	public int insertMyCoupon(ProductOrderVO vo) {
+		return productOrderMapper.insertMyCoupon(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOffOrderListDB(Map keyName) {
-		return productOrderMapper.getOffOrderListDB(keyName);
+	public List<HashMap<String, Object>> getOffOrderListDB(ProductOrderVO vo) {
+		return productOrderMapper.getOffOrderListDB(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getOffOrderListCount(Map keyName) {
-		return productOrderMapper.getOffOrderListCount(keyName);
+	public int getOffOrderListCount(ProductOrderVO vo) {
+		return productOrderMapper.getOffOrderListCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getOffTblOrderMgntListDB(Map keyName) {
-		return productOrderMapper.getOffTblOrderMgntListDB(keyName);
+	public List<HashMap<String, Object>> getOffTblOrderMgntListDB(ProductOrderVO vo) {
+		return productOrderMapper.getOffTblOrderMgntListDB(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List<HashMap<String, String>> getOffOrderExcelListDB(HashMap<String, String> params) {
-		return productOrderMapper.getOffOrderExcelListDB(params);
+	public List<HashMap<String, String>> getOffOrderExcelListDB(ProductOrderVO vo) {
+		return productOrderMapper.getOffOrderExcelListDB(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getIdChk(Map keyName) {
-		return productOrderMapper.getIdChk(keyName);
+	public List<HashMap<String, Object>> getIdChk(ProductOrderVO vo) {
+		return productOrderMapper.getIdChk(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getCaCatCdList(Map keyName) {
-		return productOrderMapper.getCaCatCdList(keyName);
+	public List<HashMap<String, Object>> getCaCatCdList(ProductOrderVO vo) {
+		return productOrderMapper.getCaCatCdList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getVwMenuMstTree_lec(Map keyName) {
-		return productOrderMapper.getVwMenuMstTree_lec(keyName);
+	public List<HashMap<String, Object>> getVwMenuMstTree_lec(ProductOrderVO vo) {
+		return productOrderMapper.getVwMenuMstTree_lec(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getCaSubjectCdList(Map keyName) {
-		return productOrderMapper.getCaSubjectCdList(keyName);
+	public List<HashMap<String, Object>> getCaSubjectCdList(ProductOrderVO vo) {
+		return productOrderMapper.getCaSubjectCdList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getCbLecMstFreeOrderList(Map keyName) {
-		return productOrderMapper.getCbLecMstFreeOrderList(keyName);
+	public List<HashMap<String, Object>> getCbLecMstFreeOrderList(ProductOrderVO vo) {
+		return productOrderMapper.getCbLecMstFreeOrderList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getCbLecMstListFreeOrderCount(Map keyName) {
-		return productOrderMapper.getCbLecMstListFreeOrderCount(keyName);
+	public int getCbLecMstListFreeOrderCount(ProductOrderVO vo) {
+		return productOrderMapper.getCbLecMstListFreeOrderCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getChangePrice(Map keyName) {
-		return productOrderMapper.getChangePrice(keyName);
+	public List<HashMap<String, Object>> getChangePrice(ProductOrderVO vo) {
+		return productOrderMapper.getChangePrice(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getUCount(Map keyName) {
-		return productOrderMapper.getUCount(keyName);
+	public List<HashMap<String, Object>> getUCount(ProductOrderVO vo) {
+		return productOrderMapper.getUCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertCart(Map keyName) {
-		return productOrderMapper.insertCart(keyName);
+	public int insertCart(ProductOrderVO vo) {
+		return productOrderMapper.insertCart(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getSubCode2(Map keyName) {
-		return productOrderMapper.getSubCode2(keyName);
+	public List<HashMap<String, Object>> getSubCode2(ProductOrderVO vo) {
+		return productOrderMapper.getSubCode2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteCart(Map keyName) {
-		return productOrderMapper.deleteCart(keyName);
+	public int deleteCart(ProductOrderVO vo) {
+		return productOrderMapper.deleteCart(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteAllCart(Map keyName) {
-		return productOrderMapper.deleteAllCart(keyName);
+	public int deleteAllCart(ProductOrderVO vo) {
+		return productOrderMapper.deleteAllCart(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getMCount(Map keyName) {
-		return productOrderMapper.getMCount(keyName);
+	public List<HashMap<String, Object>> getMCount(ProductOrderVO vo) {
+		return productOrderMapper.getMCount(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOffOrders(Map keyName) {
-		return productOrderMapper.insertOffOrders(keyName);
+	public int insertOffOrders(ProductOrderVO vo) {
+		return productOrderMapper.insertOffOrders(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOffApprovals(Map keyName) {
-		return productOrderMapper.insertOffApprovals(keyName);
+	public int insertOffApprovals(ProductOrderVO vo) {
+		return productOrderMapper.insertOffApprovals(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOffOrderMgntNo(Map keyName) {
-		return productOrderMapper.insertOffOrderMgntNo(keyName);
+	public int insertOffOrderMgntNo(ProductOrderVO vo) {
+		return productOrderMapper.insertOffOrderMgntNo(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOffMylecture(Map keyName) {
-		return productOrderMapper.insertOffMylecture(keyName);
+	public int insertOffMylecture(ProductOrderVO vo) {
+		return productOrderMapper.insertOffMylecture(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int modifyOffMylecture(Map keyName) {
-		return productOrderMapper.modifyOffMylecture(keyName);
+	public int modifyOffMylecture(ProductOrderVO vo) {
+		return productOrderMapper.modifyOffMylecture(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOffMylecture_N(Map keyName) {
-		return productOrderMapper.insertOffMylecture_N(keyName);
+	public int insertOffMylecture_N(ProductOrderVO vo) {
+		return productOrderMapper.insertOffMylecture_N(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getUpdateDetail(Map keyName) {
-		return productOrderMapper.getUpdateDetail(keyName);
+	public List<HashMap<String, Object>> getUpdateDetail(ProductOrderVO vo) {
+		return productOrderMapper.getUpdateDetail(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getSubCodeUp(Map keyName) {
-		return productOrderMapper.getSubCodeUp(keyName);
+	public List<HashMap<String, Object>> getSubCodeUp(ProductOrderVO vo) {
+		return productOrderMapper.getSubCodeUp(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getSubList(Map keyName) {
-		return productOrderMapper.getSubList(keyName);
+	public List<HashMap<String, Object>> getSubList(ProductOrderVO vo) {
+		return productOrderMapper.getSubList(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffOrders(Map keyName) {
-		return productOrderMapper.updateOffOrders(keyName);
+	public int updateOffOrders(ProductOrderVO vo) {
+		return productOrderMapper.updateOffOrders(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int Coupon_Del(Map keyName) {
-		return productOrderMapper.Coupon_Del(keyName);
+	public int Coupon_Del(ProductOrderVO vo) {
+		return productOrderMapper.Coupon_Del(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffApprovals(Map keyName) {
-		return productOrderMapper.updateOffApprovals(keyName);
+	public int updateOffApprovals(ProductOrderVO vo) {
+		return productOrderMapper.updateOffApprovals(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffMgntNo(Map keyName) {
-		return productOrderMapper.updateOffMgntNo(keyName);
+	public int updateOffMgntNo(ProductOrderVO vo) {
+		return productOrderMapper.updateOffMgntNo(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffMgntNo_N(Map keyName) {
-		return productOrderMapper.updateOffMgntNo_N(keyName);
+	public int updateOffMgntNo_N(ProductOrderVO vo) {
+		return productOrderMapper.updateOffMgntNo_N(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteOffOrderMgntNo(Map keyName) {
-		return productOrderMapper.deleteOffOrderMgntNo(keyName);
+	public int deleteOffOrderMgntNo(ProductOrderVO vo) {
+		return productOrderMapper.deleteOffOrderMgntNo(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteOffMylecture(Map keyName) {
-		return productOrderMapper.deleteOffMylecture(keyName);
+	public int deleteOffMylecture(ProductOrderVO vo) {
+		return productOrderMapper.deleteOffMylecture(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteOffOrders(Map keyName) {
-		return productOrderMapper.deleteOffOrders(keyName);
+	public int deleteOffOrders(ProductOrderVO vo) {
+		return productOrderMapper.deleteOffOrders(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteOffApprovals(Map keyName) {
-		return productOrderMapper.deleteOffApprovals(keyName);
+	public int deleteOffApprovals(ProductOrderVO vo) {
+		return productOrderMapper.deleteOffApprovals(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public List getPrintPop(Map keyName) {
-		return productOrderMapper.getPrintPop(keyName);
+	public List<HashMap<String, Object>> getPrintPop(ProductOrderVO vo) {
+		return productOrderMapper.getPrintPop(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updatePrintOffOrders1(Map keyName) {
-		return productOrderMapper.updatePrintOffOrders1(keyName);
+	public int updatePrintOffOrders1(ProductOrderVO vo) {
+		return productOrderMapper.updatePrintOffOrders1(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updatePrintOffOrders2(Map keyName) {
-		return productOrderMapper.updatePrintOffOrders2(keyName);
+	public int updatePrintOffOrders2(ProductOrderVO vo) {
+		return productOrderMapper.updatePrintOffOrders2(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffRefund(Map keyName) {
-		return productOrderMapper.updateOffRefund(keyName);
+	public int updateOffRefund(ProductOrderVO vo) {
+		return productOrderMapper.updateOffRefund(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertRefundOffOrderMgntNo(Map keyName) {
-		return productOrderMapper.insertRefundOffOrderMgntNo(keyName);
+	public int insertRefundOffOrderMgntNo(ProductOrderVO vo) {
+		return productOrderMapper.insertRefundOffOrderMgntNo(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffMylecture(Map keyName) {
-		return productOrderMapper.updateOffMylecture(keyName);
+	public int updateOffMylecture(ProductOrderVO vo) {
+		return productOrderMapper.updateOffMylecture(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffMylectureRefund(Map keyName) {
-		return productOrderMapper.updateOffMylectureRefund(keyName);
+	public int updateOffMylectureRefund(ProductOrderVO vo) {
+		return productOrderMapper.updateOffMylectureRefund(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int insertOffRefund(Map keyName) {
-		return productOrderMapper.insertOffRefund(keyName);
+	public int insertOffRefund(ProductOrderVO vo) {
+		return productOrderMapper.insertOffRefund(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteOffCancelOrderMgntNo(Map keyName) {
-		return productOrderMapper.deleteOffCancelOrderMgntNo(keyName);
+	public int deleteOffCancelOrderMgntNo(ProductOrderVO vo) {
+		return productOrderMapper.deleteOffCancelOrderMgntNo(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int deleteOffCancelRefund(Map keyName) {
-		return productOrderMapper.deleteOffCancelRefund(keyName);
+	public int deleteOffCancelRefund(ProductOrderVO vo) {
+		return productOrderMapper.deleteOffCancelRefund(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int updateOffCancelMylecture(Map keyName) {
-		return productOrderMapper.updateOffCancelMylecture(keyName);
+	public int updateOffCancelMylecture(ProductOrderVO vo) {
+		return productOrderMapper.updateOffCancelMylecture(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int Delete_Year_Package_Point(Map keyName) {
-		return productOrderMapper.Delete_Year_Package_Point(keyName);
+	public int Delete_Year_Package_Point(ProductOrderVO vo) {
+		return productOrderMapper.Delete_Year_Package_Point(vo);
 	}
 
-	public List<HashMap<String, String>> getTmPointHistory(HashMap<String, String> params) {
-		return productOrderMapper.getTmPointHistory(params);
+	public List<HashMap<String, String>> getTmPointHistory(ProductOrderVO vo) {
+		return productOrderMapper.getTmPointHistory(vo);
 	}
 
-	public void insertTmBoard(Map<String, Object> searchMap) {
-		productOrderMapper.insertTmBoard(searchMap);
+	public void insertTmBoard(ProductOrderVO vo) {
+		productOrderMapper.insertTmBoard(vo);
 	}
 
-	public List<HashMap<String, String>> getTmBoardList(Map<String, Object> searchMap) {
-		return productOrderMapper.getTmBoardList(searchMap);
+	public List<HashMap<String, String>> getTmBoardList(ProductOrderVO vo) {
+		return productOrderMapper.getTmBoardList(vo);
 	}
 
-	public List<HashMap<String, String>> getVOCCODEList(HashMap<String, String> params) {
-		return productOrderMapper.getVOCCODEList(params);
+	public List<HashMap<String, String>> getVOCCODEList(ProductOrderVO vo) {
+		return productOrderMapper.getVOCCODEList(vo);
 	}
 
-	public List<HashMap<String, String>> getDUTYCODEList(HashMap<String, String> params) {
-		return productOrderMapper.getDUTYCODEList(params);
+	public List<HashMap<String, String>> getDUTYCODEList(ProductOrderVO vo) {
+		return productOrderMapper.getDUTYCODEList(vo);
 	}
 
-	public List<HashMap<String, String>> getOffApprovalsCount(Map<String, String> searchMap) {
-		return productOrderMapper.getOffApprovalsCount(searchMap);
+	public List<HashMap<String, String>> getOffApprovalsCount(ProductOrderVO vo) {
+		return productOrderMapper.getOffApprovalsCount(vo);
 	}
 
-	public List<HashMap<String, String>> getCcode(HashMap<String, String> params) {
-		return productOrderMapper.getCcode(params);
+	public List<HashMap<String, String>> getCcode(ProductOrderVO vo) {
+		return productOrderMapper.getCcode(vo);
 	}
 
-	public void insertMyLecture(Map<String, String> params) {
-		productOrderMapper.insertMyLecture(params);
+	public void insertMyLecture(ProductOrderVO vo) {
+		productOrderMapper.insertMyLecture(vo);
 	}
 
-	public void insertMyLectureN(Map<String, String> params) {
-		productOrderMapper.insertMyLectureN(params);
+	public void insertMyLectureN(ProductOrderVO vo) {
+		productOrderMapper.insertMyLectureN(vo);
 	}
 
-	@SuppressWarnings({ "rawtypes" })
-	public int getPlusPoint(Map keyName) {
-		return productOrderMapper.getPlusPoint(keyName);
+	public int getPlusPoint(ProductOrderVO vo) {
+		return productOrderMapper.getPlusPoint(vo);
 	}
 
-	public void BookPointDel(Map<String, Object> params) {
-		productOrderMapper.BookPointDel(params);
+	public void BookPointDel(ProductOrderVO vo) {
+		productOrderMapper.BookPointDel(vo);
 	}
 
-	public void BookPointIns(Map<String, Object> params) {
-		productOrderMapper.BookPointIns(params);
+	public void BookPointIns(ProductOrderVO vo) {
+		productOrderMapper.BookPointIns(vo);
 	}
 
-	public void insertOffOrderLog(Map<String, Object> params) {
-		productOrderMapper.insertOffOrderLog(params);
+	public void insertOffOrderLog(ProductOrderVO vo) {
+		productOrderMapper.insertOffOrderLog(vo);
 	}
 }

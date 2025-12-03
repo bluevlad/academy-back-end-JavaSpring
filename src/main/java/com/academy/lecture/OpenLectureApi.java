@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.academy.book.service.BookVO;
+import com.academy.lecture.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -27,13 +29,7 @@ import com.academy.common.CORSFilter;
 import com.academy.common.service.CmmUseService;
 import com.academy.common.file.FileUtil;
 import com.academy.book.service.BookService;
-import com.academy.lecture.service.OpenLectureService;
-import com.academy.lecture.service.OpenLectureVO;
-import com.academy.lecture.service.SubjectService;
-import com.academy.lecture.service.SubjectVO;
-import com.academy.lecture.service.TeacherService;
-import com.academy.lecture.service.TeacherVO;
-import com.academy.productOrder.service.ProductOrderService;
+import com.academy.productorder.service.ProductOrderService;
 
 @RestController
 @RequestMapping("/api/openlecture")
@@ -87,15 +83,17 @@ public class OpenLectureApi extends CORSFilter {
 		/* 페이징 */
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
 		SubjectVO subjectVO = new SubjectVO();
 		subjectVO.setIsUse("Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
 
-		List<HashMap<String, String>> list = openlectureservice.openlectureList(openLectureVO);
-		int listCount = openlectureservice.openlectureListCount(openLectureVO);
+        BookVO bookVO = new BookVO();
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(bookVO);
+
+        LectureVO LectureVO = new LectureVO();
+		List<HashMap<String, String>> list = openlectureservice.openlectureList(LectureVO);
+		int listCount = openlectureservice.openlectureListCount(LectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -123,12 +121,13 @@ public class OpenLectureApi extends CORSFilter {
 		setSessionInfo(openLectureVO, request);
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
 		SubjectVO subjectVO = new SubjectVO();
 		subjectVO.setIsUse("Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
+
+        BookVO bookVO = new BookVO();
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(bookVO);
 
 		subjectVO.setStartNo("1");
 		subjectVO.setEndNo("10000");
@@ -174,10 +173,10 @@ public class OpenLectureApi extends CORSFilter {
 	public JSONObject view(@ModelAttribute OpenLectureVO openLectureVO, HttpServletRequest request) throws Exception {
 		setSessionInfo(openLectureVO, request);
 
-		List<HashMap<String, String>> view = openlectureservice.openlectureView(openLectureVO);
+        LectureVO lectureVO = new LectureVO();
+		List<HashMap<String, String>> view = openlectureservice.openlectureView(lectureVO);
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
 		SubjectVO subjectVO = new SubjectVO();
@@ -238,15 +237,18 @@ public class OpenLectureApi extends CORSFilter {
 		/* 페이징 */
 
 		TeacherVO teacherVO = new TeacherVO();
-		teacherVO.setGubun("T");
 		List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
 		SubjectVO subjectVO = new SubjectVO();
 		subjectVO.setIsUse("Y");
-		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(subjectVO);
 
-		List<HashMap<String, String>> list = openlectureservice.bookList(openLectureVO);
-		int listCount = openlectureservice.bookListCount(openLectureVO);
+        BookVO bookVO = new BookVO();
+		List<HashMap<String, String>> formlist = bookservice.getLearningFormList(bookVO);
+
+        LectureVO lectureVO = new LectureVO();
+
+		List<HashMap<String, String>> list = openlectureservice.bookList(lectureVO);
+		int listCount = openlectureservice.bookListCount(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("kindlist", kindlist);
@@ -281,25 +283,27 @@ public class OpenLectureApi extends CORSFilter {
 		String LECCODE = "";
 		String SEQ = "";
 
-		List<HashMap<String, String>> getBridgeLeccodeSeqList = openlectureservice.getBridgeLeccodeSeq(openLectureVO);
+        LectureVO lectureVO = new LectureVO();
+
+		List<HashMap<String, String>> getBridgeLeccodeSeqList = openlectureservice.getBridgeLeccodeSeq(lectureVO);
 		if(getBridgeLeccodeSeqList.size() > 0){
 			SEQ = getBridgeLeccodeSeqList.get(0).get("SEQ");
-			openLectureVO.setSeq(Integer.parseInt(getBridgeLeccodeSeqList.get(0).get("SEQ")));
+			openLectureVO.setSeq(getBridgeLeccodeSeqList.get(0).get("SEQ"));
 		}else{
 			SEQ = "1";
-			openLectureVO.setSeq(1);
+			openLectureVO.setSeq(SEQ);
 		}
 
 		String prefix = "O" + cal.get(Calendar.YEAR);
 		openLectureVO.setPrefix(prefix);
-		List<HashMap<String, String>> getLeccodeList = openlectureservice.getopenLeccode(openLectureVO);
+		List<HashMap<String, String>> getLeccodeList = openlectureservice.getopenLeccode(lectureVO);
 		if(getLeccodeList.size() > 0)
 			LECCODE = prefix + getLeccodeList.get(0).get("OPENLECCODE");
 		else
 			LECCODE = prefix + "00001";
 		openLectureVO.setOpenleccode(LECCODE.replace(" ", ""));
 
-		openlectureservice.openlectureInsert(openLectureVO);
+		openlectureservice.openlectureInsert(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");
@@ -332,7 +336,9 @@ public class OpenLectureApi extends CORSFilter {
 		if("Y".equals(openLectureVO.getOpenFileDel()) || (openLectureVO.getOpenFile() != null && !"".equals(openLectureVO.getOpenFile())))
 			fileUtil.deleteFile(rootPath + openLectureVO.getOpenFileDelnm());
 
-		openlectureservice.openlectureUpdate(openLectureVO);
+        LectureVO lectureVO = new LectureVO();
+
+		openlectureservice.openlectureUpdate(lectureVO);
 
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put("result", "success");

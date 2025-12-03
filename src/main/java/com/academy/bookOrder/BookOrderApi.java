@@ -373,7 +373,7 @@ public class BookOrderApi extends CORSFilter {
      * 기본 날짜 범위 설정 (6개월 전 ~ 오늘)
      */
     private void setDefaultDateRange(BookOrderVO vo) {
-        if (CommonUtil.isEmpty(vo.getSdate())) {
+        if (vo.getSdate().isEmpty()) {
             Calendar month6 = Calendar.getInstance();
             month6.add(Calendar.MONTH, -6);
             Date date6 = month6.getTime();
@@ -381,7 +381,7 @@ public class BookOrderApi extends CORSFilter {
             vo.setSdate(sdate);
         }
 
-        if (CommonUtil.isEmpty(vo.getEdate())) {
+        if (vo.getEdate().isEmpty()) {
             TimeZone tz = new SimpleTimeZone(9 * 60 * 60 * 1000, "KST");
             TimeZone.setDefault(tz);
             Date d1 = new Date();
