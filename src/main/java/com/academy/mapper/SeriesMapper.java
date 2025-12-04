@@ -32,7 +32,7 @@ public interface SeriesMapper {
     /**
      * 시리즈 상세 조회
      */
-    HashMap<String, Object> seriesView(SeriesVO seriesVO);
+    List<HashMap<String, String>> seriesView(SeriesVO seriesVO);
 
     /**
      * 시리즈 수정

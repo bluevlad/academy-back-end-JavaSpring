@@ -1,74 +1,76 @@
 package com.academy.lecture.service;
 
-import java.util.HashMap;
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.academy.mapper.KindMapper;
-import com.academy.mapper.SeriesMapper;
+import com.academy.mapper.CategoryMapper;
 
 /**
  * Category Service
- * Series-Category 관리 서비스 (직접 구현)
+ * Series-Category 관리 서비스 (CategoryMapper 사용)
  */
 @Service
-public class CategoryService {
+public class CategoryService implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private final CategoryMapper categoryMapper;
 
     @Autowired
-    private KindMapper kindMapper;
-
-    @Autowired
-    private SeriesMapper seriesMapper;
+    public CategoryService(CategoryMapper categoryMapper) {
+        this.categoryMapper = categoryMapper;
+    }
 
     /**
      * 트리 리스트 조회
      */
-    public List<HashMap<String, Object>> getSeriesCateTree() {
-        return kindMapper.getSeriesCateTree();
+    public ArrayList<JSONObject> getSeriesCateTree() {
+        return categoryMapper.getSeriesCateTree();
     }
 
     /**
      * 상세 조회
      */
-    public HashMap<String, Object> getDetail(SeriesVO seriesVO) {
-        return seriesMapper.seriesView(seriesVO);
+    public JSONObject getDetail(CategoryVO categoryVO) {
+        return categoryMapper.getDetail(categoryVO);
     }
 
     /**
      * 수정 프로세스
      */
-    public void updateProcess(SeriesVO seriesVO) {
-        seriesMapper.seriesUpdate(seriesVO);
+    public void updateProcess(CategoryVO categoryVO) {
+        categoryMapper.updateProcess(categoryVO);
     }
 
     /**
      * 삭제 프로세스
      */
-    public int deleteProcess(SeriesVO seriesVO) {
-        seriesMapper.categoryDelete(seriesVO);
-        return seriesMapper.seriesDelete(seriesVO);
+    public int deleteProcess(CategoryVO categoryVO) {
+        return categoryMapper.deleteProcess(categoryVO);
     }
 
     /**
      * 등록 프로세스
      */
-    public int insertProcess(SeriesVO seriesVO) {
-        return seriesMapper.seriesInsert(seriesVO);
+    public int insertProcess(CategoryVO categoryVO) {
+        return categoryMapper.insertProcess(categoryVO);
     }
 
     /**
      * ID 중복체크
      */
-    public int idCheck(SeriesVO seriesVO) {
-        return seriesMapper.seriesCheck(seriesVO);
+    public int idCheck(CategoryVO categoryVO) {
+        return categoryMapper.idCheck(categoryVO);
     }
 
     /**
      * 최대 순서 조회
      */
-    public HashMap<String, Object> getMaxOrdr(CategoryVO categoryVO) {
-        return kindMapper.getMaxOrdr(categoryVO);
+    public JSONObject getMaxOrdr(CategoryVO categoryVO) {
+        return categoryMapper.getMaxOrdr(categoryVO);
     }
 }

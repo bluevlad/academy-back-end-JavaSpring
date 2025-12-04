@@ -206,7 +206,7 @@ public class LectureMstApi extends CORSFilter {
 			BRIDGE_MSTCODE = prefix + getBridgeMstcodeList.get(0).get("BRIDGE_MSTCODE");
 		else
 			BRIDGE_MSTCODE = prefix + "00001";
-		lectureVO.setBridgeMstcode(BRIDGE_MSTCODE.replace(" ", ""));
+		lectureVO.setBridgeLeccode(BRIDGE_MSTCODE.replace(" ", ""));
 
 		prefix = "M" + cal.get(Calendar.YEAR);
 		lectureVO.setPrefix(prefix);
