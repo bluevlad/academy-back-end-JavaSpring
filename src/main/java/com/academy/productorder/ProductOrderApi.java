@@ -48,13 +48,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject list(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.getOrderListDB(vo);
         int listCount = productOrderService.getOrderListCount(vo);
@@ -76,13 +77,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject list0(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.getOrderListDB_0(vo);
         int listCount = productOrderService.getOrderListCount_0(vo);
@@ -104,13 +106,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject listFreelec(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.getOrderListDB_freelec(vo);
         int listCount = productOrderService.getOrderListCount_freelec(vo);
@@ -132,13 +135,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject offList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.getOffOrderListDB(vo);
         int listCount = productOrderService.getOffOrderListCount(vo);
@@ -436,13 +440,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject memberCouponList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.getTm_mycoupon_list_admin(vo);
         int listCount = productOrderService.getTm_mycoupon_listCount_admin(vo);
@@ -464,13 +469,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject memberClassList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.Tm_Class_List(vo);
         int listCount = productOrderService.getTmClassListCount(vo);
@@ -508,13 +514,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject csBoardList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.Cs_board_list(vo);
         int listCount = productOrderService.getCsBoardListCount(vo);
@@ -554,13 +561,14 @@ public class ProductOrderApi extends CORSFilter {
     public JSONObject memoList(@ModelAttribute ProductOrderVO vo, HttpServletRequest request) throws Exception {
         setParam(vo, request);
 
+        /* 페이징 */
         int currentPage = vo.getCurrentPage();
         int pageRow = vo.getPageRow();
         int startNo = (currentPage - 1) * pageRow;
         int endNo = startNo + pageRow;
-
-        vo.setStartNo(startNo);
-        vo.setEndNo(endNo);
+        vo.setStartNo(String.valueOf(startNo));
+        vo.setEndNo(String.valueOf(endNo));
+        /* 페이징 */
 
         List<HashMap<String, Object>> list = productOrderService.getMemoList(vo);
         int listCount = productOrderService.getMemoListCount(vo);

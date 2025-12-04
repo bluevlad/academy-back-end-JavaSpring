@@ -4,6 +4,7 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 
+import com.academy.lecture.service.TeacherVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
@@ -86,7 +87,9 @@ public class SubjectApi extends CORSFilter {
         setSessionInfo(subjectVO, request);
 
         List<HashMap<String, String>> view = subjectservice.subjectView(subjectVO);
-        List<HashMap<String, String>> kindlist = teacherservice.getKindList(subjectVO);
+
+        TeacherVO teacherVO = new TeacherVO();
+        List<HashMap<String, String>> kindlist = teacherservice.getKindList(teacherVO);
 
         HashMap<String, Object> result = new HashMap<String, Object>();
         result.put("view", view);

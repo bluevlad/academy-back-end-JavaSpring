@@ -72,7 +72,6 @@ public class BookCmmtApi extends CORSFilter {
         /* 페이징 */
 
         TeacherVO teacherVO = new TeacherVO();
-        teacherVO.setGubun("T");
         List<HashMap<String, String>> kindlist = teacherService.getKindList(teacherVO);
 
         List<HashMap<String, Object>> list = bookCmmtService.bookCmmtList(bookCmmtVO);

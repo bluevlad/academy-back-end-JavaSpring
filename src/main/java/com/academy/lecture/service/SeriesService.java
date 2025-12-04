@@ -40,17 +40,16 @@ public class SeriesService {
     /**
      * Series 등록
      */
-    @SuppressWarnings("unchecked")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public void seriesInsert(Object obj){
-        seriesMapper.seriesInsert(obj);
+    public void seriesInsert(SeriesVO seriesVO){
+        seriesMapper.seriesInsert(seriesVO);
 
-        String[] CAT_CDs = (String[])((HashMap<String, Object>)obj).get("CAT_CDs");
-        if(null != CAT_CDs && CAT_CDs.length > 0) {
-            for(int i=0; i<CAT_CDs.length; i++) {
-                ((HashMap<String, Object>)obj).put("CAT_CD", CAT_CDs[i]);
-                ((HashMap<String, Object>)obj).put("ORDR", (i+1));
-                categorySeriesMapper.catSeriesInsert(obj);
+        String[] catCds = seriesVO.getCatCds();
+        if(null != catCds && catCds.length > 0) {
+            for(int i=0; i<catCds.length; i++) {
+                seriesVO.setCatCd(catCds[i]);
+                seriesVO.setOrdr(i+1);
+                categorySeriesMapper.catSeriesInsert(seriesVO);
             }
         }
     }
@@ -65,19 +64,18 @@ public class SeriesService {
     /**
      * Series 수정
      */
-    @SuppressWarnings("unchecked")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public void seriesUpdate(Object obj){
-        seriesMapper.seriesUpdate(obj);
+    public void seriesUpdate(SeriesVO seriesVO){
+        seriesMapper.seriesUpdate(seriesVO);
 
-        categorySeriesMapper.catSeriesDeleteWthSrsCd(obj);
+        categorySeriesMapper.catSeriesDeleteWthSrsCd(seriesVO);
 
-        String[] CAT_CDs = (String[])((HashMap<String, Object>)obj).get("CAT_CDs");
-        if(null != CAT_CDs && CAT_CDs.length > 0) {
-            for(int i=0; i<CAT_CDs.length; i++) {
-                ((HashMap<String, Object>)obj).put("CAT_CD", CAT_CDs[i]);
-                ((HashMap<String, Object>)obj).put("ORDR", (i+1));
-                categorySeriesMapper.catSeriesInsert(obj);
+        String[] catCds = seriesVO.getCatCds();
+        if(null != catCds && catCds.length > 0) {
+            for(int i=0; i<catCds.length; i++) {
+                seriesVO.setCatCd(catCds[i]);
+                seriesVO.setOrdr(i+1);
+                categorySeriesMapper.catSeriesInsert(seriesVO);
             }
         }
     }
@@ -85,15 +83,14 @@ public class SeriesService {
     /**
      * Series 삭제
      */
-    @SuppressWarnings("unchecked")
     @Transactional(readOnly=false,rollbackFor=Exception.class)
-    public void seriesDelete(Object obj){
-        String[] DEL_ARR = (String[])((HashMap<String, Object>)obj).get("SRS_CDs");
-        if(DEL_ARR != null) {
-            for(int i=0; i<DEL_ARR.length; i++) {
-                ((HashMap<String, Object>)obj).put("SRS_CD", DEL_ARR[i]);
-                seriesMapper.seriesDelete(obj);
-                categorySeriesMapper.catSeriesDeleteWthSrsCd(obj);
+    public void seriesDelete(SeriesVO seriesVO){
+        String[] srsCds = seriesVO.getSrsCds();
+        if(srsCds != null) {
+            for(int i=0; i<srsCds.length; i++) {
+                seriesVO.setSrsCd(srsCds[i]);
+                seriesMapper.seriesDelete(seriesVO);
+                categorySeriesMapper.catSeriesDeleteWthSrsCd(seriesVO);
             }
         }
     }

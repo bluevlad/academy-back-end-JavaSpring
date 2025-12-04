@@ -10,7 +10,7 @@
 
 <!-- 단과 start -->
 
-	<select id="lecturemstList" parameterType="hashMap" resultType="hashMap">
+	<select id="lecturemstList" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 	SELECT TBL.*
 	FROM (SELECT A.*, ROWNUM rnum
 	      FROM (SELECT TBL.*,
@@ -104,7 +104,7 @@
 		WHERE rnum &gt; #{startNo}
 	</select>
 
-	<select id="getMstcode" parameterType="hashMap" resultType="hashMap">
+	<select id="getMstcode" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT
   			TO_CHAR(NVL(MAX(substr(MSTCODE,6,5)),0)+1,'00000') MSTCODE
 		FROM TB_TOP_MST
@@ -112,7 +112,7 @@
 	</select>
 
 
-	<select id="lecturemstListCount" parameterType="hashMap" resultType="int">
+	<select id="lecturemstListCount" parameterType="com.academy.lecture.service.LectureVO" resultType="int">
 		SELECT COUNT(TBL.MSTCODE) FROM (
 	            SELECT LM.SEQ,  LM.MSTCODE, AA.BRIDGE_MSTCODE, LM.SUBJECT_OPTION,
 	                         LM.SUBJECT_TEACHER, (SELECT USER_NM FROM TB_MA_MEMBER WHERE USER_ID = LM.SUBJECT_TEACHER) AS SUBJECT_TEACHER_NM,
@@ -197,14 +197,14 @@
 		</if>
 	</select>
 
-	<select id="getBridgeMstcode" parameterType="hashMap" resultType="hashMap">
+	<select id="getBridgeMstcode" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT
 			TO_CHAR(NVL(MAX(substr(BRIDGE_MSTCODE,6,5)),0)+1,'00000') BRIDGE_MSTCODE
 		FROM TB_MST_BRIDGE
 		WHERE BRIDGE_MSTCODE LIKE '%'||#{PREFIX}||'%'
 	</select>
 
-	<insert id="lecturemstInsert" parameterType="hashMap" flushCache="true">
+	<insert id="lecturemstInsert" parameterType="com.academy.lecture.service.LectureVO" flushCache="true">
 		<!-- INSERT INTO TB_TOP_MST(SEQ, MSTCODE,   SUBJECT_TEACHER, SUBJECT_TEACHER_PAYMENT
 										, SUBJECT_TITLE, SUBJECT_DESC, SUBJECT_MEMO, SUBJECT_KEYWORD, SUBJECT_PERIOD
 										, SUBJECT_OFF_OPEN_YEAR, SUBJECT_OFF_OPEN_MONTH, SUBJECT_OFF_OPEN_DAY, SUBJECT_DISCOUNT, SUBJECT_PRICE
@@ -257,7 +257,7 @@
 
 	</insert>
 
-	<update id="lecturemstUpdate" parameterType="hashMap">
+	<update id="lecturemstUpdate" parameterType="com.academy.lecture.service.LectureVO">
 		<!-- UPDATE TB_TOP_MST
 			SET
 				LEARNING_CD = #{LEARNING_CD}
@@ -326,12 +326,12 @@
 
 	</update>
 
-	<insert id="lectureBridgeInsert" parameterType="hashMap" flushCache="true">
+	<insert id="lectureBridgeInsert" parameterType="com.academy.lecture.service.LectureVO" flushCache="true">
 		INSERT INTO TB_MST_BRIDGE(SEQ, BRIDGE_MSTCODE, MSTCODE, REG_DT, REG_ID, UPD_DT, UPD_ID)
 		VALUES (#{SEQ}, #{BRIDGE_MSTCODE}, #{MSTCODE}, SYSDATE, #{REG_ID}, SYSDATE, #{UPD_ID})
 	</insert>
 
-	<insert id="lectureBookInsert" parameterType="hashMap" flushCache="true" statementType="CALLABLE">
+	<insert id="lectureBookInsert" parameterType="com.academy.lecture.service.LectureVO" flushCache="true" statementType="CALLABLE">
 		CALL SP_LECTURE_BOOK_INSERT(
 		        #{MSTCODE, mode=IN},
 		        #{RSC_ID, mode=IN},
@@ -340,16 +340,16 @@
 		        #{result, jdbcType=INTEGER, mode=OUT})
 	</insert>
 
-	<insert id="lectureBookInsert2" parameterType="hashMap" flushCache="true">
+	<insert id="lectureBookInsert2" parameterType="com.academy.lecture.service.LectureVO" flushCache="true">
 		INSERT INTO TB_PLUS_CA_BOOK(IDX, MSTCODE, RSC_ID, FLAG)
 		VALUES ((SELECT NVL(MAX(IDX),0)+1 FROM TB_PLUS_CA_BOOK), #{MSTCODE}, #{RSC_ID}, #{FLAG})
 	</insert>
 
-	<select id="getBridgeMstcodeSeq" parameterType="hashMap" resultType="hashMap">
+	<select id="getBridgeMstcodeSeq" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT TO_CHAR(NVL(MAX(seq),0)+1) AS SEQ FROM TB_MST_BRIDGE
 	</select>
 
-	<select id="lectureDataMemoViewList" parameterType="hashMap" resultType="hashMap">
+	<select id="lectureDataMemoViewList" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT  NVL(BRIDGE_MSTCODE,'')  AS RLECCODE
 		       ,MOVIE_ORDER1            AS MOVIE_ORDER1
 		       ,MOVIE_ORDER2            AS MOVIE_ORDER2
@@ -360,7 +360,7 @@
 		ORDER BY MOVIE_ORDER1 , MOVIE_ORDER2 ASC , POSITION DESC
 	</select>
 
-	<select id="lectureDataMovieViewList" parameterType="hashMap" resultType="hashMap">
+	<select id="lectureDataMovieViewList" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT B.SUBJECT_OPTION
 		      ,B.BRIDGE_MSTCODE
 		      ,A.MOVIE_NAME
@@ -402,12 +402,12 @@
 		ORDER BY A.MOVIE_ORDER1, A.MOVIE_ORDER2
 	</select>
 
-	<select id="lectureWMV" parameterType="hashMap" resultType="hashMap">
+	<select id="lectureWMV" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT WMV_PMP FROM TB_ORDER_MGNT_NO
 		WHERE ORDERNO = #{ORDERNO}
 	</select>
 
-	<select id="lectureViewList" parameterType="hashMap" resultType="hashMap">
+	<select id="lectureViewList" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT
 	      (SELECT COUNT(C.ORDERNO) FROM TB_LEC_MST B LEFT OUTER JOIN
 	        (SELECT A.* FROM TB_ORDER_MGNT_NO A INNER JOIN
@@ -462,7 +462,7 @@
 		ORDER BY T2.CATEGORY_CD
 	</select>
 
-	<select id="lectureDown_Count" parameterType="hashMap" resultType="hashMap">
+	<select id="lectureDown_Count" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT DISTINCT A.CONTENTID FROM TB_PMP_DOWNLOG A, TB_MOVIE B
 		WHERE A.CONTENTID = B.MOVIE_NO
 		AND A.USERID = #{ORDERID}
@@ -470,18 +470,18 @@
 		AND A.DOWNLOGINFO LIKE '%'||#{ORDERNO}||'-'||#{MSTCODE}||'%'
 	</select>
 
-	<select id="lectureDeleteCheck" parameterType="hashMap" resultType="int">
+	<select id="lectureDeleteCheck" parameterType="com.academy.lecture.service.LectureVO" resultType="int">
 		SELECT COUNT(*) FROM TB_ORDER_MGNT_NO WHERE MGNTNO = #{MSCODE} AND STATUSCODE = 'DLV105'
 	</select>
 
-	<select id="lectureView" parameterType="hashMap" resultMap="lectureMap">
+	<select id="lectureView" parameterType="com.academy.lecture.service.LectureVO" resultMap="lectureMap">
 		SELECT
 			TBL.*, T2.SEQ AS BSEQ, T2.BRIDGE_MSTCODE
 		FROM TB_TOP_MST TBL INNER JOIN TB_MST_BRIDGE T2 ON TBL.MSTCODE = T2.MSTCODE
 		WHERE TBL.MSTCODE = #{MSTCODE}
 	</select>
 
-	<select id="lectureViewBookList" parameterType="hashMap" resultType="hashMap">
+	<select id="lectureViewBookList" parameterType="com.academy.lecture.service.LectureVO" resultType="hashMap">
 		SELECT
 		  AA.*
 		  ,(SELECT NAME FROM TB_CATEGORY_INFO WHERE ISUSE = 'Y' AND CODE = BB.CATEGORY_CD) CATEGORY_NM
@@ -491,18 +491,18 @@
 		ON AA.RSC_ID = BB.RSC_ID WHERE AA.MSTCODE = #{MSTCODE}
 	</select>
 
-	<delete id="lectureBookDelete" parameterType="hashMap" flushCache="true">
+	<delete id="lectureBookDelete" parameterType="com.academy.lecture.service.LectureVO" flushCache="true">
 		DELETE FROM TB_PLUS_CA_BOOK
 		<if test='UPDATE_FLAG == "ALL" '>WHERE MSTCODE IN (SELECT MSTCODE FROM TB_MST_BRIDGE WHERE BRIDGE_MSTCODE = #{BRIDGE_LEC} )</if>
 		<if test='UPDATE_FLAG != "ALL" '>WHERE MSTCODE = #{MSTCODE}</if>
 
 	</delete>
 
-	<delete id="lectureDelete" parameterType="hashMap" flushCache="true">
+	<delete id="lectureDelete" parameterType="com.academy.lecture.service.LectureVO" flushCache="true">
 		DELETE FROM TB_TOP_MST WHERE MSTCODE = #{MSTCODE}
 	</delete>
 
-	<delete id="lectureBridgeDelete" parameterType="hashMap" flushCache="true">
+	<delete id="lectureBridgeDelete" parameterType="com.academy.lecture.service.LectureVO" flushCache="true">
 		DELETE FROM TB_MST_BRIDGE WHERE BRIDGE_MSTCODE = #{BRIDGE_MSTCODE} AND MSTCODE = #{MSTCODE}
 	</delete>
 

@@ -23,6 +23,8 @@ public class SeriesVO extends CommonVO implements Serializable {
     // Additional fields for API
     private String[] catCds;    // CAT_CD[] - 카테고리 코드 배열
     private String[] srsCds;    // SRS_CD[] - 시리즈 코드 배열 (다중 삭제용)
+    private String catCd;       // CAT_CD - 카테고리 코드 (단일)
+    private Integer ordr;       // ORDR - 순서
 
     // Display fields
     private String srsDivNm;    // SRS_DIVNM - 시리즈 구분명
@@ -98,6 +100,22 @@ public class SeriesVO extends CommonVO implements Serializable {
 
     public void setSrsCds(String[] srsCds) {
         this.srsCds = srsCds;
+    }
+
+    public String getCatCd() {
+        return catCd;
+    }
+
+    public void setCatCd(String catCd) {
+        this.catCd = catCd;
+    }
+
+    public Integer getOrdr() {
+        return ordr;
+    }
+
+    public void setOrdr(Integer ordr) {
+        this.ordr = ordr;
     }
 
     @Override

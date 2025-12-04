@@ -1,5 +1,6 @@
 package com.academy.mapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.academy.lecture.service.CategoryVO;
 import com.academy.lecture.service.KindVO;
+import org.json.simple.JSONObject;
 
 /**
  * Kind Mapper Interface
@@ -68,7 +70,7 @@ public interface KindMapper {
     /**
      * 시리즈 카테고리 트리 조회
      */
-    List<HashMap<String, Object>> getSeriesCateTree();
+    ArrayList<JSONObject> getSeriesCateTree();
 
     /**
      * 최대 순서 조회
