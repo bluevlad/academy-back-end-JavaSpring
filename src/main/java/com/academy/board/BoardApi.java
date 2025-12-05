@@ -18,7 +18,7 @@ import com.academy.common.PaginationInfo;
 @RequestMapping("/api/board")
 public class BoardApi extends CORSFilter {
 
-	private BoardService boardService;
+	private final BoardService boardService;
 
     public BoardApi(BoardService boardService) {
         this.boardService = boardService;

@@ -10,7 +10,7 @@ import com.academy.mapper.BoardMapper;
 @Service
 public class BoardService {
 
-	private BoardMapper boardMapper;
+	private final BoardMapper boardMapper;
 	
 	public BoardService(BoardMapper boardMapper) {
 		this.boardMapper = boardMapper;
