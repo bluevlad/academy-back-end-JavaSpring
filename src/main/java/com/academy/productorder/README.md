@@ -86,3 +86,11 @@ GET /api/coupon/list?currentPage=1&pageRow=10
 - 주문 상태는 단계별로 관리됩니다
 - 트랜잭션은 @Transactional 애노테이션으로 관리됩니다
 - 결제 정보는 암호화되어 저장됩니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

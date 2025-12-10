@@ -68,3 +68,11 @@ GET /api/examBank/list?currentPage=1&pageRow=10&SUBJECT_CD=MATH
 - 페이징은 CommonVO를 통해 처리됩니다
 - 트랜잭션은 @Transactional 애노테이션으로 관리됩니다
 - 시험과 문제은행은 별도로 관리됩니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

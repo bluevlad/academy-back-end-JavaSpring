@@ -389,3 +389,11 @@ String nRentEnd = dateFormat.format(cal.getTime());
 3. **예치금**: 기본 예치금은 10,000원
 4. **대여 기간**: 기본 2개월, 연장 시 2개월씩 추가
 5. **주문번호**: 자동 생성 (예: B202400001)
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

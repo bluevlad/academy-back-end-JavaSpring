@@ -98,3 +98,11 @@ public class BookService implements Serializable {
 - Namespace는 매퍼 인터페이스의 풀 패키지명과 일치해야 합니다
 - 복잡한 쿼리는 XML에서 동적 SQL을 사용합니다
 - VO 객체를 파라미터로 받아 타입 안정성을 확보합니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

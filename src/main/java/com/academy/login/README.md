@@ -204,3 +204,11 @@ try {
 2. **세션 관리**: 다른 API들은 세션 기반 인증 사용 (`AdmUserInfo`)
 3. **비밀번호**: 암호화 처리 권장 (현재 평문)
 4. **토큰 만료**: JWT 토큰 만료 시간 설정 권장
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

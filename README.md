@@ -900,7 +900,7 @@ If you see compilation errors with `\ufeff`:
 
 ## License
 
-[Add license information]
+This project is proprietary software. See the copyright notice below.
 
 ## Contributors
 
@@ -909,3 +909,17 @@ If you see compilation errors with `\ufeff`:
 ## Support
 
 For issues and questions, please refer to the project issue tracker.
+
+---
+
+## Copyright
+
+<img src="UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**
+
+이 소프트웨어는 운몽시스템즈(UM Systems)의 독점 소유이며, 저작권법에 의해 보호됩니다.
+본 소프트웨어의 무단 복제, 배포, 수정, 재배포는 법적으로 금지되어 있습니다.
+
+This software is the exclusive property of UM Systems and is protected by copyright law.
+Unauthorized copying, distribution, modification, or redistribution of this software is prohibited by law.

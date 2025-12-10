@@ -52,3 +52,11 @@ main/
 ## 참고사항
 
 메인 페이지에 표시되는 다양한 정보를 통합 제공합니다.
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

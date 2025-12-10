@@ -48,3 +48,11 @@ bookOrder/
 - 모든 API는 세션 인증이 필요합니다
 - 파일 다운로드 기능을 지원합니다
 - 트랜잭션은 @Transactional 애노테이션으로 관리됩니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

@@ -96,3 +96,11 @@ fileUtil.uploadFile(multipartFile, uploadPath);
 - 모든 API 컨트롤러는 CORSFilter를 상속해야 합니다
 - 파일 업로드 경로는 application.properties에서 설정합니다
 - CORS 설정은 Configurations에서 관리됩니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

@@ -76,3 +76,11 @@ POST /api/menu/save
 - 메뉴는 계층형 구조로 관리됩니다
 - 사용자 권한에 따라 메뉴가 필터링됩니다
 - 트랜잭션은 @Transactional 애노테이션으로 관리됩니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

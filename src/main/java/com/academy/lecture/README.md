@@ -112,3 +112,11 @@ GET /api/subject/teacherList?SUBJECT_CD=MATH
 - 파일 업로드는 FileUtil을 통해 처리됩니다
 - LectureVO는 LectureMstVO의 필드를 통합하여 사용합니다
 - 강의와 교재(Book)는 연관 관계를 가집니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

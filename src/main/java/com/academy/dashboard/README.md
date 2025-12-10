@@ -102,3 +102,11 @@ GET /api/dashboard/myRentLocker?userId=user001
 1. **LockerVO 사용**: 사물함 패키지의 LockerVO를 재사용
 2. **단순한 구조**: 현재는 사물함 조회만 제공
 3. **향후 확장**: 다양한 대시보드 위젯 추가 가능
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

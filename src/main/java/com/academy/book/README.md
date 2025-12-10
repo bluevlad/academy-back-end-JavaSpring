@@ -76,3 +76,11 @@ GET /api/book/caSubjectTeacherList?SUBJECT_CD=MATH
 - 페이징은 CommonVO를 통해 처리됩니다
 - 트랜잭션은 @Transactional 애노테이션으로 관리됩니다
 - 교재와 강의는 연관 관계를 가집니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**
