@@ -199,6 +199,51 @@ com.academy/
 │       ├── MenuService.java
 │       └── MenuServiceImpl.java
 │
+├── banner/                            # Banner management
+│   ├── BannerApi.java
+│   └── service/
+│       ├── BannerService.java
+│       └── BannerVO.java
+│
+├── box/                               # Box management
+│   ├── BoxApi.java
+│   └── service/
+│       ├── BoxService.java
+│       └── BoxVO.java
+│
+├── coop/                              # Affiliate/Partner management
+│   ├── CoopApi.java
+│   └── service/
+│       ├── CoopService.java
+│       ├── CoopVO.java
+│       ├── CoopIpVO.java
+│       ├── CoopBoardVO.java
+│       └── CoopOrderVO.java
+│
+├── counsel/                           # Counseling management
+│   ├── CounselApi.java
+│   └── service/
+│       ├── CounselService.java
+│       ├── CounselScheduleVO.java
+│       ├── CounselRequestVO.java
+│       └── PresentRequestVO.java
+│
+├── dday/                              # D-Day management
+│   ├── DdayApi.java
+│   └── service/
+│       ├── DdayService.java
+│       └── DdayVO.java
+│
+├── event/                             # Event management
+│   ├── EventApi.java
+│   └── service/
+│       ├── EventService.java
+│       ├── EventVO.java
+│       ├── EventOptionVO.java
+│       ├── EventFileVO.java
+│       ├── EventResultVO.java
+│       └── LecEventVO.java
+│
 ├── productorder/                      # Product ordering
 │   ├── CouponMngApi.java
 │   ├── ProductOrderApi.java
@@ -209,11 +254,27 @@ com.academy/
 │       └── ProductOrderServiceImpl.java
 │
 ├── mapper/                            # MyBatis Mapper interfaces
+│   ├── AdminAuthMapper.java
+│   ├── AdminCodeMapper.java
+│   ├── AdminMenuMapper.java
+│   ├── BannerMapper.java
+│   ├── BoardManagementMapper.java
 │   ├── BoardMapper.java
+│   ├── BoardNotAnswerMapper.java
+│   ├── BoardTeacherMapper.java
 │   ├── BookMapper.java
+│   ├── BookCmmtMapper.java
+│   ├── BookOrderMapper.java
+│   ├── BoxMapper.java
 │   ├── CategoryMapper.java
+│   ├── CategorySeriesMapper.java
+│   ├── CmmUseMapper.java
+│   ├── CoopMapper.java
+│   ├── CounselMapper.java
 │   ├── CouponMngMapper.java
 │   ├── DashBoardMapper.java
+│   ├── DdayMapper.java
+│   ├── EventMapper.java
 │   ├── ExamBankMapper.java
 │   ├── ExamMapper.java
 │   ├── FormMapper.java
@@ -276,6 +337,12 @@ com.academy/
 | **login** | Authentication | 1 API | Session-based authentication |
 | **main** | Main page | 1 API | Landing page content |
 | **menu** | Menu management | 1 API | Navigation menu configuration |
+| **banner** | Banner management | 1 API | Banner CRUD, display management |
+| **box** | Box management | 1 API | Content box management |
+| **coop** | Affiliate management | 1 API | Partner/affiliate management, IP whitelist, orders |
+| **counsel** | Counseling management | 1 API | Counseling schedules, requests, presentations |
+| **dday** | D-Day management | 1 API | Important dates (exams, deadlines) |
+| **event** | Event management | 1 API | Online/offline events, lecture events |
 
 ### System & Utility Modules
 
@@ -857,6 +924,35 @@ curl http://localhost:8080/api/member/view?userId=user001
 - `TB_PRODUCT_ORDER` - Product orders
 - `TB_COUPON` - Coupon management
 
+### Extended Tables (New Modules)
+
+**D-Day Management:**
+- `TB_DDAY` - D-Day master table
+- `TB_CATEGORY_INFO` - Category information
+
+**Event Management:**
+- `TB_EVENT_INFO` - Event master table
+- `TB_EVENT_FILE` - Event attachments
+- `TB_EVENT_OPTION1~4` - Event options (application, comments, SMS, popup)
+- `TB_EVENT_RESULT` - Event participants
+- `TB_LECTURE_EVENT_INFO` - Lecture event master
+- `TB_LECTURE_EVENT_LIST` - Lecture event course list
+
+**Affiliate Management:**
+- `COOP_MST` - Partner/affiliate master
+- `COOP_USE_IP` - Partner IP whitelist
+- `TB_BOARD_MEMBERSHIP` - Affiliate board
+
+**Counseling Management:**
+- `COUNSEL_SCH` - Counseling schedule
+- `COUNSEL_RST` - Counseling requests
+- `COUNSEL_TS` - Time slot settings
+- `TB_PRESENT` - Presentation requests
+
+**Banner & Box:**
+- `TB_BANNER_INFO` - Banner information
+- `TB_BOX_INFO` - Box content management
+
 DDL scripts available in `ddls/` directory.
 
 ## API Endpoints Summary
@@ -874,9 +970,15 @@ DDL scripts available in `ddls/` directory.
 | Login | `/api/login/*` | 1 API |
 | Main | `/api/main/*` | 1 API |
 | Menu | `/api/menu/*` | 1 API |
+| Banner | `/api/banner/*` | 1 API |
+| Box | `/api/box/*` | 1 API |
+| Coop | `/api/coop/*` | 1 API (partner management, IP whitelist, board, orders) |
+| Counsel | `/api/counsel/*` | 1 API (schedule, request, presentation) |
+| D-Day | `/api/dday/*` | 1 API |
+| Event | `/api/event/*` | 1 API (event, lecture event) |
 | API Info | `/api/info/*` | 2 APIs (getApiList, getApiSummary) |
 
-**Total**: 25 REST API Controllers
+**Total**: 31+ REST API Controllers
 
 ## Troubleshooting
 

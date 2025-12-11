@@ -6,15 +6,27 @@ MyBatis 매퍼 인터페이스를 모아둔 패키지입니다.
 
 ```
 mapper/
+├── AdminAuthMapper.java          # 관리자 권한 매퍼
+├── AdminCodeMapper.java          # 관리자 코드 매퍼
+├── AdminMenuMapper.java          # 관리자 메뉴 매퍼
+├── BannerMapper.java             # 배너 매퍼
+├── BoardManagementMapper.java    # 게시판 관리 매퍼
 ├── BoardMapper.java              # 게시판 매퍼
+├── BoardNotAnswerMapper.java     # 미답변 게시판 매퍼
+├── BoardTeacherMapper.java       # 강사 게시판 매퍼
 ├── BookMapper.java               # 교재 매퍼
 ├── BookCmmtMapper.java           # 교재 구매 후기 매퍼
 ├── BookOrderMapper.java          # 교재 주문 매퍼
+├── BoxMapper.java                # 박스 매퍼
 ├── CategoryMapper.java           # 카테고리 매퍼
 ├── CategorySeriesMapper.java     # 카테고리 시리즈 매퍼
 ├── CmmUseMapper.java             # 공통 사용 매퍼
+├── CoopMapper.java               # 제휴사 매퍼
+├── CounselMapper.java            # 상담 매퍼
 ├── CouponMngMapper.java          # 쿠폰 관리 매퍼
 ├── DashBoardMapper.java          # 대시보드 매퍼
+├── DdayMapper.java               # D-Day 매퍼
+├── EventMapper.java              # 이벤트 매퍼
 ├── ExamMapper.java               # 시험 매퍼
 ├── ExamBankMapper.java           # 문제은행 매퍼
 ├── FormMapper.java               # 학습형태 매퍼
