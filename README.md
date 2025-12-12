@@ -10,6 +10,7 @@ Small Online Academy backend service - A comprehensive educational platform mana
 - **Database**: MySQL 8.x
 - **JWT**: JJWT 0.11.5
 - **Jakarta EE**: jakarta.servlet.*
+- **API Documentation**: SpringDoc OpenAPI 2.3.0 (Swagger UI)
 
 ## Quick Start
 
@@ -33,6 +34,21 @@ java -jar target/academy-0.0.1-SNAPSHOT.jar
 ```
 
 Server runs on: `http://localhost:8080`
+
+### API Documentation (Swagger UI)
+
+After starting the server, access the API documentation:
+
+| URL | Description |
+|-----|-------------|
+| http://localhost:8080/swagger-ui.html | Swagger UI - Interactive API documentation |
+| http://localhost:8080/v3/api-docs | OpenAPI 3.0 JSON specification |
+
+**Features:**
+- Browse all API endpoints grouped by module
+- Test APIs directly in browser
+- View request/response schemas
+- Export OpenAPI specification
 
 ### Database Setup
 
@@ -183,6 +199,51 @@ com.academy/
 │       ├── MenuService.java
 │       └── MenuServiceImpl.java
 │
+├── banner/                            # Banner management
+│   ├── BannerApi.java
+│   └── service/
+│       ├── BannerService.java
+│       └── BannerVO.java
+│
+├── box/                               # Box management
+│   ├── BoxApi.java
+│   └── service/
+│       ├── BoxService.java
+│       └── BoxVO.java
+│
+├── coop/                              # Affiliate/Partner management
+│   ├── CoopApi.java
+│   └── service/
+│       ├── CoopService.java
+│       ├── CoopVO.java
+│       ├── CoopIpVO.java
+│       ├── CoopBoardVO.java
+│       └── CoopOrderVO.java
+│
+├── counsel/                           # Counseling management
+│   ├── CounselApi.java
+│   └── service/
+│       ├── CounselService.java
+│       ├── CounselScheduleVO.java
+│       ├── CounselRequestVO.java
+│       └── PresentRequestVO.java
+│
+├── dday/                              # D-Day management
+│   ├── DdayApi.java
+│   └── service/
+│       ├── DdayService.java
+│       └── DdayVO.java
+│
+├── event/                             # Event management
+│   ├── EventApi.java
+│   └── service/
+│       ├── EventService.java
+│       ├── EventVO.java
+│       ├── EventOptionVO.java
+│       ├── EventFileVO.java
+│       ├── EventResultVO.java
+│       └── LecEventVO.java
+│
 ├── productorder/                      # Product ordering
 │   ├── CouponMngApi.java
 │   ├── ProductOrderApi.java
@@ -193,11 +254,27 @@ com.academy/
 │       └── ProductOrderServiceImpl.java
 │
 ├── mapper/                            # MyBatis Mapper interfaces
+│   ├── AdminAuthMapper.java
+│   ├── AdminCodeMapper.java
+│   ├── AdminMenuMapper.java
+│   ├── BannerMapper.java
+│   ├── BoardManagementMapper.java
 │   ├── BoardMapper.java
+│   ├── BoardNotAnswerMapper.java
+│   ├── BoardTeacherMapper.java
 │   ├── BookMapper.java
+│   ├── BookCmmtMapper.java
+│   ├── BookOrderMapper.java
+│   ├── BoxMapper.java
 │   ├── CategoryMapper.java
+│   ├── CategorySeriesMapper.java
+│   ├── CmmUseMapper.java
+│   ├── CoopMapper.java
+│   ├── CounselMapper.java
 │   ├── CouponMngMapper.java
 │   ├── DashBoardMapper.java
+│   ├── DdayMapper.java
+│   ├── EventMapper.java
 │   ├── ExamBankMapper.java
 │   ├── ExamMapper.java
 │   ├── FormMapper.java
@@ -217,19 +294,23 @@ com.academy/
 │   ├── SubjectMapper.java
 │   └── TeacherMapper.java
 │
-└── common/                            # Common utilities
-    ├── CORSFilter.java               # Base class for all API controllers
-    ├── JwtUtil.java                  # JWT token utilities
-    ├── PaginationInfo.java           # Pagination helper
-    ├── CommonUtil.java               # Common utility methods
-    ├── DBUtil.java                   # Database utilities
-    ├── Configurations.java           # Spring configuration beans
-    ├── CommonVO.java                 # Common value object
-    ├── ComDefaultVO.java             # Default value object
-    ├── ComDefaultCodeVO.java         # Default code value object
-    └── service/
-        ├── CmmUseService.java        # Common service
-        └── CmmnDetailCode.java       # Common detail code
+├── common/                            # Common utilities
+│   ├── ApiInfoApi.java               # API information endpoint
+│   ├── CORSFilter.java               # Base class for all API controllers
+│   ├── JwtUtil.java                  # JWT token utilities
+│   ├── PaginationInfo.java           # Pagination helper
+│   ├── CommonUtil.java               # Common utility methods
+│   ├── DBUtil.java                   # Database utilities
+│   ├── Configurations.java           # Spring configuration beans
+│   ├── CommonVO.java                 # Common value object
+│   ├── ComDefaultVO.java             # Default value object
+│   ├── ComDefaultCodeVO.java         # Default code value object
+│   └── service/
+│       ├── CmmUseService.java        # Common service
+│       └── CmmnDetailCode.java       # Common detail code
+│
+└── config/                            # Configuration classes
+    └── OpenApiConfig.java            # Swagger/OpenAPI configuration
 ```
 
 ## API Modules
@@ -256,6 +337,19 @@ com.academy/
 | **login** | Authentication | 1 API | Session-based authentication |
 | **main** | Main page | 1 API | Landing page content |
 | **menu** | Menu management | 1 API | Navigation menu configuration |
+| **banner** | Banner management | 1 API | Banner CRUD, display management |
+| **box** | Box management | 1 API | Content box management |
+| **coop** | Affiliate management | 1 API | Partner/affiliate management, IP whitelist, orders |
+| **counsel** | Counseling management | 1 API | Counseling schedules, requests, presentations |
+| **dday** | D-Day management | 1 API | Important dates (exams, deadlines) |
+| **event** | Event management | 1 API | Online/offline events, lecture events |
+
+### System & Utility Modules
+
+| Module | Description | API Endpoints | Key Features |
+|--------|-------------|---------------|--------------|
+| **common/ApiInfo** | API Information | 2 APIs | List all APIs, API summary by module |
+| **config** | Configuration | - | OpenAPI/Swagger configuration |
 
 ### Lecture Module (Most Complex)
 
@@ -446,6 +540,105 @@ Location: `src/main/resources/mapper/[Module]Mapper.xml`
 | Update | `[module]Update` | Update existing record |
 | Delete | `[module]Delete` | Delete record |
 
+## API Documentation (SpringDoc OpenAPI)
+
+### Swagger UI Access
+
+After starting the application, access the interactive API documentation:
+
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+- **OpenAPI JSON**: http://localhost:8080/v3/api-docs
+
+### Configuration
+
+The OpenAPI configuration is defined in `com.academy.config.OpenApiConfig`:
+
+```java
+@Configuration
+public class OpenApiConfig {
+    @Bean
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("Academy Backend API")
+                        .description("Small Online Academy Backend Service API Documentation")
+                        .version("1.0.0"));
+    }
+}
+```
+
+### Adding Swagger Annotations
+
+To document your APIs, use these annotations:
+
+**Controller Level:**
+```java
+@Tag(name = "Board", description = "게시판 관리 API")
+@RestController
+@RequestMapping("/api/board")
+public class BoardApi extends CORSFilter {
+    // ...
+}
+```
+
+**Method Level:**
+```java
+@Operation(summary = "게시판 목록 조회", description = "페이징 처리된 게시판 목록을 조회합니다.")
+@GetMapping("/getBoardList")
+public JSONObject getBoardList(@ModelAttribute BoardVO boardVO) {
+    // ...
+}
+```
+
+**Parameter Level:**
+```java
+@Parameter(description = "게시판 ID", required = true)
+@RequestParam String boardId
+```
+
+### API Info Endpoints
+
+The system provides built-in API discovery endpoints:
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/info/getApiList` | GET | Get all API endpoints list |
+| `/api/info/getApiList?module=board` | GET | Filter APIs by module |
+| `/api/info/getApiSummary` | GET | Get API count summary by module |
+
+**Example Response (`/api/info/getApiList`):**
+```json
+{
+  "totalCount": 25,
+  "retMsg": "OK",
+  "apiList": [
+    {
+      "url": "/api/board/getBoardList",
+      "httpMethod": "GET",
+      "controller": "BoardApi",
+      "method": "getBoardList",
+      "package": "board"
+    }
+  ]
+}
+```
+
+**Example Response (`/api/info/getApiSummary`):**
+```json
+{
+  "totalCount": 25,
+  "moduleCount": 12,
+  "retMsg": "OK",
+  "summary": [
+    {
+      "module": "board",
+      "count": 5,
+      "apis": [...]
+    }
+  ]
+}
+```
+
 ## Common Utilities
 
 ### CORSFilter
@@ -580,6 +773,13 @@ pageUnit=10
 # File Upload
 spring.servlet.multipart.max-file-size=10MB
 spring.servlet.multipart.max-request-size=10MB
+
+# SpringDoc OpenAPI (Swagger)
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.tags-sorter=alpha
+springdoc.swagger-ui.operations-sorter=alpha
+springdoc.packages-to-scan=com.academy
 ```
 
 ### Property Injection Pattern
@@ -691,6 +891,7 @@ mvn test
 ### API Testing
 
 Use tools like:
+- **Swagger UI** (recommended): http://localhost:8080/swagger-ui.html
 - Postman
 - curl
 - HTTPie
@@ -723,6 +924,35 @@ curl http://localhost:8080/api/member/view?userId=user001
 - `TB_PRODUCT_ORDER` - Product orders
 - `TB_COUPON` - Coupon management
 
+### Extended Tables (New Modules)
+
+**D-Day Management:**
+- `TB_DDAY` - D-Day master table
+- `TB_CATEGORY_INFO` - Category information
+
+**Event Management:**
+- `TB_EVENT_INFO` - Event master table
+- `TB_EVENT_FILE` - Event attachments
+- `TB_EVENT_OPTION1~4` - Event options (application, comments, SMS, popup)
+- `TB_EVENT_RESULT` - Event participants
+- `TB_LECTURE_EVENT_INFO` - Lecture event master
+- `TB_LECTURE_EVENT_LIST` - Lecture event course list
+
+**Affiliate Management:**
+- `COOP_MST` - Partner/affiliate master
+- `COOP_USE_IP` - Partner IP whitelist
+- `TB_BOARD_MEMBERSHIP` - Affiliate board
+
+**Counseling Management:**
+- `COUNSEL_SCH` - Counseling schedule
+- `COUNSEL_RST` - Counseling requests
+- `COUNSEL_TS` - Time slot settings
+- `TB_PRESENT` - Presentation requests
+
+**Banner & Box:**
+- `TB_BANNER_INFO` - Banner information
+- `TB_BOX_INFO` - Box content management
+
 DDL scripts available in `ddls/` directory.
 
 ## API Endpoints Summary
@@ -740,8 +970,15 @@ DDL scripts available in `ddls/` directory.
 | Login | `/api/login/*` | 1 API |
 | Main | `/api/main/*` | 1 API |
 | Menu | `/api/menu/*` | 1 API |
+| Banner | `/api/banner/*` | 1 API |
+| Box | `/api/box/*` | 1 API |
+| Coop | `/api/coop/*` | 1 API (partner management, IP whitelist, board, orders) |
+| Counsel | `/api/counsel/*` | 1 API (schedule, request, presentation) |
+| D-Day | `/api/dday/*` | 1 API |
+| Event | `/api/event/*` | 1 API (event, lecture event) |
+| API Info | `/api/info/*` | 2 APIs (getApiList, getApiSummary) |
 
-**Total**: 23 REST API Controllers
+**Total**: 31+ REST API Controllers
 
 ## Troubleshooting
 
@@ -765,7 +1002,7 @@ If you see compilation errors with `\ufeff`:
 
 ## License
 
-[Add license information]
+This project is proprietary software. See the copyright notice below.
 
 ## Contributors
 
@@ -774,3 +1011,17 @@ If you see compilation errors with `\ufeff`:
 ## Support
 
 For issues and questions, please refer to the project issue tracker.
+
+---
+
+## Copyright
+
+<img src="UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**
+
+이 소프트웨어는 운몽시스템즈(UM Systems)의 독점 소유이며, 저작권법에 의해 보호됩니다.
+본 소프트웨어의 무단 복제, 배포, 수정, 재배포는 법적으로 금지되어 있습니다.
+
+This software is the exclusive property of UM Systems and is protected by copyright law.
+Unauthorized copying, distribution, modification, or redistribution of this software is prohibited by law.

@@ -68,6 +68,28 @@ public class BoardVO extends CommonVO implements Serializable {
 	private String mockcode;
 	private String diviceType;
 
+	/* Search / Filter */
+	/** 검색 타입 (SEARCHKIND: SEARCHSUBJECT, SEARCHNAME, SEARCHCONTENT) */
+	private String searchKind;
+	/** 검색어 (SEARCHTEXT) */
+	private String searchText;
+	/** 검색 카테고리 (SEARCHCATEGORY) */
+	private String searchCategory;
+	/** 검색 온/오프라인 구분 (SEARCHONOFFDIV: O, F, T) */
+	private String searchOnoffDiv;
+	/** 검색 교수 ID (SEARCHPRFID) */
+	private String searchPrfId;
+	/** 온/오프라인 구분 (ONOFF_DIV: O=온라인, F=오프라인, T=강사용) */
+	private String onoffDiv;
+
+	/* Reply status */
+	/** 답변 상태 (BOARD_REPLY: N=답변대기, Y=답변완료, C=처리중(CS), A=처리중(운영)) */
+	private String boardReply;
+	/** 이슈 여부 (ISSUE) */
+	private String issue;
+	/** 메인 노출 여부 (MAIN_YN) */
+	private String mainYn;
+
 	/* ---------------------------------- */
 	/* Aliases / compatibility methods */
 	/** boardId alias (used by mapper as parameter) */
@@ -164,5 +186,32 @@ public class BoardVO extends CommonVO implements Serializable {
 
 	public String getDiviceType() { return diviceType; }
 	public void setDiviceType(String diviceType) { this.diviceType = diviceType; }
+
+	public String getSearchKind() { return searchKind; }
+	public void setSearchKind(String searchKind) { this.searchKind = searchKind; }
+
+	public String getSearchText() { return searchText; }
+	public void setSearchText(String searchText) { this.searchText = searchText; }
+
+	public String getSearchCategory() { return searchCategory; }
+	public void setSearchCategory(String searchCategory) { this.searchCategory = searchCategory; }
+
+	public String getSearchOnoffDiv() { return searchOnoffDiv; }
+	public void setSearchOnoffDiv(String searchOnoffDiv) { this.searchOnoffDiv = searchOnoffDiv; }
+
+	public String getSearchPrfId() { return searchPrfId; }
+	public void setSearchPrfId(String searchPrfId) { this.searchPrfId = searchPrfId; }
+
+	public String getOnoffDiv() { return onoffDiv; }
+	public void setOnoffDiv(String onoffDiv) { this.onoffDiv = onoffDiv; }
+
+	public String getBoardReply() { return boardReply; }
+	public void setBoardReply(String boardReply) { this.boardReply = boardReply; }
+
+	public String getIssue() { return issue; }
+	public void setIssue(String issue) { this.issue = issue; }
+
+	public String getMainYn() { return mainYn; }
+	public void setMainYn(String mainYn) { this.mainYn = mainYn; }
 
 }

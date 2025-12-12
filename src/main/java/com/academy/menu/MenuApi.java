@@ -16,6 +16,10 @@ import com.academy.common.CORSFilter;
 import com.academy.menu.service.MenuService;
 import com.academy.menu.service.MenuVO;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Menu", description = "메뉴 관리 API")
 @RestController
 @RequestMapping("/api/menu")
 public class MenuApi extends CORSFilter {
@@ -62,6 +66,15 @@ public class MenuApi extends CORSFilter {
     public JSONObject menuUpdateProcess(@RequestBody MenuVO menuVO) throws Exception {
         HashMap<String, Object> jsonObject = new HashMap<String, Object>();
         int result = menuService.menuUpdateProcess(menuVO);
+        jsonObject.put("result", result);
+        JSONObject jObject = new JSONObject(jsonObject);
+        return jObject;
+    }
+
+    @PutMapping(value = "/sgMenuUpdateProcess")
+    public JSONObject sgMenuUpdateProcess(@RequestBody MenuVO menuVO) throws Exception {
+        HashMap<String, Object> jsonObject = new HashMap<String, Object>();
+        int result = menuService.sgMenuUpdateProcess(menuVO);
         jsonObject.put("result", result);
         JSONObject jObject = new JSONObject(jsonObject);
         return jObject;

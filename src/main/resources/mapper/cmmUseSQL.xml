@@ -85,7 +85,7 @@
          ORDER BY CODE_NO ASC
     </select>
 
-    <select id="selectCmmCodeDetail" parameterType="ComDefaultCodeVO" resultType="cmmnDetailCode">
+    <select id="selectCmmCodeDetail" parameterType="com.academy.common.ComDefaultCodeVO" resultMap="cmmnDetailCode">
          SELECT
                   SYS_CD ,
                   SYS_NM ,
@@ -112,7 +112,7 @@
         ORDER BY UNIV_NM ASC
     </select>
 
-    <select id="selectUnivList" parameterType="ComDefaultCodeVO" resultType="cmmnDetailCode">
+    <select id="selectUnivList" parameterType="com.academy.common.ComDefaultCodeVO" resultMap="cmmnDetailCode">
          SELECT
                   #{SYS_CD} AS SYS_CD ,
                   '대학명' AS SYS_NM ,
@@ -140,7 +140,7 @@
         ORDER BY SUBJCT_NM ASC
     </select>
 
-    <select id="selectSubjctList" parameterType="ComDefaultCodeVO" resultType="cmmnDetailCode">
+    <select id="selectSubjctList" parameterType="com.academy.common.ComDefaultCodeVO" resultMap="cmmnDetailCode">
          SELECT
                  #{SYS_CD} AS SYS_CD ,
                   '학과명' AS SYS_NM ,

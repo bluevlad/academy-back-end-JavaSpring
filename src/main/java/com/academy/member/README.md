@@ -8,7 +8,7 @@
 member/
 ├── MemberApi.java            # 회원 REST API 컨트롤러
 └── service/
-    ├── MemberService.java    # 회원 비즈니스 로직 서비스
+    ├── MemberService.java    # 회원 비즈니스 로직 서비스 (@Service)
     └── MemberVO.java         # 회원 Value Object
 ```
 
@@ -74,3 +74,11 @@ GET /api/member/checkDuplicate?type=userId&value=hong123
 - 페이징은 CommonVO를 통해 처리됩니다
 - 트랜잭션은 @Transactional 애노테이션으로 관리됩니다
 - 개인정보 처리 시 보안에 주의가 필요합니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

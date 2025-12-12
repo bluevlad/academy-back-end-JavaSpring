@@ -1,37 +1,87 @@
 package com.academy.productorder.service;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public interface CouponMngService {
-	
-	/* last modified 2015-04-24 */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-	List<HashMap<String, String>> getCoopList(HashMap<String, String> params);
+import com.academy.mapper.CouponMngMapper;
 
-	// 전체 쿠폰 리스트
-	List<HashMap<String, String>> getCouponList(HashMap<String, String> params);
-	// 전체 쿠폰 총 건수
-	int getCouponListCount(HashMap<String, String> params);
-	HashMap<String, String> getCouponOne(HashMap<String, String> params);
-	
-	void insertCoupon(HashMap<String, String> params);
-	void updateCoupon(HashMap<String, String> params);
+/**
+ * CouponMng Service
+ * 쿠폰 관리 서비스
+ */
+@Service
+public class CouponMngService implements Serializable {
 
-	// 전체 쿠폰 발급자 리스트
-	List<HashMap<String, String>> getCouponUserList(HashMap<String, String> params);
-	int getCouponUserListCount(HashMap<String, String> params);
+    private static final long serialVersionUID = 1L;
 
-	List<HashMap<String, String>> getCoopLectureList(HashMap<String, String> params);
-	int getCoopLectureListCount(HashMap<String, String> params);
+    private final CouponMngMapper couponMngMapper;
 
-	List<HashMap<String, String>> getCoopCouponList(HashMap<String, String> params);
-	int getCoopCouponListCount(HashMap<String, String> params);
-	
-	void insertCoopCoupon(HashMap<String, String> params);
-	void deleteCoopCoupon(HashMap<String, String> params);
+    @Autowired
+    public CouponMngService(CouponMngMapper couponMngMapper) {
+        this.couponMngMapper = couponMngMapper;
+    }
 
-	// 공무원 쿠폰 사용 현황
-	List<HashMap<String, String>> getCouponOrderList(HashMap<String, String> params);
+    public List<HashMap<String, String>> getCoopList(HashMap<String, String> params) {
+        return couponMngMapper.getCoopList(params);
+    }
+
+    public List<HashMap<String, String>> getCouponList(HashMap<String, String> params) {
+        return couponMngMapper.getCouponList(params);
+    }
+
+    public int getCouponListCount(HashMap<String, String> params) {
+        return couponMngMapper.getCouponListCount(params);
+    }
+
+    public HashMap<String, String> getCouponOne(HashMap<String, String> params) {
+        return couponMngMapper.getCouponOne(params);
+    }
+
+    public void insertCoupon(HashMap<String, String> params) {
+        couponMngMapper.insertCoupon(params);
+    }
+
+    public void updateCoupon(HashMap<String, String> params) {
+        couponMngMapper.updateCoupon(params);
+    }
+
+    public List<HashMap<String, String>> getCouponUserList(HashMap<String, String> params) {
+        return couponMngMapper.getCouponUserList(params);
+    }
+
+    public int getCouponUserListCount(HashMap<String, String> params) {
+        return couponMngMapper.getCouponUserListCount(params);
+    }
+
+    public List<HashMap<String, String>> getCoopLectureList(HashMap<String, String> params) {
+        return couponMngMapper.getCoopLectureList(params);
+    }
+
+    public int getCoopLectureListCount(HashMap<String, String> params) {
+        return couponMngMapper.getCoopLectureListCount(params);
+    }
+
+    public List<HashMap<String, String>> getCoopCouponList(HashMap<String, String> params) {
+        return couponMngMapper.getCoopCouponList(params);
+    }
+
+    public int getCoopCouponListCount(HashMap<String, String> params) {
+        return couponMngMapper.getCoopCouponListCount(params);
+    }
+
+    public void insertCoopCoupon(HashMap<String, String> params) {
+        couponMngMapper.insertCoopCoupon(params);
+    }
+
+    public void deleteCoopCoupon(HashMap<String, String> params) {
+        couponMngMapper.deleteCoopCoupon(params);
+    }
+
+    public List<HashMap<String, String>> getCouponOrderList(HashMap<String, String> params) {
+        return couponMngMapper.getCouponOrderList(params);
+    }
 }

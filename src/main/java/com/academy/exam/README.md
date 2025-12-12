@@ -9,9 +9,9 @@ exam/
 ├── ExamApi.java              # 시험 REST API 컨트롤러
 ├── ExamBankApi.java          # 문제은행 REST API 컨트롤러
 └── service/
-    ├── ExamService.java      # 시험 비즈니스 로직 서비스
+    ├── ExamService.java      # 시험 비즈니스 로직 서비스 (@Service)
     ├── ExamVO.java           # 시험 Value Object
-    ├── ExamBankService.java  # 문제은행 비즈니스 로직 서비스
+    ├── ExamBankService.java  # 문제은행 비즈니스 로직 서비스 (@Service)
     ├── ExamBankVO.java       # 문제은행 Value Object
     └── ExamReqVO.java        # 시험 요청 Value Object
 ```
@@ -68,3 +68,11 @@ GET /api/examBank/list?currentPage=1&pageRow=10&SUBJECT_CD=MATH
 - 페이징은 CommonVO를 통해 처리됩니다
 - 트랜잭션은 @Transactional 애노테이션으로 관리됩니다
 - 시험과 문제은행은 별도로 관리됩니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

@@ -37,6 +37,10 @@ public class MenuService {
         return menuMapper.menuUpdateProcess(menuVO);
     }
 
+    public int sgMenuUpdateProcess(MenuVO menuVO) {
+        return menuMapper.sgMenuUpdateProcess(menuVO);
+    }
+
     public int passmenuUpdateProcess(MenuVO menuVO) {
         return menuMapper.passmenuUpdateProcess(menuVO);
     }

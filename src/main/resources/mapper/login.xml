@@ -16,6 +16,7 @@
 		<if test="token != null and token != '' ">
 		AND token = #{token}
 		</if>
+		AND USER_ROLE = 'ADMIN'
 	</select>
 
 	<insert id="insertUser">

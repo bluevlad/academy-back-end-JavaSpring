@@ -18,26 +18,27 @@ lecture/
 ├── SubjectApi.java               # 과목 REST API 컨트롤러
 ├── TeacherApi.java               # 강사 REST API 컨트롤러
 └── service/
-    ├── CategoryService.java      # 카테고리 비즈니스 로직 서비스
+    ├── CategoryService.java      # 카테고리 비즈니스 로직 서비스 (@Service)
     ├── CategoryVO.java           # 카테고리 Value Object
-    ├── FormService.java          # 학습형태 비즈니스 로직 서비스
+    ├── CatSeriesVO.java          # 카테고리 시리즈 Value Object
+    ├── FormService.java          # 학습형태 비즈니스 로직 서비스 (@Service)
     ├── FormVO.java               # 학습형태 Value Object
-    ├── KindService.java          # 종류 비즈니스 로직 서비스
+    ├── KindService.java          # 종류 비즈니스 로직 서비스 (@Service)
     ├── KindVO.java               # 종류 Value Object
-    ├── LectureService.java       # 강의 비즈니스 로직 서비스
+    ├── LectureService.java       # 강의 비즈니스 로직 서비스 (@Service)
     ├── LectureVO.java            # 강의 Value Object
-    ├── LectureMstService.java    # 강의 마스터 비즈니스 로직 서비스
-    ├── MacAddressManagerService.java # MAC 주소 관리 비즈니스 로직 서비스
+    ├── LectureMstService.java    # 강의 마스터 비즈니스 로직 서비스 (@Service)
+    ├── MacAddressManagerService.java # MAC 주소 관리 비즈니스 로직 서비스 (@Service)
     ├── MacAddressManagerVO.java  # MAC 주소 관리 Value Object
-    ├── OpenLectureService.java   # 오프라인 강의 비즈니스 로직 서비스
+    ├── OpenLectureService.java   # 오프라인 강의 비즈니스 로직 서비스 (@Service)
     ├── OpenLectureVO.java        # 오프라인 강의 Value Object
-    ├── ProductEventService.java  # 상품 이벤트 비즈니스 로직 서비스
+    ├── ProductEventService.java  # 상품 이벤트 비즈니스 로직 서비스 (@Service)
     ├── ProductEventVO.java       # 상품 이벤트 Value Object
-    ├── SeriesService.java        # 시리즈 비즈니스 로직 서비스
+    ├── SeriesService.java        # 시리즈 비즈니스 로직 서비스 (@Service)
     ├── SeriesVO.java             # 시리즈 Value Object
-    ├── SubjectService.java       # 과목 비즈니스 로직 서비스
+    ├── SubjectService.java       # 과목 비즈니스 로직 서비스 (@Service)
     ├── SubjectVO.java            # 과목 Value Object
-    ├── TeacherService.java       # 강사 비즈니스 로직 서비스
+    ├── TeacherService.java       # 강사 비즈니스 로직 서비스 (@Service)
     └── TeacherVO.java            # 강사 Value Object
 ```
 
@@ -111,3 +112,11 @@ GET /api/subject/teacherList?SUBJECT_CD=MATH
 - 파일 업로드는 FileUtil을 통해 처리됩니다
 - LectureVO는 LectureMstVO의 필드를 통합하여 사용합니다
 - 강의와 교재(Book)는 연관 관계를 가집니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

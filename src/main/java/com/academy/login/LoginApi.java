@@ -5,10 +5,7 @@ import java.util.Optional;
 
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.academy.common.CORSFilter;
 import com.academy.common.JwtUtil;
@@ -32,10 +29,14 @@ public class LoginApi extends CORSFilter {
 	 * @return ResponseEntity - 로그인결과(세션정보)
 	 * @exception Exception
 	 */
-	@PostMapping(value = "/login")
-	public JSONObject actionLogin(@ModelAttribute("MemberVO") MemberVO memberVO) throws Exception {
+	@PostMapping(value = "/sign-in")
+	public JSONObject actionLogin(@ModelAttribute("MemberVO") MemberVO memberVO, @RequestParam HashMap<?, ?> commandMap) throws Exception {
 		
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
+
+		memberVO.setUserId((String)commandMap.get("id"));
+		memberVO.setUserId((String)commandMap.get("password"));
+		memberVO.setUserId((String)commandMap.get("token"));
 
 		try {
 			// 2. 로그인 처리
@@ -68,7 +69,7 @@ public class LoginApi extends CORSFilter {
 	 * @return ResponseEntity - 로그인결과(세션정보)
 	 * @exception Exception
 	 */
-	@PostMapping(value = "/userInfo")
+	@PostMapping(value = "/profile")
 	public JSONObject getUser(@ModelAttribute("MemberVO") MemberVO memberVO) {
 
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
@@ -89,7 +90,7 @@ public class LoginApi extends CORSFilter {
 	 * 회원가입
 	 * @throws Exception
 	 */
-	@PostMapping(value = "/insertUser")
+	@PostMapping(value = "/sign-up")
 	public JSONObject insert(@ModelAttribute("MemberVO") MemberVO memberVO) throws Exception { 
 
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();

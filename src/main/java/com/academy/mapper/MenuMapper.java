@@ -21,6 +21,8 @@ public interface MenuMapper {
 
     public int menuUpdateProcess(MenuVO menuVO);
 
+    public int sgMenuUpdateProcess(MenuVO menuVO);
+
     public int passmenuUpdateProcess(MenuVO menuVO);
 
     public int menuDeleteProcess(MenuVO menuVO);

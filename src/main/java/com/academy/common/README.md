@@ -7,14 +7,32 @@
 ```
 common/
 ├── CORSFilter.java              # CORS 필터 베이스 클래스
+├── ComDefaultCodeVO.java        # 기본 코드 Value Object
+├── ComDefaultVO.java            # 기본 Value Object
 ├── CommonUtil.java              # 공통 유틸리티
 ├── CommonVO.java                # 공통 Value Object 베이스 클래스
 ├── Configurations.java          # 애플리케이션 설정
-├── RestTemplateConfig.java      # RestTemplate 설정
-└── file/
-    ├── FileDownloadController.java  # 파일 다운로드 컨트롤러
-    ├── FileMngUtil.java             # 파일 관리 유틸리티
-    └── FileUtil.java                # 파일 처리 유틸리티
+├── DBUtil.java                  # 데이터베이스 유틸리티
+├── EgovWebUtil.java             # 전자정부 웹 유틸리티
+├── FileMngUtil.java             # 파일 관리 유틸리티
+├── FileVO.java                  # 파일 Value Object
+├── JwtUtil.java                 # JWT 토큰 유틸리티
+├── MirProperties.java           # 프로퍼티 관리
+├── PaginationInfo.java          # 페이징 정보
+├── file/
+│   ├── FileUtil.java                        # 파일 처리 유틸리티
+│   ├── service/
+│   │   └── MultipartFileService.java        # 멀티파트 파일 서비스 인터페이스
+│   │   └── impl/
+│   │       ├── MultipartFileDAO.java        # 멀티파트 파일 DAO
+│   │       └── MultipartFileServiceImpl.java # 멀티파트 파일 서비스 구현체
+│   ├── view/
+│   │   └── FileDownloadView.java            # 파일 다운로드 뷰
+│   └── web/
+│       └── FileDownloadController.java      # 파일 다운로드 컨트롤러
+└── service/
+    ├── CmmUseService.java               # 공통 사용 서비스 (@Service)
+    └── CmmnDetailCode.java              # 공통 상세 코드 VO
 ```
 
 ## 주요 기능
@@ -78,3 +96,11 @@ fileUtil.uploadFile(multipartFile, uploadPath);
 - 모든 API 컨트롤러는 CORSFilter를 상속해야 합니다
 - 파일 업로드 경로는 application.properties에서 설정합니다
 - CORS 설정은 Configurations에서 관리됩니다
+
+---
+
+## Copyright
+
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+
+**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

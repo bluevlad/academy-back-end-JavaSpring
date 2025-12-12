@@ -7,6 +7,7 @@
         SELECT
             MENU_ID, MENU_NM, MENU_SEQ, MENU_URL, P_MENUID, ISUSE, TARGET, MENU_INFO
         FROM ACM_MENU_MST
+        WHERE ONOFF_DIV = #{onoffDiv}
         ORDER BY MENU_SEQ, MENU_ID
     </select>
 
@@ -14,6 +15,7 @@
         SELECT
             MENU_ID, MENU_NM, MENU_SEQ, MENU_URL, P_MENUID, ISUSE, TARGET, MENU_INFO
         FROM ACM_MENU_MST2
+        WHERE ONOFF_DIV = #{onoffDiv}
         ORDER BY MENU_SEQ, MENU_ID
     </select>
 
@@ -47,6 +49,22 @@
             UPD_ID = #{updId},
             UPD_DT = NOW()
         WHERE MENU_ID = #{menuId}
+    </update>
+
+    <update id="sgMenuUpdateProcess" parameterType="com.academy.menu.service.MenuVO">
+        UPDATE TB_SG_MENU_MST
+        SET
+            MENU_NM = #{menuNm},
+            MENU_SEQ = #{menuSeq},
+            MENU_URL = #{menuUrl},
+            P_MENUID = #{pMenuid},
+            ISUSE = #{isuse},
+            TARGET = #{target},
+            MENU_INFO = #{menuInfo},
+            UPD_ID = #{updId},
+            UPD_DT = NOW()
+        WHERE ONOFF_DIV = #{onoffDiv}
+          AND MENU_ID = #{menuId}
     </update>
 
     <update id="passmenuUpdateProcess" parameterType="com.academy.menu.service.MenuVO">
