@@ -6,10 +6,13 @@
 
 ```
 board/
-├── BoardApi.java           # 게시판 REST API 컨트롤러
+├── BoardApi.java               # 게시판 REST API 컨트롤러
 └── service/
-    ├── BoardService.java   # 게시판 비즈니스 로직 서비스 (@Service)
-    └── BoardVO.java        # 게시판 Value Object
+    ├── BoardService.java       # 게시판 비즈니스 로직 서비스 (@Service)
+    ├── BoardVO.java            # 게시판 Value Object
+    ├── BoardCommentVO.java     # 게시판 댓글 Value Object
+    ├── BoardFileVO.java        # 게시판 파일 Value Object
+    └── BoardMngVO.java         # 게시판 관리 Value Object
 ```
 
 ## 주요 기능
@@ -23,11 +26,15 @@ board/
 
 ### BoardService
 - 게시판 CRUD 작업 처리
+- 게시판 댓글 관리
+- 게시판 파일 첨부 관리
 - MyBatis BoardMapper를 통한 데이터베이스 연동
 
-### BoardVO
-- CommonVO를 상속하여 공통 필드 사용
-- 게시판 관련 데이터 전달 객체
+### Value Objects
+- **BoardVO**: 게시판 기본 정보 (CommonVO 상속)
+- **BoardCommentVO**: 게시판 댓글 정보
+- **BoardFileVO**: 게시판 첨부파일 정보
+- **BoardMngVO**: 게시판 관리 정보
 
 ## 아키텍처
 

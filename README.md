@@ -253,6 +253,23 @@ com.academy/
 │       ├── ProductOrderService.java
 │       └── ProductOrderServiceImpl.java
 │
+├── manage/                            # Academy management
+│   ├── categorySale/                  # Category sales management
+│   │   ├── CategorySaleApi.java
+│   │   └── service/
+│   │       ├── CategorySaleService.java
+│   │       └── CategorySaleVO.java
+│   ├── lectureYear/                   # Yearly lecture management
+│   │   ├── LectureYearApi.java
+│   │   └── service/
+│   │       ├── LectureYearService.java
+│   │       └── LectureYearVO.java
+│   └── teacherCalculate/              # Teacher settlement management
+│       ├── TeacherCalculateApi.java
+│       └── service/
+│           ├── TeacherCalculateService.java
+│           └── TeacherCalculateVO.java
+│
 ├── mapper/                            # MyBatis Mapper interfaces
 │   ├── AdminAuthMapper.java
 │   ├── AdminCodeMapper.java
@@ -267,6 +284,7 @@ com.academy/
 │   ├── BookOrderMapper.java
 │   ├── BoxMapper.java
 │   ├── CategoryMapper.java
+│   ├── CategorySaleMapper.java
 │   ├── CategorySeriesMapper.java
 │   ├── CmmUseMapper.java
 │   ├── CoopMapper.java
@@ -278,21 +296,67 @@ com.academy/
 │   ├── ExamBankMapper.java
 │   ├── ExamMapper.java
 │   ├── FormMapper.java
+│   ├── FreeOrderMapper.java
+│   ├── GosiMapper.java
+│   ├── IndexMapper.java
 │   ├── KindMapper.java
+│   ├── LectureFeesMapper.java
 │   ├── LectureMapper.java
 │   ├── LectureMstMapper.java
+│   ├── LectureOffMapper.java
+│   ├── LectureYearMapper.java
 │   ├── LockerMapper.java
 │   ├── LoginMapper.java
 │   ├── MacAddressManagerMapper.java
 │   ├── MainMapper.java
 │   ├── MemberMapper.java
 │   ├── MenuMapper.java
+│   ├── MockBoardMapper.java
+│   ├── MouiApplyMapper.java
+│   ├── MouiExamMapper.java
+│   ├── NoteMapper.java
+│   ├── OffExamMapper.java
+│   ├── OffExamRegMapper.java
 │   ├── OpenLectureMapper.java
+│   ├── PersonStatsMapper.java
+│   ├── PopupMapper.java
 │   ├── ProductEventMapper.java
 │   ├── ProductOrderMapper.java
+│   ├── PubMapper.java
+│   ├── SalesStatMapper.java
 │   ├── SeriesMapper.java
 │   ├── SubjectMapper.java
-│   └── TeacherMapper.java
+│   ├── SurveyMapper.java
+│   ├── TeacherCalculateMapper.java
+│   ├── TeacherMapper.java
+│   └── TotalStatsMapper.java
+│
+├── index/                             # Index/Menu management
+│   ├── IndexApi.java
+│   └── service/
+│       ├── IndexService.java
+│       └── IndexVO.java
+│
+├── gosi/                              # Gosi (Civil Service Exam) management
+│   ├── GosiApi.java
+│   ├── PubApi.java
+│   └── service/
+│       ├── GosiService.java
+│       ├── GosiVO.java
+│       ├── PubService.java
+│       └── PubVO.java
+│
+├── freeOrder/                         # Free lecture registration
+│   ├── FreeOrderApi.java
+│   └── service/
+│       ├── FreeOrderService.java
+│       └── FreeOrderVO.java
+│
+├── lectureOff/                        # Offline lecture management
+│   ├── LectureOffApi.java
+│   └── service/
+│       ├── LectureOffService.java
+│       └── LectureOffVO.java
 │
 ├── common/                            # Common utilities
 │   ├── ApiInfoApi.java               # API information endpoint
@@ -977,8 +1041,13 @@ DDL scripts available in `ddls/` directory.
 | D-Day | `/api/dday/*` | 1 API |
 | Event | `/api/event/*` | 1 API (event, lecture event) |
 | API Info | `/api/info/*` | 2 APIs (getApiList, getApiSummary) |
+| Index | `/api/index/*` | 1 API (menu management, site menu) |
+| FreeOrder | `/api/freeOrder/*` | 1 API (free lecture registration) |
+| Gosi | `/api/gosi/*`, `/api/pub/*` | 2 APIs (gosi management, pub) |
+| LectureOff | `/api/lectureOff/*` | 1 API (offline lecture management) |
+| Manage | `/api/manage/*` | 3 APIs (categorySale, lectureYear, teacherCalculate) |
 
-**Total**: 31+ REST API Controllers
+**Total**: 40+ REST API Controllers
 
 ## Troubleshooting
 

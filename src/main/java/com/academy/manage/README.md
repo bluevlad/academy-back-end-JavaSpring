@@ -68,6 +68,6 @@ manage/
 
 ## Copyright
 
-<img src="../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
+<img src="../../../../../../../../UM_CI.png" alt="UM Systems" width="10%">
 
 **Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**

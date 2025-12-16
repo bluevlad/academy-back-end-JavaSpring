@@ -6,6 +6,7 @@
 
 ```
 common/
+├── ApiInfoApi.java              # API 정보 조회 REST 컨트롤러
 ├── CORSFilter.java              # CORS 필터 베이스 클래스
 ├── ComDefaultCodeVO.java        # 기본 코드 Value Object
 ├── ComDefaultVO.java            # 기본 Value Object
@@ -22,7 +23,7 @@ common/
 ├── file/
 │   ├── FileUtil.java                        # 파일 처리 유틸리티
 │   ├── service/
-│   │   └── MultipartFileService.java        # 멀티파트 파일 서비스 인터페이스
+│   │   ├── MultipartFileService.java        # 멀티파트 파일 서비스 인터페이스
 │   │   └── impl/
 │   │       ├── MultipartFileDAO.java        # 멀티파트 파일 DAO
 │   │       └── MultipartFileServiceImpl.java # 멀티파트 파일 서비스 구현체
@@ -36,6 +37,12 @@ common/
 ```
 
 ## 주요 기능
+
+### ApiInfoApi
+- **GET** `/api/info/getApiList` - 모든 API 엔드포인트 목록 조회
+- **GET** `/api/info/getApiSummary` - 모듈별 API 요약 정보 조회
+- 런타임에 등록된 모든 REST API 목록 제공
+- 모듈별 API 개수 통계 제공
 
 ### CORSFilter
 - CORS(Cross-Origin Resource Sharing) 설정

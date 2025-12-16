@@ -19,6 +19,7 @@ mapper/
 ├── BookOrderMapper.java          # 교재 주문 매퍼
 ├── BoxMapper.java                # 박스 매퍼
 ├── CategoryMapper.java           # 카테고리 매퍼
+├── CategorySaleMapper.java       # 카테고리별 매출 매퍼
 ├── CategorySeriesMapper.java     # 카테고리 시리즈 매퍼
 ├── CmmUseMapper.java             # 공통 사용 매퍼
 ├── CoopMapper.java               # 제휴사 매퍼
@@ -30,21 +31,40 @@ mapper/
 ├── ExamMapper.java               # 시험 매퍼
 ├── ExamBankMapper.java           # 문제은행 매퍼
 ├── FormMapper.java               # 학습형태 매퍼
+├── FreeOrderMapper.java          # 무료 수강신청 매퍼
+├── GosiMapper.java               # 고시 매퍼
+├── IndexMapper.java              # 인덱스/메뉴 매퍼
 ├── KindMapper.java               # 종류 매퍼
+├── LectureFeesMapper.java        # 강의료 매퍼
 ├── LectureMapper.java            # 강의 매퍼
 ├── LectureMstMapper.java         # 강의 마스터 매퍼
+├── LectureOffMapper.java         # 오프라인 강의 매퍼
+├── LectureYearMapper.java        # 연도별 강의 매퍼
 ├── LockerMapper.java             # 사물함 매퍼
 ├── LoginMapper.java              # 로그인 매퍼
 ├── MacAddressManagerMapper.java  # MAC 주소 관리 매퍼
 ├── MainMapper.java               # 메인 매퍼
 ├── MemberMapper.java             # 회원 매퍼
 ├── MenuMapper.java               # 메뉴 매퍼
-├── OpenLectureMapper.java        # 오프라인 강의 매퍼
+├── MockBoardMapper.java          # 모의고사 게시판 매퍼
+├── MouiApplyMapper.java          # 모의고사 신청 매퍼
+├── MouiExamMapper.java           # 모의고사 시험 매퍼
+├── NoteMapper.java               # 노트 매퍼
+├── OffExamMapper.java            # 오프라인 시험 매퍼
+├── OffExamRegMapper.java         # 오프라인 시험 등록 매퍼
+├── OpenLectureMapper.java        # 오픈 강의 매퍼
+├── PersonStatsMapper.java        # 개인 통계 매퍼
+├── PopupMapper.java              # 팝업 매퍼
 ├── ProductEventMapper.java       # 상품 이벤트 매퍼
 ├── ProductOrderMapper.java       # 상품 주문 매퍼
+├── PubMapper.java                # 공지/게시판 매퍼
+├── SalesStatMapper.java          # 매출 통계 매퍼
 ├── SeriesMapper.java             # 시리즈 매퍼
 ├── SubjectMapper.java            # 과목 매퍼
-└── TeacherMapper.java            # 강사 매퍼
+├── SurveyMapper.java             # 설문조사 매퍼
+├── TeacherCalculateMapper.java   # 강사 정산 매퍼
+├── TeacherMapper.java            # 강사 매퍼
+└── TotalStatsMapper.java         # 전체 통계 매퍼
 ```
 
 ## 주요 특징
