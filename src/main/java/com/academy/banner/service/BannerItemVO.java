@@ -14,18 +14,30 @@ import com.academy.common.CommonVO;
  *
  *    수정일           수정자                수정내용
  *  ---------------    --------------    ---------------------------
- *  2025.12.10         system            배너 아이템 관리 등록
+ *  2025.12.11         system            배너 아이템 관리 신규 생성
  * </pre>
  */
 public class BannerItemVO extends CommonVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /** 배너 아이템 SEQ (Primary Key) */
-    private String seq;
+    /** 배너 코드 (FK) */
+    private String bannerCd;
 
-    /** 부모 배너 SEQ (TB_BANNER.SEQ) */
-    private String pSeq;
+    /** 배너 번호 */
+    private int bannerNum;
+
+    /** 사용자 ID */
+    private String userId;
+
+    /** 사용자명 (조회용) */
+    private String userNm;
+
+    /** 배너 플래그 (Y: 사용중, N: 미사용) */
+    private String bannerFlag;
+
+    /** 대여 SEQ */
+    private int rentSeq;
 
     /** 노출 순서 */
     private int rolIdx;
@@ -48,9 +60,6 @@ public class BannerItemVO extends CommonVO implements Serializable {
     /** 배너 링크 타겟 (_blank, _self 등) */
     private String bannerLinkTarget;
 
-    /** 배너 링크 텍스트 (조회용) */
-    private String bannerLinkTxt;
-
     /** 배너 시작일 */
     private String bannerSdt;
 
@@ -63,57 +72,62 @@ public class BannerItemVO extends CommonVO implements Serializable {
     /** 그룹 SEQ (카테고리 일괄 등록용) */
     private String gSeq;
 
+    /** 배너명 (부모에서 가져옴, 조회용) */
+    private String bannerNm;
+
     /** 배너 타입 (부모에서 가져옴, 조회용) */
     private String bannerTyp;
-
-    /** 온/오프라인 구분 (조회용) */
-    private String onoffDiv;
-
-    /** 화면 구분 (조회용) */
-    private String screenGubun;
-
-    /** 카테고리 코드 (조회용) */
-    private String categoryCd;
-
-    /** 배너 번호 (조회용) */
-    private String bannerNo;
-
-    /** 카테고리 코드 목록 (일괄 등록용, / 구분자) */
-    private String categoryCds;
-
-    /** 원래 카테고리 코드 목록 (수정용) */
-    private String orgCategoryCds;
 
     /** 검색 조건 - 검색어 */
     private String searchText;
 
-    /** 검색 조건 - 노출순서 */
-    private String searchRolIdx;
-
-    /** 검색 조건 - 사용여부 */
-    private String searchIsUse;
-
-    /** 검색 조건 - 서브카테고리 */
-    private String searchSubCategory;
-
-    /** 메뉴타입 (FM_ROOT: 오프라인, OM_ROOT: 온라인) */
-    private String menuType;
-
     // Getters and Setters
-    public String getSeq() {
-        return seq;
+    public String getBannerCd() {
+        return bannerCd;
     }
 
-    public void setSeq(String seq) {
-        this.seq = seq;
+    public void setBannerCd(String bannerCd) {
+        this.bannerCd = bannerCd;
     }
 
-    public String getpSeq() {
-        return pSeq;
+    public int getBannerNum() {
+        return bannerNum;
     }
 
-    public void setpSeq(String pSeq) {
-        this.pSeq = pSeq;
+    public void setBannerNum(int bannerNum) {
+        this.bannerNum = bannerNum;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserNm() {
+        return userNm;
+    }
+
+    public void setUserNm(String userNm) {
+        this.userNm = userNm;
+    }
+
+    public String getBannerFlag() {
+        return bannerFlag;
+    }
+
+    public void setBannerFlag(String bannerFlag) {
+        this.bannerFlag = bannerFlag;
+    }
+
+    public int getRentSeq() {
+        return rentSeq;
+    }
+
+    public void setRentSeq(int rentSeq) {
+        this.rentSeq = rentSeq;
     }
 
     public int getRolIdx() {
@@ -172,14 +186,6 @@ public class BannerItemVO extends CommonVO implements Serializable {
         this.bannerLinkTarget = bannerLinkTarget;
     }
 
-    public String getBannerLinkTxt() {
-        return bannerLinkTxt;
-    }
-
-    public void setBannerLinkTxt(String bannerLinkTxt) {
-        this.bannerLinkTxt = bannerLinkTxt;
-    }
-
     public String getBannerSdt() {
         return bannerSdt;
     }
@@ -212,6 +218,14 @@ public class BannerItemVO extends CommonVO implements Serializable {
         this.gSeq = gSeq;
     }
 
+    public String getBannerNm() {
+        return bannerNm;
+    }
+
+    public void setBannerNm(String bannerNm) {
+        this.bannerNm = bannerNm;
+    }
+
     public String getBannerTyp() {
         return bannerTyp;
     }
@@ -220,91 +234,11 @@ public class BannerItemVO extends CommonVO implements Serializable {
         this.bannerTyp = bannerTyp;
     }
 
-    public String getOnoffDiv() {
-        return onoffDiv;
-    }
-
-    public void setOnoffDiv(String onoffDiv) {
-        this.onoffDiv = onoffDiv;
-    }
-
-    public String getScreenGubun() {
-        return screenGubun;
-    }
-
-    public void setScreenGubun(String screenGubun) {
-        this.screenGubun = screenGubun;
-    }
-
-    public String getCategoryCd() {
-        return categoryCd;
-    }
-
-    public void setCategoryCd(String categoryCd) {
-        this.categoryCd = categoryCd;
-    }
-
-    public String getBannerNo() {
-        return bannerNo;
-    }
-
-    public void setBannerNo(String bannerNo) {
-        this.bannerNo = bannerNo;
-    }
-
-    public String getCategoryCds() {
-        return categoryCds;
-    }
-
-    public void setCategoryCds(String categoryCds) {
-        this.categoryCds = categoryCds;
-    }
-
-    public String getOrgCategoryCds() {
-        return orgCategoryCds;
-    }
-
-    public void setOrgCategoryCds(String orgCategoryCds) {
-        this.orgCategoryCds = orgCategoryCds;
-    }
-
     public String getSearchText() {
         return searchText;
     }
 
     public void setSearchText(String searchText) {
         this.searchText = searchText;
-    }
-
-    public String getSearchRolIdx() {
-        return searchRolIdx;
-    }
-
-    public void setSearchRolIdx(String searchRolIdx) {
-        this.searchRolIdx = searchRolIdx;
-    }
-
-    public String getSearchIsUse() {
-        return searchIsUse;
-    }
-
-    public void setSearchIsUse(String searchIsUse) {
-        this.searchIsUse = searchIsUse;
-    }
-
-    public String getSearchSubCategory() {
-        return searchSubCategory;
-    }
-
-    public void setSearchSubCategory(String searchSubCategory) {
-        this.searchSubCategory = searchSubCategory;
-    }
-
-    public String getMenuType() {
-        return menuType;
-    }
-
-    public void setMenuType(String menuType) {
-        this.menuType = menuType;
     }
 }

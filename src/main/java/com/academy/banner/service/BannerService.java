@@ -18,7 +18,7 @@ import com.academy.mapper.BannerMapper;
  *
  *    수정일           수정자                수정내용
  *  ---------------    --------------    ---------------------------
- *  2025.12.10         system            배너 관리 등록
+ *  2025.12.11         system            배너 관리 신규 생성
  * </pre>
  */
 @Service
@@ -64,6 +64,15 @@ public class BannerService implements Serializable {
     }
 
     /**
+     * 배너 아이템 사용중 수 조회
+     * @param bannerVO 검색조건
+     * @return int 사용중 아이템 수
+     */
+    public int selectBannerItemYCount(BannerVO bannerVO) {
+        return bannerMapper.selectBannerItemYCount(bannerVO);
+    }
+
+    /**
      * 배너 등록
      * @param bannerVO 배너정보
      */
@@ -80,26 +89,28 @@ public class BannerService implements Serializable {
     }
 
     /**
-     * 배너 타입 일괄 변경
-     * @param bannerVOList 배너정보 목록
+     * 배너 수정 (아이템 수, 시작/종료번호 제외)
+     * @param bannerVO 배너정보
      */
-    public void updateBannerTypeList(List<BannerVO> bannerVOList) {
-        if (bannerVOList != null && !bannerVOList.isEmpty()) {
-            for (BannerVO bannerVO : bannerVOList) {
-                bannerMapper.updateBannerType(bannerVO);
-                // 배너 타입 변경 시 연결된 아이템 삭제
-                bannerMapper.deleteBannerItemByParent(bannerVO);
-            }
-        }
+    public void updateBanner2(BannerVO bannerVO) {
+        bannerMapper.updateBanner2(bannerVO);
     }
 
     /**
-     * 배너 삭제 (연결된 아이템도 함께 삭제)
+     * 배너 삭제
      * @param bannerVO 배너정보
      */
     public void deleteBanner(BannerVO bannerVO) {
-        // 연결된 아이템 먼저 삭제
-        bannerMapper.deleteBannerItemByParent(bannerVO);
+        bannerMapper.deleteBanner(bannerVO);
+    }
+
+    /**
+     * 배너 관련 전체 삭제 (배너 + 아이템)
+     * @param bannerVO 배너정보
+     */
+    public void deleteBannerAll(BannerVO bannerVO) {
+        // 아이템 먼저 삭제
+        bannerMapper.deleteBannerItemByBannerCd(bannerVO);
         // 배너 삭제
         bannerMapper.deleteBanner(bannerVO);
     }
@@ -136,36 +147,11 @@ public class BannerService implements Serializable {
     }
 
     /**
-     * 배너 아이템 등록 (카테고리 일괄 등록 지원)
+     * 배너 아이템 등록
      * @param bannerItemVO 배너 아이템 정보
      */
     public void insertBannerItem(BannerItemVO bannerItemVO) {
-        // G_SEQ 설정
-        int gSeq = bannerMapper.selectMaxGSeq();
-        bannerItemVO.setgSeq(String.valueOf(gSeq));
-
-        // 서브페이지이고 카테고리 목록이 있는 경우 일괄 등록
-        if ("S".equals(bannerItemVO.getScreenGubun()) &&
-            bannerItemVO.getCategoryCds() != null && !bannerItemVO.getCategoryCds().isEmpty()) {
-
-            String[] categoryCdArr = bannerItemVO.getCategoryCds().split("/");
-            for (String categoryCd : categoryCdArr) {
-                bannerItemVO.setCategoryCd(categoryCd);
-
-                // 해당 카테고리에 배너가 존재하는지 확인
-                int count = bannerMapper.selectBannerCountByCategory(bannerItemVO);
-                if (count > 0) {
-                    // 기존 배너에 아이템 추가
-                    bannerMapper.insertBannerItemByBannerNo(bannerItemVO);
-                } else {
-                    // 일반 등록
-                    bannerMapper.insertBannerItem(bannerItemVO);
-                }
-            }
-        } else {
-            // 일반 등록
-            bannerMapper.insertBannerItem(bannerItemVO);
-        }
+        bannerMapper.insertBannerItem(bannerItemVO);
     }
 
     /**
@@ -177,15 +163,19 @@ public class BannerService implements Serializable {
     }
 
     /**
-     * 배너 아이템 순서/사용여부 일괄 수정
-     * @param bannerItemVOList 배너 아이템 정보 목록
+     * 배너 아이템 플래그 수정
+     * @param bannerItemVO 배너 아이템 정보
      */
-    public void updateBannerItemOrderList(List<BannerItemVO> bannerItemVOList) {
-        if (bannerItemVOList != null && !bannerItemVOList.isEmpty()) {
-            for (BannerItemVO bannerItemVO : bannerItemVOList) {
-                bannerMapper.updateBannerItemOrder(bannerItemVO);
-            }
-        }
+    public void updateBannerItemFlag(BannerItemVO bannerItemVO) {
+        bannerMapper.updateBannerItemFlag(bannerItemVO);
+    }
+
+    /**
+     * 배너 아이템 초기화
+     * @param bannerItemVO 배너 아이템 정보
+     */
+    public void updateBannerItemReset(BannerItemVO bannerItemVO) {
+        bannerMapper.updateBannerItemReset(bannerItemVO);
     }
 
     /**
@@ -197,14 +187,10 @@ public class BannerService implements Serializable {
     }
 
     /**
-     * 배너 아이템 일괄 삭제
-     * @param bannerItemVOList 배너 아이템 정보 목록
+     * 배너 아이템 일괄 삭제 (부모 배너 기준)
+     * @param bannerVO 배너 정보
      */
-    public void deleteBannerItemList(List<BannerItemVO> bannerItemVOList) {
-        if (bannerItemVOList != null && !bannerItemVOList.isEmpty()) {
-            for (BannerItemVO bannerItemVO : bannerItemVOList) {
-                bannerMapper.deleteBannerItem(bannerItemVO);
-            }
-        }
+    public void deleteBannerItemByBannerCd(BannerVO bannerVO) {
+        bannerMapper.deleteBannerItemByBannerCd(bannerVO);
     }
 }

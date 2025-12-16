@@ -33,16 +33,16 @@ mvn spring-boot:run
 java -jar target/academy-0.0.1-SNAPSHOT.jar
 ```
 
-Server runs on: `http://localhost:8080`
+Server runs on: `http://www.unmong.com:8080`
 
 ### API Documentation (Swagger UI)
 
 After starting the server, access the API documentation:
 
-| URL | Description |
-|-----|-------------|
-| http://localhost:8080/swagger-ui.html | Swagger UI - Interactive API documentation |
-| http://localhost:8080/v3/api-docs | OpenAPI 3.0 JSON specification |
+| URL                                        | Description |
+|--------------------------------------------|-------------|
+| http://www.unmong.com:8080/swagger-ui.html | Swagger UI - Interactive API documentation |
+| http://www.unmong.com:8080/v3/api-docs     | OpenAPI 3.0 JSON specification |
 
 **Features:**
 - Browse all API endpoints grouped by module
@@ -199,6 +199,51 @@ com.academy/
 │       ├── MenuService.java
 │       └── MenuServiceImpl.java
 │
+├── banner/                            # Banner management
+│   ├── BannerApi.java
+│   └── service/
+│       ├── BannerService.java
+│       └── BannerVO.java
+│
+├── box/                               # Box management
+│   ├── BoxApi.java
+│   └── service/
+│       ├── BoxService.java
+│       └── BoxVO.java
+│
+├── coop/                              # Affiliate/Partner management
+│   ├── CoopApi.java
+│   └── service/
+│       ├── CoopService.java
+│       ├── CoopVO.java
+│       ├── CoopIpVO.java
+│       ├── CoopBoardVO.java
+│       └── CoopOrderVO.java
+│
+├── counsel/                           # Counseling management
+│   ├── CounselApi.java
+│   └── service/
+│       ├── CounselService.java
+│       ├── CounselScheduleVO.java
+│       ├── CounselRequestVO.java
+│       └── PresentRequestVO.java
+│
+├── dday/                              # D-Day management
+│   ├── DdayApi.java
+│   └── service/
+│       ├── DdayService.java
+│       └── DdayVO.java
+│
+├── event/                             # Event management
+│   ├── EventApi.java
+│   └── service/
+│       ├── EventService.java
+│       ├── EventVO.java
+│       ├── EventOptionVO.java
+│       ├── EventFileVO.java
+│       ├── EventResultVO.java
+│       └── LecEventVO.java
+│
 ├── productorder/                      # Product ordering
 │   ├── CouponMngApi.java
 │   ├── ProductOrderApi.java
@@ -208,30 +253,110 @@ com.academy/
 │       ├── ProductOrderService.java
 │       └── ProductOrderServiceImpl.java
 │
+├── manage/                            # Academy management
+│   ├── categorySale/                  # Category sales management
+│   │   ├── CategorySaleApi.java
+│   │   └── service/
+│   │       ├── CategorySaleService.java
+│   │       └── CategorySaleVO.java
+│   ├── lectureYear/                   # Yearly lecture management
+│   │   ├── LectureYearApi.java
+│   │   └── service/
+│   │       ├── LectureYearService.java
+│   │       └── LectureYearVO.java
+│   └── teacherCalculate/              # Teacher settlement management
+│       ├── TeacherCalculateApi.java
+│       └── service/
+│           ├── TeacherCalculateService.java
+│           └── TeacherCalculateVO.java
+│
 ├── mapper/                            # MyBatis Mapper interfaces
+│   ├── AdminAuthMapper.java
+│   ├── AdminCodeMapper.java
+│   ├── AdminMenuMapper.java
+│   ├── BannerMapper.java
+│   ├── BoardManagementMapper.java
 │   ├── BoardMapper.java
+│   ├── BoardNotAnswerMapper.java
+│   ├── BoardTeacherMapper.java
 │   ├── BookMapper.java
+│   ├── BookCmmtMapper.java
+│   ├── BookOrderMapper.java
+│   ├── BoxMapper.java
 │   ├── CategoryMapper.java
+│   ├── CategorySaleMapper.java
+│   ├── CategorySeriesMapper.java
+│   ├── CmmUseMapper.java
+│   ├── CoopMapper.java
+│   ├── CounselMapper.java
 │   ├── CouponMngMapper.java
 │   ├── DashBoardMapper.java
+│   ├── DdayMapper.java
+│   ├── EventMapper.java
 │   ├── ExamBankMapper.java
 │   ├── ExamMapper.java
 │   ├── FormMapper.java
+│   ├── FreeOrderMapper.java
+│   ├── GosiMapper.java
+│   ├── IndexMapper.java
 │   ├── KindMapper.java
+│   ├── LectureFeesMapper.java
 │   ├── LectureMapper.java
 │   ├── LectureMstMapper.java
+│   ├── LectureOffMapper.java
+│   ├── LectureYearMapper.java
 │   ├── LockerMapper.java
 │   ├── LoginMapper.java
 │   ├── MacAddressManagerMapper.java
 │   ├── MainMapper.java
 │   ├── MemberMapper.java
 │   ├── MenuMapper.java
+│   ├── MockBoardMapper.java
+│   ├── MouiApplyMapper.java
+│   ├── MouiExamMapper.java
+│   ├── NoteMapper.java
+│   ├── OffExamMapper.java
+│   ├── OffExamRegMapper.java
 │   ├── OpenLectureMapper.java
+│   ├── PersonStatsMapper.java
+│   ├── PopupMapper.java
 │   ├── ProductEventMapper.java
 │   ├── ProductOrderMapper.java
+│   ├── PubMapper.java
+│   ├── SalesStatMapper.java
 │   ├── SeriesMapper.java
 │   ├── SubjectMapper.java
-│   └── TeacherMapper.java
+│   ├── SurveyMapper.java
+│   ├── TeacherCalculateMapper.java
+│   ├── TeacherMapper.java
+│   └── TotalStatsMapper.java
+│
+├── index/                             # Index/Menu management
+│   ├── IndexApi.java
+│   └── service/
+│       ├── IndexService.java
+│       └── IndexVO.java
+│
+├── gosi/                              # Gosi (Civil Service Exam) management
+│   ├── GosiApi.java
+│   ├── PubApi.java
+│   └── service/
+│       ├── GosiService.java
+│       ├── GosiVO.java
+│       ├── PubService.java
+│       └── PubVO.java
+│
+├── freeOrder/                         # Free lecture registration
+│   ├── FreeOrderApi.java
+│   └── service/
+│       ├── FreeOrderService.java
+│       └── FreeOrderVO.java
+│
+├── lectureOff/                        # Offline lecture management
+│   ├── LectureOffApi.java
+│   └── service/
+│       ├── LectureOffService.java
+│       └── LectureOffVO.java
 │
 ├── common/                            # Common utilities
 │   ├── ApiInfoApi.java               # API information endpoint
@@ -276,6 +401,12 @@ com.academy/
 | **login** | Authentication | 1 API | Session-based authentication |
 | **main** | Main page | 1 API | Landing page content |
 | **menu** | Menu management | 1 API | Navigation menu configuration |
+| **banner** | Banner management | 1 API | Banner CRUD, display management |
+| **box** | Box management | 1 API | Content box management |
+| **coop** | Affiliate management | 1 API | Partner/affiliate management, IP whitelist, orders |
+| **counsel** | Counseling management | 1 API | Counseling schedules, requests, presentations |
+| **dday** | D-Day management | 1 API | Important dates (exams, deadlines) |
+| **event** | Event management | 1 API | Online/offline events, lecture events |
 
 ### System & Utility Modules
 
@@ -857,6 +988,35 @@ curl http://localhost:8080/api/member/view?userId=user001
 - `TB_PRODUCT_ORDER` - Product orders
 - `TB_COUPON` - Coupon management
 
+### Extended Tables (New Modules)
+
+**D-Day Management:**
+- `TB_DDAY` - D-Day master table
+- `TB_CATEGORY_INFO` - Category information
+
+**Event Management:**
+- `TB_EVENT_INFO` - Event master table
+- `TB_EVENT_FILE` - Event attachments
+- `TB_EVENT_OPTION1~4` - Event options (application, comments, SMS, popup)
+- `TB_EVENT_RESULT` - Event participants
+- `TB_LECTURE_EVENT_INFO` - Lecture event master
+- `TB_LECTURE_EVENT_LIST` - Lecture event course list
+
+**Affiliate Management:**
+- `COOP_MST` - Partner/affiliate master
+- `COOP_USE_IP` - Partner IP whitelist
+- `TB_BOARD_MEMBERSHIP` - Affiliate board
+
+**Counseling Management:**
+- `COUNSEL_SCH` - Counseling schedule
+- `COUNSEL_RST` - Counseling requests
+- `COUNSEL_TS` - Time slot settings
+- `TB_PRESENT` - Presentation requests
+
+**Banner & Box:**
+- `TB_BANNER_INFO` - Banner information
+- `TB_BOX_INFO` - Box content management
+
 DDL scripts available in `ddls/` directory.
 
 ## API Endpoints Summary
@@ -874,9 +1034,20 @@ DDL scripts available in `ddls/` directory.
 | Login | `/api/login/*` | 1 API |
 | Main | `/api/main/*` | 1 API |
 | Menu | `/api/menu/*` | 1 API |
+| Banner | `/api/banner/*` | 1 API |
+| Box | `/api/box/*` | 1 API |
+| Coop | `/api/coop/*` | 1 API (partner management, IP whitelist, board, orders) |
+| Counsel | `/api/counsel/*` | 1 API (schedule, request, presentation) |
+| D-Day | `/api/dday/*` | 1 API |
+| Event | `/api/event/*` | 1 API (event, lecture event) |
 | API Info | `/api/info/*` | 2 APIs (getApiList, getApiSummary) |
+| Index | `/api/index/*` | 1 API (menu management, site menu) |
+| FreeOrder | `/api/freeOrder/*` | 1 API (free lecture registration) |
+| Gosi | `/api/gosi/*`, `/api/pub/*` | 2 APIs (gosi management, pub) |
+| LectureOff | `/api/lectureOff/*` | 1 API (offline lecture management) |
+| Manage | `/api/manage/*` | 3 APIs (categorySale, lectureYear, teacherCalculate) |
 
-**Total**: 25 REST API Controllers
+**Total**: 40+ REST API Controllers
 
 ## Troubleshooting
 
@@ -914,9 +1085,9 @@ For issues and questions, please refer to the project issue tracker.
 
 ## Copyright
 
-<img src="UM_CI.png" alt="UM Systems" width="10%">
+<a href="http://www.unmong.com"><img src="UM_CI.png" alt="UM Systems" width="10%"></a>
 
-**Copyright (c) 2021 운몽시스템즈(UM Systems). All rights reserved.**
+**Copyright (c) 2021 <a href="http://www.unmong.com">운몽시스템즈(UM Systems)</a>. All rights reserved.**
 
 이 소프트웨어는 운몽시스템즈(UM Systems)의 독점 소유이며, 저작권법에 의해 보호됩니다.
 본 소프트웨어의 무단 복제, 배포, 수정, 재배포는 법적으로 금지되어 있습니다.

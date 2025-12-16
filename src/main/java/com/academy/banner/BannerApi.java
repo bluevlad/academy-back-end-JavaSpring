@@ -7,7 +7,6 @@ import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +29,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
  *
  *    수정일           수정자                수정내용
  *  ---------------    --------------    ---------------------------
- *  2025.12.10         system            배너 관리 등록
+ *  2025.12.11         system            배너 관리 신규 생성
  * </pre>
  */
 @Tag(name = "Banner", description = "배너 관리 API")
@@ -105,8 +104,26 @@ public class BannerApi extends CORSFilter {
 
         try {
             bannerService.insertBanner(bannerVO);
+
+            // 배너 아이템을 개수만큼 생성
+            int bannerCount = bannerVO.getBannerCount();
+            int startNum = bannerVO.getStartNum();
+            int endNum = bannerVO.getEndNum();
+
+            if (bannerCount > 0) {
+                for (int i = startNum; i <= endNum; i++) {
+                    BannerItemVO itemVO = new BannerItemVO();
+                    itemVO.setBannerCd(bannerVO.getBannerCd());
+                    itemVO.setBannerNum(i);
+                    itemVO.setUserId("");
+                    itemVO.setBannerFlag("N");
+                    itemVO.setRegId(bannerVO.getRegId());
+                    bannerService.insertBannerItem(itemVO);
+                }
+            }
+
             jsonObject.put("retMsg", "OK");
-            jsonObject.put("seq", bannerVO.getSeq());
+            jsonObject.put("bannerCd", bannerVO.getBannerCd());
         } catch (Exception e) {
             jsonObject.put("retMsg", "FAIL");
             e.printStackTrace();
@@ -125,32 +142,40 @@ public class BannerApi extends CORSFilter {
     public JSONObject updateBanner(@ModelAttribute("BannerVO") BannerVO bannerVO) throws Exception {
 
         HashMap<String, Object> jsonObject = new HashMap<String, Object>();
+        String msgStr = "";
 
         try {
-            bannerService.updateBanner(bannerVO);
+            int yCnt = bannerService.selectBannerItemYCount(bannerVO);
+            if (yCnt > 0) {
+                // 사용중인 아이템이 있으므로 기본 정보만 수정
+                bannerService.updateBanner2(bannerVO);
+                msgStr = "사용중인 아이템이 있어 기본 정보만 변경되었습니다.";
+            } else {
+                // 배너 정보 수정 후 아이템 삭제 후 새로 생성
+                bannerService.updateBanner(bannerVO);
+                bannerService.deleteBannerItemByBannerCd(bannerVO);
+
+                // 배너 아이템을 개수만큼 생성
+                int bannerCount = bannerVO.getBannerCount();
+                int startNum = bannerVO.getStartNum();
+                int endNum = bannerVO.getEndNum();
+
+                if (bannerCount > 0) {
+                    for (int i = startNum; i <= endNum; i++) {
+                        BannerItemVO itemVO = new BannerItemVO();
+                        itemVO.setBannerCd(bannerVO.getBannerCd());
+                        itemVO.setBannerNum(i);
+                        itemVO.setUserId("");
+                        itemVO.setBannerFlag("N");
+                        itemVO.setRegId(bannerVO.getUpdId());
+                        bannerService.insertBannerItem(itemVO);
+                    }
+                }
+                msgStr = "배너 정보가 변경되었습니다.";
+            }
+
             jsonObject.put("retMsg", "OK");
-        } catch (Exception e) {
-            jsonObject.put("retMsg", "FAIL");
-            e.printStackTrace();
-        }
-
-        JSONObject jObject = new JSONObject(jsonObject);
-
-        return jObject;
-    }
-
-    /**
-     * 배너 타입 일괄 변경
-     */
-    @Operation(summary = "배너 타입 일괄 변경", description = "배너 타입을 일괄 변경합니다.")
-    @PostMapping(value = "/updateBannerTypeList")
-    public JSONObject updateBannerTypeList(@RequestBody List<BannerVO> bannerVOList) throws Exception {
-
-        HashMap<String, Object> jsonObject = new HashMap<String, Object>();
-
-        try {
-            bannerService.updateBannerTypeList(bannerVOList);
-            jsonObject.put("retMsg", "OK");
+            jsonObject.put("msg", msgStr);
         } catch (Exception e) {
             jsonObject.put("retMsg", "FAIL");
             e.printStackTrace();
@@ -169,10 +194,24 @@ public class BannerApi extends CORSFilter {
     public JSONObject deleteBanner(@ModelAttribute("BannerVO") BannerVO bannerVO) throws Exception {
 
         HashMap<String, Object> jsonObject = new HashMap<String, Object>();
+        String msgStr = "";
 
         try {
-            bannerService.deleteBanner(bannerVO);
-            jsonObject.put("retMsg", "OK");
+            if (bannerVO.getBannerCd() == null || "".equals(bannerVO.getBannerCd())) {
+                msgStr = "삭제할 배너 코드가 잘못되어 삭제할 수 없습니다.";
+                jsonObject.put("retMsg", "FAIL");
+            } else {
+                int yCnt = bannerService.selectBannerItemYCount(bannerVO);
+                if (yCnt > 0) {
+                    msgStr = "삭제할 배너에 사용중인 아이템이 있어 삭제할 수 없습니다.";
+                    jsonObject.put("retMsg", "FAIL");
+                } else {
+                    bannerService.deleteBannerAll(bannerVO);
+                    msgStr = "배너 정보가 정상적으로 삭제되었습니다.";
+                    jsonObject.put("retMsg", "OK");
+                }
+            }
+            jsonObject.put("msg", msgStr);
         } catch (Exception e) {
             jsonObject.put("retMsg", "FAIL");
             e.printStackTrace();
@@ -208,7 +247,7 @@ public class BannerApi extends CORSFilter {
 
         // 부모 배너 정보도 함께 조회
         BannerVO parentBannerVO = new BannerVO();
-        parentBannerVO.setSeq(bannerItemVO.getpSeq());
+        parentBannerVO.setBannerCd(bannerItemVO.getBannerCd());
         jsonObject.put("parentBanner", bannerService.selectBannerDetail(parentBannerVO));
 
         jsonObject.put("bannerItemList", bannerService.selectBannerItemList(bannerItemVO));
@@ -283,16 +322,38 @@ public class BannerApi extends CORSFilter {
     }
 
     /**
-     * 배너 아이템 순서/사용여부 일괄 수정
+     * 배너 아이템 플래그 수정
      */
-    @Operation(summary = "배너 아이템 순서 일괄 수정", description = "배너 아이템 순서 및 사용여부를 일괄 수정합니다.")
-    @PostMapping(value = "/updateBannerItemOrderList")
-    public JSONObject updateBannerItemOrderList(@RequestBody List<BannerItemVO> bannerItemVOList) throws Exception {
+    @Operation(summary = "배너 아이템 플래그 수정", description = "배너 아이템 사용여부를 수정합니다.")
+    @PostMapping(value = "/updateBannerItemFlag")
+    public JSONObject updateBannerItemFlag(@ModelAttribute("BannerItemVO") BannerItemVO bannerItemVO) throws Exception {
 
         HashMap<String, Object> jsonObject = new HashMap<String, Object>();
 
         try {
-            bannerService.updateBannerItemOrderList(bannerItemVOList);
+            bannerService.updateBannerItemFlag(bannerItemVO);
+            jsonObject.put("retMsg", "OK");
+        } catch (Exception e) {
+            jsonObject.put("retMsg", "FAIL");
+            e.printStackTrace();
+        }
+
+        JSONObject jObject = new JSONObject(jsonObject);
+
+        return jObject;
+    }
+
+    /**
+     * 배너 아이템 초기화
+     */
+    @Operation(summary = "배너 아이템 초기화", description = "배너 아이템 정보를 초기화합니다.")
+    @PostMapping(value = "/updateBannerItemReset")
+    public JSONObject updateBannerItemReset(@ModelAttribute("BannerItemVO") BannerItemVO bannerItemVO) throws Exception {
+
+        HashMap<String, Object> jsonObject = new HashMap<String, Object>();
+
+        try {
+            bannerService.updateBannerItemReset(bannerItemVO);
             jsonObject.put("retMsg", "OK");
         } catch (Exception e) {
             jsonObject.put("retMsg", "FAIL");
@@ -315,28 +376,6 @@ public class BannerApi extends CORSFilter {
 
         try {
             bannerService.deleteBannerItem(bannerItemVO);
-            jsonObject.put("retMsg", "OK");
-        } catch (Exception e) {
-            jsonObject.put("retMsg", "FAIL");
-            e.printStackTrace();
-        }
-
-        JSONObject jObject = new JSONObject(jsonObject);
-
-        return jObject;
-    }
-
-    /**
-     * 배너 아이템 일괄 삭제
-     */
-    @Operation(summary = "배너 아이템 일괄 삭제", description = "배너 아이템을 일괄 삭제합니다.")
-    @PostMapping(value = "/deleteBannerItemList")
-    public JSONObject deleteBannerItemList(@RequestBody List<BannerItemVO> bannerItemVOList) throws Exception {
-
-        HashMap<String, Object> jsonObject = new HashMap<String, Object>();
-
-        try {
-            bannerService.deleteBannerItemList(bannerItemVOList);
             jsonObject.put("retMsg", "OK");
         } catch (Exception e) {
             jsonObject.put("retMsg", "FAIL");

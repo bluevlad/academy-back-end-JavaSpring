@@ -11,7 +11,7 @@ import com.academy.banner.service.BannerVO;
 /**
  * 배너정보에 관한 데이터 접근 클래스를 정의한다.
  * @author system
- * @since 2025.12.10
+ * @since 2025.12.11
  * @version 1.0
  * @see
  *
@@ -20,7 +20,7 @@ import com.academy.banner.service.BannerVO;
  *
  *   수정일          수정자           수정내용
  *  ----------------    --------    ---------------------------
- *   2025.12.10         system          최초 생성
+ *   2025.12.11         system          신규 생성
  * </pre>
  */
 @Mapper
@@ -52,6 +52,13 @@ public interface BannerMapper {
     JSONObject selectBannerDetail(BannerVO bannerVO);
 
     /**
+     * 배너 아이템 사용중 수 조회
+     * @param bannerVO 검색조건
+     * @return int 사용중 아이템 수
+     */
+    int selectBannerItemYCount(BannerVO bannerVO);
+
+    /**
      * 배너 등록
      * @param bannerVO 배너정보
      */
@@ -64,16 +71,22 @@ public interface BannerMapper {
     void updateBanner(BannerVO bannerVO);
 
     /**
-     * 배너 타입 일괄 변경
+     * 배너 수정 (아이템 수, 시작/종료번호 제외)
      * @param bannerVO 배너정보
      */
-    void updateBannerType(BannerVO bannerVO);
+    void updateBanner2(BannerVO bannerVO);
 
     /**
      * 배너 삭제
      * @param bannerVO 배너정보
      */
     void deleteBanner(BannerVO bannerVO);
+
+    /**
+     * 배너 관련 전체 삭제 (배너 + 아이템)
+     * @param bannerVO 배너정보
+     */
+    void deleteBannerAll(BannerVO bannerVO);
 
     // =====================================================
     // 배너 아이템 (TB_BANNER_ITEM) 관련
@@ -113,10 +126,16 @@ public interface BannerMapper {
     void updateBannerItem(BannerItemVO bannerItemVO);
 
     /**
-     * 배너 아이템 순서/사용여부 수정
+     * 배너 아이템 플래그 수정
      * @param bannerItemVO 배너 아이템 정보
      */
-    void updateBannerItemOrder(BannerItemVO bannerItemVO);
+    void updateBannerItemFlag(BannerItemVO bannerItemVO);
+
+    /**
+     * 배너 아이템 초기화
+     * @param bannerItemVO 배너 아이템 정보
+     */
+    void updateBannerItemReset(BannerItemVO bannerItemVO);
 
     /**
      * 배너 아이템 삭제
@@ -128,24 +147,5 @@ public interface BannerMapper {
      * 배너 아이템 일괄 삭제 (부모 배너 기준)
      * @param bannerVO 배너 정보
      */
-    void deleteBannerItemByParent(BannerVO bannerVO);
-
-    /**
-     * 카테고리별 배너 존재 여부 확인
-     * @param bannerItemVO 검색조건
-     * @return int 배너 수
-     */
-    int selectBannerCountByCategory(BannerItemVO bannerItemVO);
-
-    /**
-     * 배너번호 기준 아이템 일괄 등록 (카테고리 복사용)
-     * @param bannerItemVO 배너 아이템 정보
-     */
-    void insertBannerItemByBannerNo(BannerItemVO bannerItemVO);
-
-    /**
-     * 최대 G_SEQ 조회
-     * @return int 최대 G_SEQ
-     */
-    int selectMaxGSeq();
+    void deleteBannerItemByBannerCd(BannerVO bannerVO);
 }
