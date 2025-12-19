@@ -7,6 +7,7 @@
 ```
 common/
 ├── ApiInfoApi.java              # API 정보 조회 REST 컨트롤러
+├── ApiLoggingInterceptor.java   # API 요청/응답 로깅 인터셉터
 ├── CORSFilter.java              # CORS 필터 베이스 클래스
 ├── ComDefaultCodeVO.java        # 기본 코드 Value Object
 ├── ComDefaultVO.java            # 기본 Value Object
@@ -43,6 +44,14 @@ common/
 - **GET** `/api/info/getApiSummary` - 모듈별 API 요약 정보 조회
 - 런타임에 등록된 모든 REST API 목록 제공
 - 모듈별 API 개수 통계 제공
+
+### ApiLoggingInterceptor
+- 모든 API 요청에 대한 로깅 처리
+- 요청 URL, HTTP 메서드, 파라미터, 헤더 정보 기록
+- 민감한 정보(비밀번호 등) 마스킹 처리
+- 일별 로그 파일 생성 (`api_log_YYYY-MM-DD.log`)
+- 클라이언트 IP 주소 추출 (프록시 헤더 지원)
+- OPTIONS 요청 제외
 
 ### CORSFilter
 - CORS(Cross-Origin Resource Sharing) 설정
