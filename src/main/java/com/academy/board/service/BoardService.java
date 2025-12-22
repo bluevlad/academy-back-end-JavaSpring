@@ -118,20 +118,6 @@ public class BoardService implements Serializable {
     }
 
     /**
-     * 미응답 게시판 목록 조회
-     */
-    public List<BoardVO> selectBoardNotAnswerList(BoardVO boardVO) {
-        return boardMapper.selectBoardNotAnswerList(boardVO);
-    }
-
-    /**
-     * 미응답 게시판 목록 건수 조회
-     */
-    public int selectBoardNotAnswerListCount(BoardVO boardVO) {
-        return boardMapper.selectBoardNotAnswerListCount(boardVO);
-    }
-
-    /**
      * FAQ 게시판 목록 조회
      */
     public List<BoardVO> selectBoardFAQList(BoardVO boardVO) {

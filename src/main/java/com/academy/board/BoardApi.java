@@ -223,33 +223,6 @@ public class BoardApi extends CORSFilter {
         return jObject;
     }
 
-    @Operation(summary = "미응답 게시판 목록 조회", description = "페이징 처리된 미응답 게시판 목록을 조회합니다.")
-    @GetMapping(value = "/getBoardNotAnswerList")
-    public JSONObject getBoardNotAnswerList(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception {
-
-        HashMap<String, Object> jsonObject = new HashMap<String, Object>();
-
-        /** paging */
-        PaginationInfo paginationInfo = new PaginationInfo();
-        paginationInfo.setCurrentPageNo(boardVO.getPageIndex());
-        paginationInfo.setRecordCountPerPage(boardVO.getPageUnit());
-        paginationInfo.setPageSize(boardVO.getPageSize());
-
-        boardVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
-        boardVO.setLastIndex(paginationInfo.getLastRecordIndex());
-        boardVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
-
-        jsonObject.put("boardNotAnswerList", boardService.selectBoardNotAnswerList(boardVO));
-
-        int totCnt = boardService.selectBoardNotAnswerListCount(boardVO);
-        paginationInfo.setTotalRecordCount(totCnt);
-        jsonObject.put("paginationInfo", paginationInfo);
-
-        JSONObject jObject = new JSONObject(jsonObject);
-
-        return jObject;
-    }
-
     @Operation(summary = "FAQ 게시판 목록 조회", description = "페이징 처리된 FAQ 게시판 목록을 조회합니다.")
     @GetMapping(value = "/getBoardFAQList")
     public JSONObject getBoardFAQList(@ModelAttribute("BoardVO") BoardVO boardVO) throws Exception {
