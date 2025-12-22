@@ -39,6 +39,9 @@ public class BoardCommentVO extends CommonVO implements Serializable {
     /** 삭제용 SEQ */
     private String deleteSeq;
 
+    /** 등록자명 (조회용) */
+    private String regNm;
+
     // Getters and Setters
     public String getSeq() {
         return seq;
@@ -86,5 +89,13 @@ public class BoardCommentVO extends CommonVO implements Serializable {
 
     public void setDeleteSeq(String deleteSeq) {
         this.deleteSeq = deleteSeq;
+    }
+
+    public String getRegNm() {
+        return regNm;
+    }
+
+    public void setRegNm(String regNm) {
+        this.regNm = regNm;
     }
 }

@@ -1,10 +1,8 @@
 package com.academy.board.service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.academy.mapper.BoardMapper;
@@ -41,7 +39,7 @@ public class BoardService implements Serializable {
     /**
      * 게시판 관리 목록 조회
      */
-    public List<JSONObject> selectBoardMngList(BoardMngVO boardMngVO) {
+    public List<BoardMngVO> selectBoardMngList(BoardMngVO boardMngVO) {
         return boardMapper.selectBoardMngList(boardMngVO);
     }
 
@@ -55,14 +53,14 @@ public class BoardService implements Serializable {
     /**
      * 게시판 타입 목록 조회
      */
-    public List<JSONObject> selectBoardTypeList() {
+    public List<BoardTypeVO> selectBoardTypeList() {
         return boardMapper.selectBoardTypeList();
     }
 
     /**
      * 게시판 관리 상세 조회
      */
-    public JSONObject selectBoardMngDetail(BoardMngVO boardMngVO) {
+    public BoardMngVO selectBoardMngDetail(BoardMngVO boardMngVO) {
         return boardMapper.selectBoardMngDetail(boardMngVO);
     }
 
@@ -97,7 +95,7 @@ public class BoardService implements Serializable {
     /**
      * 게시판 종류 정보 조회
      */
-    public JSONObject selectBoardKind(BoardVO boardVO) {
+    public BoardKindVO selectBoardKind(BoardVO boardVO) {
         return boardMapper.selectBoardKind(boardVO);
     }
 
@@ -108,7 +106,7 @@ public class BoardService implements Serializable {
     /**
      * 게시판 목록 조회
      */
-    public ArrayList<JSONObject> selectBoardList(BoardVO boardVO) {
+    public List<BoardVO> selectBoardList(BoardVO boardVO) {
         return boardMapper.selectBoardList(boardVO);
     }
 
@@ -122,7 +120,7 @@ public class BoardService implements Serializable {
     /**
      * 미응답 게시판 목록 조회
      */
-    public List<JSONObject> selectBoardNotAnswerList(BoardVO boardVO) {
+    public List<BoardVO> selectBoardNotAnswerList(BoardVO boardVO) {
         return boardMapper.selectBoardNotAnswerList(boardVO);
     }
 
@@ -136,7 +134,7 @@ public class BoardService implements Serializable {
     /**
      * FAQ 게시판 목록 조회
      */
-    public List<JSONObject> selectBoardFAQList(BoardVO boardVO) {
+    public List<BoardVO> selectBoardFAQList(BoardVO boardVO) {
         return boardMapper.selectBoardFAQList(boardVO);
     }
 
@@ -150,7 +148,7 @@ public class BoardService implements Serializable {
     /**
      * 강사용 게시판 목록 조회
      */
-    public List<JSONObject> selectBoardTeacherList(BoardVO boardVO) {
+    public List<BoardVO> selectBoardTeacherList(BoardVO boardVO) {
         return boardMapper.selectBoardTeacherList(boardVO);
     }
 
@@ -164,14 +162,14 @@ public class BoardService implements Serializable {
     /**
      * 게시판 상세 조회
      */
-    public JSONObject getBoardDetail(BoardVO boardVO) {
+    public BoardVO getBoardDetail(BoardVO boardVO) {
         return boardMapper.getBoardDetail(boardVO);
     }
 
     /**
      * 원본글 상세 조회
      */
-    public JSONObject getBoardDetailOrigin(BoardVO boardVO) {
+    public BoardVO getBoardDetailOrigin(BoardVO boardVO) {
         return boardMapper.getBoardDetailOrigin(boardVO);
     }
 
@@ -279,7 +277,7 @@ public class BoardService implements Serializable {
     /**
      * 답변 데이터 조회
      */
-    public List<JSONObject> selectReplyData(BoardVO boardVO) {
+    public List<ReplyDataVO> selectReplyData(BoardVO boardVO) {
         return boardMapper.selectReplyData(boardVO);
     }
 
@@ -290,7 +288,7 @@ public class BoardService implements Serializable {
     /**
      * 직급 코드 목록 조회
      */
-    public List<JSONObject> selectRankCodeList(BoardVO boardVO) {
+    public List<CategoryInfoVO> selectRankCodeList(BoardVO boardVO) {
         return boardMapper.selectRankCodeList(boardVO);
     }
 
@@ -304,7 +302,7 @@ public class BoardService implements Serializable {
     /**
      * 게시판 카테고리 정보 조회
      */
-    public List<JSONObject> selectBoardCodeList(BoardVO boardVO) {
+    public List<BoardCodeVO> selectBoardCodeList(BoardVO boardVO) {
         return boardMapper.selectBoardCodeList(boardVO);
     }
 
@@ -322,14 +320,14 @@ public class BoardService implements Serializable {
     /**
      * 게시판 첨부파일 목록 조회
      */
-    public List<JSONObject> selectBoardFileList(BoardFileVO boardFileVO) {
+    public List<BoardFileVO> selectBoardFileList(BoardFileVO boardFileVO) {
         return boardMapper.selectBoardFileList(boardFileVO);
     }
 
     /**
      * 게시판 이미지 첨부파일 목록 조회
      */
-    public List<JSONObject> selectBoardFileImgList(BoardFileVO boardFileVO) {
+    public List<BoardFileVO> selectBoardFileImgList(BoardFileVO boardFileVO) {
         return boardMapper.selectBoardFileImgList(boardFileVO);
     }
 
@@ -368,7 +366,7 @@ public class BoardService implements Serializable {
     /**
      * 게시판 코멘트 목록 조회
      */
-    public List<JSONObject> selectBoardCommentList(BoardCommentVO boardCommentVO) {
+    public List<BoardCommentVO> selectBoardCommentList(BoardCommentVO boardCommentVO) {
         return boardMapper.selectBoardCommentList(boardCommentVO);
     }
 

@@ -90,6 +90,20 @@ public class BoardVO extends CommonVO implements Serializable {
 	/** 메인 노출 여부 (MAIN_YN) */
 	private String mainYn;
 
+	/* 조회용 필드 */
+	/** 첨부파일명 (조회용) */
+	private String attachFileName;
+	/** 게시판명 (조회용) */
+	private String boardName;
+	/** 답변 상태명 (조회용) */
+	private String boardReplyNm;
+	/** 교수명 (조회용) */
+	private String profNm;
+	/** 작성자명 (조회용) */
+	private String userNm;
+	/** 코드명 (조회용) */
+	private String codeName;
+
 	/* ---------------------------------- */
 	/* Aliases / compatibility methods */
 	/** boardId alias (used by mapper as parameter) */
@@ -213,5 +227,23 @@ public class BoardVO extends CommonVO implements Serializable {
 
 	public String getMainYn() { return mainYn; }
 	public void setMainYn(String mainYn) { this.mainYn = mainYn; }
+
+	public String getAttachFileName() { return attachFileName; }
+	public void setAttachFileName(String attachFileName) { this.attachFileName = attachFileName; }
+
+	public String getBoardName() { return boardName; }
+	public void setBoardName(String boardName) { this.boardName = boardName; }
+
+	public String getBoardReplyNm() { return boardReplyNm; }
+	public void setBoardReplyNm(String boardReplyNm) { this.boardReplyNm = boardReplyNm; }
+
+	public String getProfNm() { return profNm; }
+	public void setProfNm(String profNm) { this.profNm = profNm; }
+
+	public String getUserNm() { return userNm; }
+	public void setUserNm(String userNm) { this.userNm = userNm; }
+
+	public String getCodeName() { return codeName; }
+	public void setCodeName(String codeName) { this.codeName = codeName; }
 
 }

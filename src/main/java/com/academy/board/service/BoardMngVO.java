@@ -76,6 +76,12 @@ public class BoardMngVO extends CommonVO implements Serializable {
     /** 일괄 삭제용 ID 목록 */
     private String deleteIds;
 
+    /** 첨부파일 사용 여부명 (조회용) */
+    private String attachFileYnNm;
+
+    /** 답변 사용 여부명 (조회용) */
+    private String replyYnNm;
+
     // Getters and Setters
     public String getBoardMngSeq() {
         return boardMngSeq;
@@ -219,5 +225,21 @@ public class BoardMngVO extends CommonVO implements Serializable {
 
     public void setDeleteIds(String deleteIds) {
         this.deleteIds = deleteIds;
+    }
+
+    public String getAttachFileYnNm() {
+        return attachFileYnNm;
+    }
+
+    public void setAttachFileYnNm(String attachFileYnNm) {
+        this.attachFileYnNm = attachFileYnNm;
+    }
+
+    public String getReplyYnNm() {
+        return replyYnNm;
+    }
+
+    public void setReplyYnNm(String replyYnNm) {
+        this.replyYnNm = replyYnNm;
     }
 }
