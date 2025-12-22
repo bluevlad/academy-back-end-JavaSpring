@@ -1,15 +1,18 @@
 package com.academy.mapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.json.simple.JSONObject;
 
+import com.academy.board.service.BoardCodeVO;
 import com.academy.board.service.BoardCommentVO;
 import com.academy.board.service.BoardFileVO;
+import com.academy.board.service.BoardKindVO;
 import com.academy.board.service.BoardMngVO;
+import com.academy.board.service.BoardTypeVO;
 import com.academy.board.service.BoardVO;
+import com.academy.board.service.CategoryInfoVO;
+import com.academy.board.service.ReplyDataVO;
 
 /**
  * 게시판정보에 관한 데이터 접근 클래스를 정의한다.
@@ -39,7 +42,7 @@ public interface BoardMapper {
      * @param boardMngVO 검색조건
      * @return List 게시판 관리 목록정보
      */
-    List<JSONObject> selectBoardMngList(BoardMngVO boardMngVO);
+    List<BoardMngVO> selectBoardMngList(BoardMngVO boardMngVO);
 
     /**
      * 게시판 관리 목록 건수 조회
@@ -52,14 +55,14 @@ public interface BoardMapper {
      * 게시판 타입 목록 조회
      * @return List 게시판 타입 목록
      */
-    List<JSONObject> selectBoardTypeList();
+    List<BoardTypeVO> selectBoardTypeList();
 
     /**
      * 게시판 관리 상세 조회
      * @param boardMngVO 검색조건
-     * @return JSONObject 게시판 관리 상세정보
+     * @return BoardMngVO 게시판 관리 상세정보
      */
-    JSONObject selectBoardMngDetail(BoardMngVO boardMngVO);
+    BoardMngVO selectBoardMngDetail(BoardMngVO boardMngVO);
 
     /**
      * 게시판 관리 등록
@@ -88,9 +91,9 @@ public interface BoardMapper {
     /**
      * 게시판 종류 정보 조회 (게시물 등록 시)
      * @param boardVO 검색조건
-     * @return JSONObject 게시판 종류 정보
+     * @return BoardKindVO 게시판 종류 정보
      */
-    JSONObject selectBoardKind(BoardVO boardVO);
+    BoardKindVO selectBoardKind(BoardVO boardVO);
 
     // =====================================================
     // 게시판 (TB_BOARD) 관련
@@ -101,7 +104,7 @@ public interface BoardMapper {
      * @param boardVO 검색조건
      * @return List 게시판 목록정보
      */
-    ArrayList<JSONObject> selectBoardList(BoardVO boardVO);
+    List<BoardVO> selectBoardList(BoardVO boardVO);
 
     /**
      * 게시판 목록 건수 조회
@@ -115,7 +118,7 @@ public interface BoardMapper {
      * @param boardVO 검색조건
      * @return List 미응답 게시판 목록정보
      */
-    List<JSONObject> selectBoardNotAnswerList(BoardVO boardVO);
+    List<BoardVO> selectBoardNotAnswerList(BoardVO boardVO);
 
     /**
      * 미응답 게시판 목록 건수 조회
@@ -129,7 +132,7 @@ public interface BoardMapper {
      * @param boardVO 검색조건
      * @return List FAQ 게시판 목록정보
      */
-    List<JSONObject> selectBoardFAQList(BoardVO boardVO);
+    List<BoardVO> selectBoardFAQList(BoardVO boardVO);
 
     /**
      * FAQ 게시판 목록 건수 조회
@@ -143,7 +146,7 @@ public interface BoardMapper {
      * @param boardVO 검색조건
      * @return List 강사용 게시판 목록정보
      */
-    List<JSONObject> selectBoardTeacherList(BoardVO boardVO);
+    List<BoardVO> selectBoardTeacherList(BoardVO boardVO);
 
     /**
      * 강사용 게시판 목록 건수 조회
@@ -155,16 +158,16 @@ public interface BoardMapper {
     /**
      * 게시판 상세 조회
      * @param boardVO 검색조건
-     * @return JSONObject 게시판 상세정보
+     * @return BoardVO 게시판 상세정보
      */
-    JSONObject getBoardDetail(BoardVO boardVO);
+    BoardVO getBoardDetail(BoardVO boardVO);
 
     /**
      * 원본글 상세 조회 (답변글에서 참조)
      * @param boardVO 검색조건
-     * @return JSONObject 원본글 상세정보
+     * @return BoardVO 원본글 상세정보
      */
-    JSONObject getBoardDetailOrigin(BoardVO boardVO);
+    BoardVO getBoardDetailOrigin(BoardVO boardVO);
 
     /**
      * 게시판 등록
@@ -250,7 +253,7 @@ public interface BoardMapper {
      * @param boardVO 검색조건
      * @return List 답변 데이터 목록
      */
-    List<JSONObject> selectReplyData(BoardVO boardVO);
+    List<ReplyDataVO> selectReplyData(BoardVO boardVO);
 
     // =====================================================
     // 게시판 카테고리 (TB_BOARD_CATEGORY_INFO) 관련
@@ -261,7 +264,7 @@ public interface BoardMapper {
      * @param boardVO 검색조건
      * @return List 직급 코드 목록
      */
-    List<JSONObject> selectRankCodeList(BoardVO boardVO);
+    List<CategoryInfoVO> selectRankCodeList(BoardVO boardVO);
 
     /**
      * 게시판 카테고리 정보 등록
@@ -274,7 +277,7 @@ public interface BoardMapper {
      * @param boardVO 검색조건
      * @return List 게시판 카테고리 정보 목록
      */
-    List<JSONObject> selectBoardCodeList(BoardVO boardVO);
+    List<BoardCodeVO> selectBoardCodeList(BoardVO boardVO);
 
     /**
      * 게시판 카테고리 정보 삭제
@@ -291,14 +294,14 @@ public interface BoardMapper {
      * @param boardFileVO 검색조건
      * @return List 게시판 첨부파일 목록
      */
-    List<JSONObject> selectBoardFileList(BoardFileVO boardFileVO);
+    List<BoardFileVO> selectBoardFileList(BoardFileVO boardFileVO);
 
     /**
      * 게시판 이미지 첨부파일 목록 조회
      * @param boardFileVO 검색조건
      * @return List 게시판 이미지 첨부파일 목록
      */
-    List<JSONObject> selectBoardFileImgList(BoardFileVO boardFileVO);
+    List<BoardFileVO> selectBoardFileImgList(BoardFileVO boardFileVO);
 
     /**
      * 게시판 첨부파일 등록
@@ -333,7 +336,7 @@ public interface BoardMapper {
      * @param boardCommentVO 검색조건
      * @return List 게시판 코멘트 목록
      */
-    List<JSONObject> selectBoardCommentList(BoardCommentVO boardCommentVO);
+    List<BoardCommentVO> selectBoardCommentList(BoardCommentVO boardCommentVO);
 
     /**
      * 게시판 코멘트 목록 건수 조회
