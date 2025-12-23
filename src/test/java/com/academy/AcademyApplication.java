@@ -1,10 +1,8 @@
 package com.academy;
 
-import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootApplication
 @MapperScan("com.academy.mapper") // Mapper 인터페이스가 있는 패키지 경로
