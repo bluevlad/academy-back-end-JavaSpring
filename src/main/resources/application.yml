@@ -1,0 +1,24 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+# Define log path to prevent "Could not resolve placeholder 'log.path'" error
+log:
+  path: /app/logs
+
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/acm_basic?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  # type-aliases-package removed to avoid collision with full classnames in XML and duplicate classes
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.academy: DEBUG
+    org.springframework.web: INFO
