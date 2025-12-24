@@ -1,0 +1,23 @@
+name: Deploy Backend to Local Windows Docker
+
+on:
+  push:
+    branches: [ "prod" ]
+
+jobs:
+  deploy:
+    name: Deploy API on Local Machine
+    runs-on: self-hosted
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Docker Compose Down
+      # Stop and remove containers, networks
+      run: docker-compose down --remove-orphans
+      continue-on-error: true
+
+    - name: Docker Compose Up
+      # Build and start in background
+      run: docker-compose up -d --build
