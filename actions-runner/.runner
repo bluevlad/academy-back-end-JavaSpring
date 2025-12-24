@@ -1,0 +1,11 @@
+﻿{
+  "agentId": 21,
+  "agentName": "RAINEND-NOTEB",
+  "poolId": 1,
+  "poolName": "Default",
+  "serverUrl": "https://pipelinesghubeus13.actions.githubusercontent.com/nrtGX4ROIHK286tZ2epwHxVJDD4pUq3ssrq3p4S484uofYZxID/",
+  "gitHubUrl": "https://github.com/bluevlad/academy-back-end-JavaSpring",
+  "workFolder": "_work",
+  "useV2Flow": true,
+  "serverUrlV2": "https://broker.actions.githubusercontent.com/"
+}

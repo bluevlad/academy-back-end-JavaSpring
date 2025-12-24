@@ -13,6 +13,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Create .env file
+      run: |
+        echo "DB_URL=${{ secrets.DB_URL }}" > .env
+        echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+        echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+      shell: bash
+
     - name: Docker Compose Down
       # Stop and remove containers, networks
       run: docker-compose down --remove-orphans

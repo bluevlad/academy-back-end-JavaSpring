@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "bluevlad/academy-back-end-JavaSpring",
+  "pipelineDirectory": "academy-back-end-JavaSpring",
+  "workspaceDirectory": "academy-back-end-JavaSpring\\academy-back-end-JavaSpring",
+  "repositories": {
+    "bluevlad/academy-back-end-JavaSpring": {
+      "repositoryPath": "academy-back-end-JavaSpring\\academy-back-end-JavaSpring",
+      "lastRunOn": "12/24/2025 10:50:01 +09:00"
+    }
+  },
+  "lastRunOn": "12/24/2025 10:50:01 +09:00"
+}
