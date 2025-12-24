@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  academy-service:
+    build: .
+    container_name: academy-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      # Docker 내부에서 호스트의 DB에 접근하기 위해 host.docker.internal 사용
+      # MySQL 8.0 이상 접속 시 allowPublicKeyRetrieval=true 필요할 수 있음
+      - DB_URL=jdbc:mysql://host.docker.internal:3306/acm_basic?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false
+      - DB_USERNAME=root
+      - DB_PASSWORD=dnflskfk
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: always
+  # 데이터베이스 컨테이너가 필요한 경우 주석 해제하여 사용하세요
+  # db:
+  #   image: mysql:8.0
+  #   container_name: academy-db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_DATABASE: acm_basic
+  #   ports:
+  #     - "3306:3306"
+  #   command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
