@@ -1,3 +1,8 @@
 /.gitignore
 /target/
 /src/main/resources/application.properties
+/.classpath
+/.project
+/nul
+/.settings/org.eclipse.m2e.core.prefs
+/.claude/settings.local.json
