@@ -42,10 +42,12 @@ Default server port: 8080
 
 ## Database Setup
 
-1. Create MySQL schema: `acm_basic`
+1. Create MySQL schema as configured in environment
 2. Configure connection in `src/main/resources/application.properties`
-3. Default credentials: root/dnflskfk at 127.0.0.1:3306
+3. **Important:** Use environment variables or `.env` file for credentials (never commit secrets)
 4. MyBatis mapper XMLs are in `src/main/resources/mapper/*.xml`
+
+> See `CLAUDE.local.md` for local development credentials (not tracked in git)
 
 ## Architecture Overview
 
@@ -199,7 +201,7 @@ vo.setLastIndex(paginationInfo.getLastRecordIndex());
 
 JWT-based authentication:
 - `JwtUtil` generates tokens with 1-hour expiration
-- Secret key is hardcoded (should be externalized in production)
+- **Security Note:** JWT secret key should be externalized via environment variables in production
 - Login API validates credentials and returns JWT token
 - Protected endpoints should validate token via `JwtUtil.validateToken()`
 

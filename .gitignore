@@ -6,3 +6,5 @@
 /nul
 /.settings/org.eclipse.m2e.core.prefs
 /.claude/settings.local.json
+/CLAUDE.local.md
+/.env
