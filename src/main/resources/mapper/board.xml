@@ -208,7 +208,6 @@
 		A.REAL_FILE_NAME,
 		A.NOTICE_TOP_YN,
 		A.OPEN_YN,
-		A.IS_USE,
 		A.HITS,
 		DATE_FORMAT(A.REG_DT, '%Y-%m-%d %H:%i:%s') AS REG_DT,
 		A.REG_ID,
@@ -295,89 +294,6 @@
 		<if test="searchPrfId != null and searchPrfId != ''">
 			AND A.PROF_ID = #{searchPrfId}
 		</if>
-	</select>
-
-	<!-- 미응답 게시판 목록 조회 -->
-	<select id="selectBoardNotAnswerList" parameterType="com.academy.board.service.BoardVO" resultType="com.academy.board.service.BoardVO">
-		SELECT
-			(SELECT BOARD_MNG_NAME FROM TB_BOARD_MNG WHERE BOARD_MNG_SEQ = A.BOARD_MNG_SEQ) AS BOARD_NAME,
-			B.ONOFF_DIV,
-			A.BOARD_MNG_SEQ,
-			CAST(A.BOARD_SEQ AS UNSIGNED) AS BOARD_SEQ,
-			A.SUBJECT,
-			A.CONTENT,
-			(SELECT FILE_NAME FROM TB_BOARD_FILE WHERE BOARD_SEQ = A.BOARD_SEQ LIMIT 1) AS FILE_NAME,
-			A.PARENT_BOARD_SEQ,
-			A.NOTICE_TOP_YN,
-			A.HITS,
-			DATE_FORMAT(A.REG_DT, '%Y-%m-%d %H:%i:%s') AS REG_DT,
-			DATE_FORMAT(A.UPD_DT, '%Y-%m-%d %H:%i:%s') AS UPD_DT,
-			A.UPD_ID,
-			A.CREATENAME,
-			A.PROF_ID,
-			(SELECT USER_NM FROM TB_MA_MEMBER WHERE USER_ID = A.PROF_ID) AS PROF_NM,
-			A.BOARD_REPLY,
-			CASE
-				WHEN EXISTS (SELECT 1 FROM TB_BOARD X WHERE X.BOARD_MNG_SEQ = A.BOARD_MNG_SEQ AND X.PARENT_BOARD_SEQ = A.BOARD_SEQ) THEN '답변완료'
-				WHEN A.PARENT_BOARD_SEQ > 0 THEN '답변완료'
-				ELSE CASE A.BOARD_REPLY
-					WHEN 'C' THEN '처리중(CS)'
-					WHEN 'A' THEN '처리중(운영)'
-					WHEN 'Y' THEN '답변완료'
-					ELSE '답변대기'
-				END
-			END AS BOARD_REPLY_NM
-		FROM TB_BOARD A
-		INNER JOIN TB_BOARD_MNG B ON A.BOARD_MNG_SEQ = B.BOARD_MNG_SEQ
-		WHERE B.REPLY_YN = 'Y'
-		AND A.PARENT_BOARD_SEQ = 0
-		AND A.BOARD_MNG_SEQ LIKE 'BOARD_%'
-		AND B.BOARD_MNG_NAME LIKE '%상담실%'
-		AND A.NOTICE_TOP_YN = 'N'
-		AND NOT EXISTS (SELECT 1 FROM TB_BOARD X WHERE X.PARENT_BOARD_SEQ = A.BOARD_SEQ)
-		<if test="onoffDiv != null and onoffDiv == 'O'">
-			AND B.ONOFF_DIV = 'O'
-		</if>
-		<if test="onoffDiv != null and onoffDiv == 'F'">
-			AND B.ONOFF_DIV = 'F'
-		</if>
-		<choose>
-			<when test="profId != null and profId != ''">
-				AND A.PROF_ID IS NOT NULL
-			</when>
-			<otherwise>
-				AND A.PROF_ID IS NULL
-			</otherwise>
-		</choose>
-		ORDER BY A.BOARD_SEQ DESC
-		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
-	</select>
-
-	<!-- 미응답 게시판 목록 건수 조회 -->
-	<select id="selectBoardNotAnswerListCount" parameterType="com.academy.board.service.BoardVO" resultType="int">
-		SELECT COUNT(*) AS CNT
-		FROM TB_BOARD A
-		INNER JOIN TB_BOARD_MNG B ON A.BOARD_MNG_SEQ = B.BOARD_MNG_SEQ
-		WHERE B.REPLY_YN = 'Y'
-		AND A.PARENT_BOARD_SEQ = 0
-		AND A.BOARD_MNG_SEQ LIKE 'BOARD_%'
-		AND B.BOARD_MNG_NAME LIKE '%상담실%'
-		AND A.NOTICE_TOP_YN = 'N'
-		AND NOT EXISTS (SELECT 1 FROM TB_BOARD X WHERE X.PARENT_BOARD_SEQ = A.BOARD_SEQ)
-		<if test="onoffDiv != null and onoffDiv == 'O'">
-			AND B.ONOFF_DIV = 'O'
-		</if>
-		<if test="onoffDiv != null and onoffDiv == 'F'">
-			AND B.ONOFF_DIV = 'F'
-		</if>
-		<choose>
-			<when test="profId != null and profId != ''">
-				AND A.PROF_ID IS NOT NULL
-			</when>
-			<otherwise>
-				AND A.PROF_ID IS NULL
-			</otherwise>
-		</choose>
 	</select>
 
 	<!-- FAQ 게시판 목록 조회 -->

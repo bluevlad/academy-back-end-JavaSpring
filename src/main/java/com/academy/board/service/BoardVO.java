@@ -85,8 +85,6 @@ public class BoardVO extends CommonVO implements Serializable {
 	/* Reply status */
 	/** 답변 상태 (BOARD_REPLY: N=답변대기, Y=답변완료, C=처리중(CS), A=처리중(운영)) */
 	private String boardReply;
-	/** 이슈 여부 (ISSUE) */
-	private String issue;
 	/** 메인 노출 여부 (MAIN_YN) */
 	private String mainYn;
 
@@ -221,9 +219,6 @@ public class BoardVO extends CommonVO implements Serializable {
 
 	public String getBoardReply() { return boardReply; }
 	public void setBoardReply(String boardReply) { this.boardReply = boardReply; }
-
-	public String getIssue() { return issue; }
-	public void setIssue(String issue) { this.issue = issue; }
 
 	public String getMainYn() { return mainYn; }
 	public void setMainYn(String mainYn) { this.mainYn = mainYn; }
