@@ -7,8 +7,9 @@
 /.claude/settings.local.json
 /CLAUDE.local.md
 /.env
-.claude/
-logs*.txt
-.idea/
-*.iml
+logs*.*
 /actions-runner/
+/.claude/
+/.idea/
+.gitignore
+*.iml

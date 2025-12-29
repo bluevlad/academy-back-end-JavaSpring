@@ -33,16 +33,16 @@ mvn spring-boot:run
 java -jar target/academy-0.0.1-SNAPSHOT.jar
 ```
 
-Server runs on: `http://www.unmong.com:8080`
+Server runs on: `http://localhost:8080`
 
 ### API Documentation (Swagger UI)
 
 After starting the server, access the API documentation:
 
-| URL                                        | Description |
-|--------------------------------------------|-------------|
-| http://www.unmong.com:8080/swagger-ui.html | Swagger UI - Interactive API documentation |
-| http://www.unmong.com:8080/v3/api-docs     | OpenAPI 3.0 JSON specification |
+| URL                                     | Description |
+|-----------------------------------------|-------------|
+| http://localhost:8080/swagger-ui.html   | Swagger UI - Interactive API documentation |
+| http://localhost:8080/v3/api-docs       | OpenAPI 3.0 JSON specification |
 
 **Features:**
 - Browse all API endpoints grouped by module
@@ -820,9 +820,9 @@ public JSONObject upload(MultipartHttpServletRequest request) throws Exception {
 ```properties
 # Database
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-spring.datasource.url=jdbc:mysql://127.0.0.1:3306/acm_basic
-spring.datasource.username=root
-spring.datasource.password=dnflskfk
+spring.datasource.url=jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:acm_basic}
+spring.datasource.username=${DB_USERNAME:root}
+spring.datasource.password=${DB_PASSWORD}
 
 # MyBatis
 mybatis.mapper-locations=classpath:/mapper/*.xml
