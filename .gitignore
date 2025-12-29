@@ -13,3 +13,4 @@ logs*.*
 /.idea/
 .gitignore
 *.iml
+/src/main/resources/application-local.yml
