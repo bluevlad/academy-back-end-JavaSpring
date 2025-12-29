@@ -14,7 +14,7 @@
 			REG_DT, REG_ID, UPD_DT, UPD_ID, 
 			ISOK_SMS, ISOK_EMAIL
 		FROM acm_member
-		WHERE 1=1
+		WHERE user_role = 'USER'
 		ORDER BY REG_DT DESC
 		LIMIT #{recordCountPerPage} OFFSET #{firstIndex}
 	</select>
@@ -22,7 +22,7 @@
 	<select id="selectMemberListTotCnt">
 		SELECT COUNT(*) TOTAL_CNT
 		FROM acm_member
-		WHERE 1=1
+		WHERE user_role = 'USER'
 		</select>
 
 	<select id="selectMemberDetail">
