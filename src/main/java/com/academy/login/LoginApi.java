@@ -31,32 +31,47 @@ public class LoginApi extends CORSFilter {
 	 */
 	@PostMapping(value = "/sign-in")
 	public JSONObject actionLogin(@ModelAttribute("MemberVO") MemberVO memberVO, @RequestParam HashMap<?, ?> commandMap) throws Exception {
-		
+
 		HashMap<String,Object> jsonObject = new HashMap<String,Object>();
 
 		memberVO.setUserId((String)commandMap.get("id"));
-		memberVO.setUserId((String)commandMap.get("password"));
-		memberVO.setUserId((String)commandMap.get("token"));
+		memberVO.setUserPwd((String)commandMap.get("password"));
 
 		try {
-			// 2. 로그인 처리
-            // userId 값 검증 (null 방지)
+			// userId 값 검증 (null 방지)
             String userId = Optional.ofNullable(memberVO.getUserId())
                                     .map(Object::toString)
                                     .orElseThrow(() -> new IllegalArgumentException("User ID not found"));
 
-            jsonObject.put("userInfo", loginService.getUser(memberVO));
-            
-            // JWT 토큰 생성
-            String token = jwtUtil.generateToken(userId);
+			// 사용자 정보 조회
+            JSONObject userInfo = loginService.getUser(memberVO);
+
+            if (userInfo == null || userInfo.isEmpty()) {
+                jsonObject.put("retMsg", "FAIL");
+                jsonObject.put("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
+                return new JSONObject(jsonObject);
+            }
+
+            // userRole 추출 (DB에서 조회된 값)
+            String userRole = (String) userInfo.get("user_role");
+            if (userRole == null) {
+                userRole = (String) userInfo.get("userRole");
+            }
+
+            // JWT 토큰 생성 (userRole 포함)
+            String token = jwtUtil.generateToken(userId, userRole);
             memberVO.setToken(token);
 			loginService.updateToken(memberVO);
-            
+
+            jsonObject.put("userInfo", userInfo);
     		jsonObject.put("token", token);
-            
+    		jsonObject.put("userRole", userRole);
+    		jsonObject.put("retMsg", "OK");
+
 		} catch (Exception e){
 			e.printStackTrace();
 			jsonObject.put("retMsg", "FAIL");
+			jsonObject.put("message", "로그인 처리 중 오류가 발생했습니다.");
 		}
 
 		JSONObject jObject = new JSONObject(jsonObject);
